@@ -1,0 +1,10 @@
+query Skills {
+  skills {
+    id
+    title
+    description
+    route
+    createdAt
+    imageUrl
+  }
+}

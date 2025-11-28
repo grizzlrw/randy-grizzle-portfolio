@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 100 120" class="image">
+  <defs>
+    <clipPath id="maskImage" clipPathUnits="userSpaceOnUse">
+      <path d="..." />
+    </clipPath>
+    <clipPath id="maskBackground" clipPathUnits="userSpaceOnUse">
+      <path d="..." />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#maskImage)" transform="translate(0 -7)">
+    <!-- Background image -->
+    <image clip-path="url(#maskBackground)" width="120" height="120" x="70" y="38" href="..." transform="translate(-90 -31)" />
+    <!-- Foreground image -->
+    <image width="120" height="144" x="-15" y="0" fill="none" class="image__foreground" href="..." />
+  </g>
+</svg>

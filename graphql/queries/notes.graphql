@@ -1,0 +1,8 @@
+query Notes {
+  notes {
+    id
+    title
+    content
+    createdAt
+  }
+}

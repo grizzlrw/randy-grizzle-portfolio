@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30mm"
+   height="30mm"
+   viewBox="0 0 30 30"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="GrizzleLogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showguides="true"
+     inkscape:zoom="11.260382"
+     inkscape:cx="57.102861"
+     inkscape:cy="69.358218"
+     inkscape:window-width="1920"
+     inkscape:window-height="992"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer7"
+     showborder="false" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer7"
+     inkscape:label="Layer 6"
+     style="display:inline"
+     transform="translate(-25.507824,-8.6434862)">
+    <path
+       id="rect34"
+       style="fill:#f2ca50;fill-opacity:1;stroke-width:1.09986"
+       d="M 40.499841,8.6434862 25.507824,23.637647 40.499841,38.62966 55.493998,23.637647 54.353324,22.501272 53.906507,22.5013 v -0.01039 l -10.955619,-4e-6 h -2.451051 v 0.334901 1.16467 3.24357 l 2.451051,-2.448906 6.706561,4e-6 -9.157612,9.157608 -10.304725,-10.304725 10.304725,-10.304727 5.114767,5.114768 h 4.689437 z"
+       sodipodi:nodetypes="cccccccccccccccccccc" />
+  </g>
+</svg>
