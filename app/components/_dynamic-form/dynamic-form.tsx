@@ -59,6 +59,24 @@ export type DynamicFormProps = {
   spacing?: number;
 };
 
+function mapElementToDynamicFieldConfig(el: FormElement): DynamicFieldConfig {
+  return {
+    name: el.name,
+    type: el.type.toLowerCase() as DynamicFieldType, // or a mapping table
+    label: el.label,
+    placeholder: el.placeholder ?? undefined,
+    options: el.options?.map((opt) => ({ value: opt.value, label: opt.label })),
+    min: el.min ?? undefined,
+    max: el.max ?? undefined,
+    step: el.step ?? undefined,
+    defaultValue: el.defaultValue ?? undefined,
+    rules: el.rules ?? undefined,
+    heading: el.heading ?? undefined,
+    description: el.description ?? undefined,
+    children: el.children?.map(mapElementToDynamicFieldConfig),
+  };
+}
+
 export default function DynamicForm(props: DynamicFormProps) {
   const { fields, defaultValues, onSubmit, submitLabel = "Submit", spacing = 3 } = props;
 
