@@ -20,16 +20,24 @@ export type SkillCardProps = {
 
 export default function SkillCard({ id, title, description, route, imageUrl, imageAlt }: SkillCardProps) {
     return (
-        <Card sx={{ textAlign: 'left', boxShadow: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyItems: 'space-evenly' }}>
+        <Card sx={{ 
+            textAlign: 'left', 
+            boxShadow: 2, 
+            height: '100%', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyItems: 'space-evenly',
+        }}>
             <CardMedia title={`${imageAlt || title}`} sx={{ 
-                height: '10rem', 
-                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 92%)', 
-                objectFit: 'cover', 
-                overflow: 'hidden',
-                backgroundImage: `${imageUrl ? `url(${imageUrl})` : 'none'}`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                }}>
+                    height: '10rem', 
+                    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 92%)', 
+                    objectFit: 'cover', 
+                    overflow: 'hidden',
+                    backgroundImage: `${imageUrl ? `url(${imageUrl})` : 'none'}`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    }}>
+
             </CardMedia>
             <CardHeader id={`${id}-header`} component={"h2"} title={title}></CardHeader>
             <CardContent sx={{ flexGrow: 1 }}>

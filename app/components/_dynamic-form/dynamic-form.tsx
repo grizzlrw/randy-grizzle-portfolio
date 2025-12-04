@@ -59,24 +59,6 @@ export type DynamicFormProps = {
   spacing?: number;
 };
 
-function mapElementToDynamicFieldConfig(el: FormElement): DynamicFieldConfig {
-  return {
-    name: el.name,
-    type: el.type.toLowerCase() as DynamicFieldType, // or a mapping table
-    label: el.label,
-    placeholder: el.placeholder ?? undefined,
-    options: el.options?.map((opt) => ({ value: opt.value, label: opt.label })),
-    min: el.min ?? undefined,
-    max: el.max ?? undefined,
-    step: el.step ?? undefined,
-    defaultValue: el.defaultValue ?? undefined,
-    rules: el.rules ?? undefined,
-    heading: el.heading ?? undefined,
-    description: el.description ?? undefined,
-    children: el.children?.map(mapElementToDynamicFieldConfig),
-  };
-}
-
 export default function DynamicForm(props: DynamicFormProps) {
   const { fields, defaultValues, onSubmit, submitLabel = "Submit", spacing = 3 } = props;
 
@@ -93,7 +75,13 @@ export default function DynamicForm(props: DynamicFormProps) {
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: "100%" }}>
       <Stack spacing={spacing}>
-        {fields.map((fieldConfig) => {
+        {fields.map((rawFieldConfig) => {
+          // Normalize pattern rule from DB: pattern.value (string) -> RegExp once, per field
+          const fieldConfig: DynamicFieldConfig = {
+            ...rawFieldConfig,
+            rules: normalizeRules(rawFieldConfig.rules),
+          };
+
           if (fieldConfig.type !== "section") {
             return (
               <Controller
@@ -138,7 +126,7 @@ export default function DynamicForm(props: DynamicFormProps) {
                     key={`${fieldConfig.name}.${childConfig.name}`}
                     name={`${fieldConfig.name}.${childConfig.name}` as keyof DynamicFieldValues}
                     control={control}
-                    rules={childConfig.rules}
+                    rules={normalizeRules(childConfig.rules)}
                     defaultValue={
                       ( // nested default: defaultValues?.shipping?.city etc.
                         ((defaultValues?.[fieldConfig.name] as Record<string, unknown> | undefined)?.[
@@ -193,6 +181,32 @@ type RenderFieldArgs = {
     error?: { message?: string | undefined } | undefined;
   };
 };
+
+// Ensure React Hook Form receives a proper pattern rule: value must be a RegExp, not a string
+function normalizeRules(rules?: Record<string, unknown>): Record<string, unknown> | undefined {
+  if (!rules) return rules;
+
+  type PatternRule = {
+    value: string | RegExp;
+    message?: string;
+    [key: string]: unknown;
+  };
+
+  type RulesWithPattern = Record<string, unknown> & {
+    pattern?: PatternRule;
+  };
+
+  const typedRules = rules as RulesWithPattern;
+
+  if (typedRules.pattern && typeof typedRules.pattern.value === "string") {
+    typedRules.pattern = {
+      ...typedRules.pattern,
+      value: new RegExp(typedRules.pattern.value),
+    };
+  }
+
+  return rules;
+}
 
 function renderField({ config, field, fieldState }: RenderFieldArgs): ReactElement {
   const isRequired = Boolean(config.rules && (config.rules as { required?: unknown }).required);
