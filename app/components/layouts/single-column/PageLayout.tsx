@@ -62,6 +62,8 @@ export default function PageLayout({
   return (
     <Box
       component={component}
+      id="main-content"
+      tabIndex={-1}
       sx={{
         minHeight: "100vh",
         width: "100%",
@@ -70,6 +72,9 @@ export default function PageLayout({
         alignItems: "center",
         py: 8,
         px,
+        "&:focus": {
+          outline: "none",
+        },
       }}
     >
       <Box
@@ -83,7 +88,7 @@ export default function PageLayout({
         }}
       >
         {title && (
-          <Box sx={{ mb: subtitle ? 1 : 4 }}>
+          <Box id={"main-content"} sx={{ mb: subtitle ? 1 : 4 }}>
             <Typography component="h1" variant="h4" sx={{ mb: subtitle ? 1 : 0 }}>
               {title}
             </Typography>

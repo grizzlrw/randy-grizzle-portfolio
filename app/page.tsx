@@ -14,6 +14,8 @@ export default async function Home() {
       minHeight: '100vh', 
       width: '100%' }}>
       <Box component={'main'}
+        id="main-content"
+        tabIndex={-1}
         sx={{ display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

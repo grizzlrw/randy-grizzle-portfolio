@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import AppBarClient from "./components/navigation/app-bar-client";
+import SkipLink from "./components/navigation/SkipLink";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import Providers from './providers';
 
@@ -37,6 +38,7 @@ export default  function RootLayout({
       >
         <AppRouterCacheProvider>
           <Providers>
+            <SkipLink href="#main-content">Skip to main content</SkipLink>
             <AppBarClient />
             {children}
           </Providers>   

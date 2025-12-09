@@ -76,7 +76,7 @@ function SidebarLayout({
 
   const mainSection = (
     <Grid size={{ xs: 12, md: mainWidth }}>
-      <Box component="main" sx={{ py: 2 }}>
+      <Box component="main" id={"main-content"} sx={{ py: 2 }}>
         <Typography
           component="h1"
           variant="h4"
@@ -100,6 +100,8 @@ function SidebarLayout({
 
   return (
     <Box
+          id="main-content"
+          tabIndex={-1}
           sx={{
             minHeight: "100vh",
             width: "100%",
@@ -108,6 +110,9 @@ function SidebarLayout({
             alignItems: "center",
             py: 6,
             px: 2,
+            "&:focus": {
+              outline: "none",
+            },
           }}
         >
     <Container sx={{ py: 4 }}>
