@@ -45,7 +45,6 @@ export default function AutocompleteField<T = string>(props: AutocompleteFieldPr
           />
         )}
       />
-      {helper && <FormHelperText error={showError}>{helper}</FormHelperText>}
     </FormGroup>
   );
 }
