@@ -1,5 +1,5 @@
 "use client";
-import { postSignup } from "@/lib/graphqlClient";
+import { postSignup } from "@/lib/actions";
 
 export async function signup(formData: FormData) {
   const firstName = formData.get("firstname")?.toString().trim() ?? "";

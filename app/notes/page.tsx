@@ -1,5 +1,5 @@
 // app/notes/page.tsx
-import { fetchNotes } from "@/lib/graphqlClient";
+import { fetchNotes } from "@/lib/actions";
 import { dayjs } from "@/lib/date";;
 
 export const dynamic = "force-dynamic"; // so it always fetches fresh data

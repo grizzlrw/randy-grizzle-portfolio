@@ -22,15 +22,21 @@ export default function SkillCard({ id, title, description, route, imageUrl, ima
     return (
         <Card sx={{ 
             textAlign: 'left', 
-            boxShadow: 2, 
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            border: '1px solid',
+            borderColor: 'divider',
             height: '100%', 
             display: 'flex', 
             flexDirection: 'column', 
             justifyItems: 'space-evenly',
+            transition: 'box-shadow 300ms ease',
+            '&:hover': {
+                boxShadow: '0 4px 16px rgba(3, 76, 140, 0.12)',
+            },
         }}>
             <CardMedia title={`${imageAlt || title}`} sx={{ 
                     height: '10rem', 
-                    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 92%)', 
+                    clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0% 100%)', 
                     objectFit: 'cover', 
                     overflow: 'hidden',
                     backgroundImage: `${imageUrl ? `url(${imageUrl})` : 'none'}`,
@@ -47,7 +53,16 @@ export default function SkillCard({ id, title, description, route, imageUrl, ima
                 </Box>
             </CardContent>
             <CardActions>
-                <Button href={route} component={Link} aria-describedby={`${id}-header`}>Learn More</Button>
+                <Button 
+                    href={route} 
+                    component={Link} 
+                    aria-describedby={`${id}-header`}
+                    sx={{
+                        transition: 'color 0.2s ease-in-out',
+                    }}
+                >
+                    Learn More
+                </Button>
             </CardActions>
         </Card>
     )

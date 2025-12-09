@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import NotesPage from './page';
 
-jest.mock('@/lib/graphqlClient', () => ({
+jest.mock('@/lib/actions', () => ({
     fetchNotes: jest.fn().mockResolvedValue([
         {
             id: '1',
@@ -40,7 +40,7 @@ describe('Page', () => {
 
     it('renders no notes message when there are no notes', async () => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const { fetchNotes } = require('@/lib/graphqlClient');
+        const { fetchNotes } = require('@/lib/actions');
         fetchNotes.mockResolvedValueOnce([]);
         const component = await NotesPage();
         render(component);

@@ -1,6 +1,6 @@
 "use client"
 // app/(pages)/forms/page.tsx
-import { postSignup } from "@/lib/graphqlClient";
+import { postSignup } from "@/lib/actions";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import InputField from "@/app/components/_inputs/InputField";

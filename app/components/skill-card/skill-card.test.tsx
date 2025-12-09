@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import SkillCard from "./skill-card";
 import { act } from "@testing-library/react";
-import { createRoot } from "react-dom/client";
 
 jest.mock("next/link", () => ({
   __esModule: true,

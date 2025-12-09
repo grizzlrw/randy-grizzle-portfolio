@@ -2,8 +2,7 @@ import SkillCard from './skill-card';
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { fetchSkills } from "@/lib/graphqlClient";
+import { fetchSkills } from "@/lib/actions";
 
 export default async function SkillList({length}: {length?: number}) {
     const skills = await fetchSkills();

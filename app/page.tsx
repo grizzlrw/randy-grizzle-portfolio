@@ -1,8 +1,8 @@
-
-import Code from "./components/code/Code";
+import { Suspense } from "react";
 import SkillList from "./components/skill-card/skill-list";
 import HomeHero from "./_home/home-hero";
-import { Typography, Box } from "@mui/material";
+import { Box } from "@mui/material";
+import SkillListSkeleton from "./components/skeletons/SkillListSkeleton";
 
 export default async function Home() {
   return (
@@ -29,7 +29,9 @@ export default async function Home() {
 
         <Box sx={{ p: 4, zIndex: 4 }}>
           {/* <Typography component="h2" variant="h4" sx={{ mb: 2, textAlign: 'center', fontWeight: 'bold', py: 4 }}>Solutions I Can Build For You</Typography> */}
-          <SkillList length={4}></SkillList>
+          <Suspense fallback={<SkillListSkeleton length={4} />}>
+            <SkillList length={4} />
+          </Suspense>
         </Box>
     
       </Box>

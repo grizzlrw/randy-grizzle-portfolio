@@ -22,14 +22,77 @@ export default function HomeHero() {
             left: 0, 
             width: '100%', 
             height: '100%', 
-            zIndex: 1 }}>
-            
+            zIndex: 1 
+          }}>
           </Box>
 
           <Box sx={{ position: 'relative', zIndex: 2 }}>
-            <Typography component="h3" variant="h3" sx={{ color: '#ffffff' }}>Randy Grizzle</Typography>
-            <Typography component="p" variant="h4" sx={{ py: 2, color: '#ffffff' }}>Senior Frontend Developer and Digital Accessibility Specialist</Typography>
-            <Button color="secondary" variant="contained" href="/about">Learn More</Button>
+            <Typography 
+                component="h3" 
+                variant="h3" 
+                sx={{ 
+                    color: '#ffffff',
+                    animation: 'fadeInUp 0.8s ease-out',
+                    '@keyframes fadeInUp': {
+                        from: {
+                            opacity: 0,
+                            transform: 'translateY(30px)',
+                        },
+                        to: {
+                            opacity: 1,
+                            transform: 'translateY(0)',
+                        },
+                    },
+                }}
+            >
+                Randy Grizzle
+            </Typography>
+            <Typography 
+                component="p" 
+                variant="h4" 
+                sx={{ 
+                    py: 2, 
+                    color: '#ffffff',
+                    animation: 'fadeInUp 0.8s ease-out 0.2s both',
+                    '@keyframes fadeInUp': {
+                        from: {
+                            opacity: 0,
+                            transform: 'translateY(30px)',
+                        },
+                        to: {
+                            opacity: 1,
+                            transform: 'translateY(0)',
+                        },
+                    },
+                }}
+            >
+                Senior Frontend Developer and Digital Accessibility Specialist
+            </Typography>
+            <Button 
+                color="secondary" 
+                variant="contained" 
+                href="/about"
+                sx={{
+                    animation: 'fadeInUp 0.8s ease-out 0.4s both',
+                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                    '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: 4,
+                    },
+                    '@keyframes fadeInUp': {
+                        from: {
+                            opacity: 0,
+                            transform: 'translateY(30px)',
+                        },
+                        to: {
+                            opacity: 1,
+                            transform: 'translateY(0)',
+                        },
+                    },
+                }}
+            >
+                Learn More
+            </Button>
           </Box>
         </Box>
     )

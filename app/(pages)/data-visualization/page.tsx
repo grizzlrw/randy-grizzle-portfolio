@@ -1,7 +1,8 @@
 "use client";
-import { Box, Typography, FormControl, InputLabel, MenuItem, Select, Stack, Divider } from "@mui/material";
+import { Typography, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import { D3LineChart } from "../../features/charts/D3LineChart";
+import PageLayout from "@/app/components/layouts/PageLayout";
 
 // Shape of each data row returned from the World Bank API
 // (simplified from the full response for the fields we care about).
@@ -62,12 +63,8 @@ export default function DataVisualizationPage() {
         // D3 rendering is delegated to reusable chart components
 
     return (
-        <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-            <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 4, px: 2 }}>
-
-                <Typography component="h1" variant="h4">Data Visualization</Typography>
-
-                <Typography component="p" sx={{ mb: 4, mt: 1 }}>
+        <PageLayout title="Data Visualization" maxWidth={960}>
+                <Typography component="p" sx={{ mb: 4 }}>
                     This page demonstrates a data visualization using D3.js to render a line chart
                     showing renewable energy consumption over time for different countries and regions.
                     Select a region from the dropdown to see the data update with smooth transitions.
@@ -103,7 +100,6 @@ export default function DataVisualizationPage() {
                     yLabel="Renewable Energy Consumption (%)"
                     ariaLabel={`Line chart showing ${title} over time for ${subtitle}`}
                 />
-            </Box>
-        </main>
+        </PageLayout>
     );
 }

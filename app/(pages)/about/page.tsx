@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Typography, Stack, Chip, List, ListItem } from "@mui/material";
+import { Box, Typography, Stack, List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Item from "@mui/material/Grid";
-import GrizzleLogo from "@/app/assets/vectors/GrizzleLogo.svg";
+import PageLayout from "@/app/components/layouts/PageLayout";
 
 // Languages:
 // JavaScript (ES6+) · TypeScript · HTML/CSS/SCSS
@@ -52,27 +52,12 @@ const aboutSkills = {
 
 
   return (
-    <Box
-        sx={{
-            display: 'flex',
-            minHeight: '100vh',
-            width: '100%',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            pt: 8,
-            sm: { alignItems: 'start' },
-        }}
-    >
+    <PageLayout title="About Me" maxWidth={1200}>
     <Grid container spacing={2}>
         
         <Grid size={{ xs: 12, sm: 12, md: 8 }}>
-            <Item component={"main"}>
-                
-                    <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 4, px: 2 }}>
-                        <Typography component="h1" variant="h4">
-                        About Me
-                        </Typography>
+            <Item>
+                    <Box>
 
                         <Typography component="p" sx={{ mb: 4, mt: 1 }}>
                         I&apos;m a Senior Frontend Developer with more than a decade of experience building 
@@ -123,11 +108,10 @@ const aboutSkills = {
 
                         {/* Add your about content here: timeline, highlights, philosophy, etc. */}
                     </Box>
-            
             </Item>
         </Grid>
         <Grid size={{ xs: 12, sm: 12, md: 4 }}>
-            <Item component={"aside"} sx={{ pt: 6, px: 2 }}>
+            <Item component={"aside"} sx={{ pt: 4, px: 2 }}>
                 <Box>
                     {Object.entries(aboutSkills).map(([category, skills]) => (
                         <Box key={category} sx={{ mb: 2 }}>
@@ -156,7 +140,7 @@ const aboutSkills = {
         </Grid>
         
     </Grid>
-    </Box>
+    </PageLayout>
   );
 
 

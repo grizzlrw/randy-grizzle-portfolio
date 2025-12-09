@@ -1,9 +1,8 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
 import { DynamicFieldConfig, DynamicFieldType } from "@/app/components/_dynamic-form/dynamic-form";
-import { getFormBySlug } from "@/lib/forms";
+import { getFormBySlug } from "@/lib/actions";
+import { notFound } from "next/navigation";
 import DynamicFormClient from "../../../components/_dynamic-form/DynamicFormClient";
+import PageLayout from "@/app/components/layouts/PageLayout";
 
 type PageProps = {
   params: { slug: string };
@@ -82,25 +81,18 @@ export default async function FormsDynamicPage({ params }: PageProps) {
 
   const form = await getFormBySlug(slug); // or fetch via GraphQL client
   if (!form) {
-    return <div>Form not found</div>;
+    notFound();
   }
 
   const fields: DynamicFieldConfig[] = mapFormToDynamicFieldConfig(form as GqlForm);
-  // const fields: DynamicFieldConfig[] = mapFormToDynamicFieldConfig(form as any);
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-      <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 2, px: 2 }}>
-        <Typography component="h1" variant="h4" sx={{ mb: 4 }}>
-            {form.name}
-        </Typography>
-
-        <Typography component="p" sx={{ mb: 4 }}>
-          {form.description || "Please fill out the form below."}
-        </Typography>
-
-        <DynamicFormClient fields={fields} />
-        </Box>
-    </main>
+    <PageLayout 
+      title={form.name}
+      subtitle={form.description || "Please fill out the form below."}
+      maxWidth={960}
+    >
+      <DynamicFormClient fields={fields} />
+    </PageLayout>
   );
 }

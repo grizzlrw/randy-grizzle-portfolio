@@ -1,7 +1,6 @@
 // lib/graphqlClient.ts
 import type { NotesQuery, SignupMutation, SignupMutationVariables } from "@/generated/graphql";
 import type { SkillsQuery } from "@/generated/graphql";
-import type { SignupResult } from "@/generated/graphql";
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "http://localhost:3000/api/graphql";
 

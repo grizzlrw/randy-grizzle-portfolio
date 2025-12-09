@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
-import { Box, Card, Stack, Typography, CardHeader, CardContent } from "@mui/material";
+import { Card, Stack, Typography, CardHeader, CardContent } from "@mui/material";
 import { Assignment, Feedback, BugReport } from "@mui/icons-material";
 import NextLink from "next/link";
 import {
   CardActionArea,
 } from "@mui/material";
+import PageLayout from "@/app/components/layouts/PageLayout";
 
 export function handleSubmit(event: React.FormEvent<HTMLFormElement>) { 
     event.preventDefault();
@@ -20,12 +20,7 @@ const formLinks = [
 
 export default function Page() {
     return (
-        <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-            <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 2, px: 2 }}>
-                <Typography component="h1" variant="h4" sx={{ mb: 4 }}>
-                    Forms Page
-                </Typography>
-
+        <PageLayout title="Forms Page" maxWidth={960}>
                 <Typography component="p" sx={{ mb: 4 }}>
                     Welcome to the Forms Dashboard.  Dynamic forms are a powerful tool for handling a wide variety of data collection efforts while reducing front end maintentence overhead.  Feel free to explore a few examples of dynamically generated forms by using the buttons below, or the drawer to the left.
                 </Typography>   
@@ -38,17 +33,18 @@ export default function Page() {
                           variant="outlined"
                           sx={{
                             mt: 4,
-                            transition: "box-shadow 150ms ease, transform 150ms ease",
-                            backgroundColor: "background.paper",
+                            transition: "box-shadow 300ms ease, transform 300ms ease, border-color 300ms ease",
+                            borderLeft: '4px solid',
+                            borderLeftColor: 'primary.main',
                             "&:hover": {
-                              backgroundColor: "background.paper",
-                              boxShadow: 4,
-                              transform: "translateY(-2px)",
+                              boxShadow: '0 8px 24px rgba(3, 76, 140, 0.15)',
+                              transform: "translateY(-4px) scale(1.02)",
+                              borderLeftColor: 'primary.700',
                             },
                             "&:focus-within": {
-                              backgroundColor: "background.paper",
-                              boxShadow: 4,
-                              transform: "translateY(-2px)",
+                              boxShadow: '0 8px 24px rgba(3, 76, 140, 0.15)',
+                              transform: "translateY(-4px) scale(1.02)",
+                              borderLeftColor: 'primary.700',
                             },
                           }}
                         >
@@ -60,11 +56,15 @@ export default function Page() {
                             sx={{
                               display: "block",
                               textAlign: "left",
-                              backgroundColor: "background.paper",
+                              backgroundColor: "transparent",
                               "&:hover": {
-                                backgroundColor: "background.paper",
+                                backgroundColor: "rgba(0, 0, 0, 0.04)",
+                              },
+                              "&:focus": {
+                                backgroundColor: "rgba(0, 0, 0, 0.04)",
                               },
                               "&:focus-visible": {
+                                backgroundColor: "rgba(0, 0, 0, 0.04)",
                                 outline: "2px solid",
                                 outlineColor: "primary.main",
                                 outlineOffset: 4,
@@ -94,7 +94,6 @@ export default function Page() {
                         </Card>
                       ))}
                 </Stack>
-            </Box>
-        </main>
+        </PageLayout>
     );
 }
