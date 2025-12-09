@@ -4,7 +4,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 import DynamicForm from "@/app/components/_dynamic-form/dynamic-form";
 import CheckboxField from "@/app/components/_inputs/CheckboxField";
 import SelectField from "@/app/components/_inputs/SelectField";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 
 expect.extend(toHaveNoViolations);
 

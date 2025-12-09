@@ -2,7 +2,7 @@
 
 import { Box, Button, Stack, TextField, Typography, Alert } from "@mui/material";
 import { useState } from "react";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 import { contactSchema, type ContactFormData } from "@/lib/validations/schemas";
 
 export default function ContactPage() {

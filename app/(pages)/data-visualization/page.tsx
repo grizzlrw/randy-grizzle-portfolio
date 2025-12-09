@@ -2,7 +2,7 @@
 import { Typography, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import { LineChart } from "../../features/charts/LineChart";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 
 // Shape of each data row returned from the World Bank API
 // (simplified from the full response for the fields we care about).

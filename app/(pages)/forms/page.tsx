@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import {
   CardActionArea,
 } from "@mui/material";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 
 export function handleSubmit(event: React.FormEvent<HTMLFormElement>) { 
     event.preventDefault();

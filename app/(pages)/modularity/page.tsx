@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Box, Typography, Stack, Divider, Paper } from "@mui/material";
 import SkillList from "@/app/components/skill-card/skill-list";
 import { LineChart } from "@/app/features/charts/LineChart";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 import SkillListSkeleton from "@/app/components/skeletons/SkillListSkeleton";
 
 export default async function ModularityPage() {

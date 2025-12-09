@@ -2,7 +2,7 @@ import { DynamicFieldConfig, DynamicFieldType } from "@/app/components/_dynamic-
 import { getFormBySlug } from "@/lib/actions";
 import { notFound } from "next/navigation";
 import DynamicFormClient from "../../../components/_dynamic-form/DynamicFormClient";
-import PageLayout from "@/app/components/layouts/PageLayout";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 
 type PageProps = {
   params: { slug: string };
