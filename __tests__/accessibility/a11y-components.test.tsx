@@ -10,7 +10,14 @@ expect.extend(toHaveNoViolations);
 
 describe("Accessibility - Components", () => {
   describe("DynamicForm", () => {
-    const mockElements = [
+    const mockElements: Array<{
+      id: string;
+      name: string;
+      label: string;
+      type: "text" | "email";
+      position: number;
+      rules: Record<string, unknown>;
+    }> = [
       {
         id: "1",
         name: "firstName",
@@ -34,7 +41,6 @@ describe("Accessibility - Components", () => {
     it("should have no accessibility violations", async () => {
       const { container } = render(
         <DynamicForm
-          title="Test Form"
           fields={mockElements}
           onSubmit={mockOnSubmit}
         />
@@ -46,7 +52,6 @@ describe("Accessibility - Components", () => {
     it("should have accessible form labels", () => {
       const { container } = render(
         <DynamicForm
-          title="Test Form"
           fields={mockElements}
           onSubmit={mockOnSubmit}
         />
@@ -62,7 +67,6 @@ describe("Accessibility - Components", () => {
     it("should have accessible submit button", () => {
       const { container } = render(
         <DynamicForm
-          title="Test Form"
           fields={mockElements}
           onSubmit={mockOnSubmit}
         />
@@ -75,16 +79,14 @@ describe("Accessibility - Components", () => {
   });
 
   describe("CheckboxField", () => {
-    const mockControl = {
-      register: () => ({ name: "testCheckbox" }),
-    } as any;
-
     it("should have no accessibility violations", async () => {
       const { container } = render(
         <CheckboxField
+          id="testCheckbox"
           name="testCheckbox"
           label="Accept Terms"
-          control={mockControl}
+          checked={false}
+          onChange={() => {}}
         />
       );
       const results = await axe(container);
@@ -94,9 +96,11 @@ describe("Accessibility - Components", () => {
     it("should have accessible checkbox input", () => {
       const { container } = render(
         <CheckboxField
+          id="testCheckbox"
           name="testCheckbox"
           label="Accept Terms"
-          control={mockControl}
+          checked={false}
+          onChange={() => {}}
         />
       );
 
@@ -107,11 +111,6 @@ describe("Accessibility - Components", () => {
   });
 
   describe("SelectField", () => {
-    const mockControl = {
-      register: () => ({ name: "testSelect" }),
-      _formValues: { testSelect: "" },
-    } as any;
-
     const options = [
       { value: "option1", label: "Option 1" },
       { value: "option2", label: "Option 2" },
@@ -120,11 +119,12 @@ describe("Accessibility - Components", () => {
     it("should have no accessibility violations", async () => {
       const { container } = render(
         <SelectField
+          id="testSelect"
           name="testSelect"
           label="Choose Option"
           options={options}
-          control={mockControl}
-          defaultValue=""
+          value=""
+          onChange={() => {}}
         />
       );
       const results = await axe(container);
@@ -134,11 +134,12 @@ describe("Accessibility - Components", () => {
     it("should have accessible select element", () => {
       const { getByLabelText } = render(
         <SelectField
+          id="testSelect"
           name="testSelect"
           label="Choose Option"
           options={options}
-          control={mockControl}
-          defaultValue=""
+          value=""
+          onChange={() => {}}
         />
       );
 

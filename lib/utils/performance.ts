@@ -9,7 +9,7 @@ export interface PerformanceMetric {
   name: string;
   value: number;
   timestamp: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface PerformanceReport {
@@ -40,7 +40,7 @@ export class PerformanceMonitor {
   /**
    * End measuring and record the duration
    */
-  end(name: string, metadata?: Record<string, any>): number | null {
+  end(name: string, metadata?: Record<string, unknown>): number | null {
     const startTime = this.startTimes.get(name);
     if (!startTime) {
       console.warn(`Performance measurement '${name}' was ended without being started`);
@@ -65,7 +65,7 @@ export class PerformanceMonitor {
   async measure<T>(
     name: string,
     fn: () => T | Promise<T>,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<T> {
     this.start(name);
     try {
@@ -125,7 +125,7 @@ export class PerformanceMonitor {
   /**
    * Mark a Web Vitals metric
    */
-  markVital(name: string, value: number, metadata?: Record<string, any>): void {
+  markVital(name: string, value: number, metadata?: Record<string, unknown>): void {
     this.metrics.set(name, value);
 
     if (process.env.NODE_ENV === "development") {
@@ -144,13 +144,24 @@ export class PerformanceMonitor {
  */
 export const performanceMonitor = new PerformanceMonitor();
 
+interface WebVitalsMetric {
+  name: string;
+  value: number;
+  id: string;
+  rating: string;
+}
+
 /**
  * Decorator for measuring class methods
  */
-export function measurePerformance(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+export function measurePerformance(
+  target: { constructor: { name: string } },
+  propertyKey: string,
+  descriptor: PropertyDescriptor
+) {
   const originalMethod = descriptor.value;
 
-  descriptor.value = async function (...args: any[]) {
+  descriptor.value = async function (this: unknown, ...args: unknown[]) {
     const name = `${target.constructor.name}.${propertyKey}`;
     performanceMonitor.start(name);
     try {
@@ -169,7 +180,7 @@ export function measurePerformance(target: any, propertyKey: string, descriptor:
 /**
  * Web Vitals reporting
  */
-export function reportWebVitals(metric: any): void {
+export function reportWebVitals(metric: WebVitalsMetric): void {
   performanceMonitor.markVital(metric.name, metric.value, {
     id: metric.id,
     rating: metric.rating,

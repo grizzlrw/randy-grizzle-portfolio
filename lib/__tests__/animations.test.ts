@@ -193,7 +193,7 @@ describe("Animation Utilities", () => {
         const keyframeKey = Object.keys(animation)[0];
         expect(keyframeKey).toMatch(/^@keyframes /);
 
-        const keyframes = animation[keyframeKey];
+        const keyframes = animation[keyframeKey as keyof typeof animation];
         expect(keyframes).toHaveProperty("from");
         expect(keyframes).toHaveProperty("to");
       });

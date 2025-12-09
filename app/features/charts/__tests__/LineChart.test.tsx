@@ -1,9 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import { LineChart, ChartDataPoint } from "../LineChart";
 
+interface MockSeries {
+  label?: string;
+  data?: unknown[];
+}
+
+interface MockAxis {
+  label?: string;
+}
+
+interface MockLineChartProps {
+  width?: number;
+  height?: number;
+  series?: MockSeries[];
+  xAxis?: MockAxis[];
+}
+
 // Mock MUI X Charts
 jest.mock("@mui/x-charts/LineChart", () => ({
-  LineChart: ({ width, height, series, xAxis }: any) => (
+  LineChart: ({ width, height, series, xAxis }: MockLineChartProps) => (
     <svg
       data-testid="mui-line-chart"
       width={width}
@@ -12,14 +28,14 @@ jest.mock("@mui/x-charts/LineChart", () => ({
       aria-label="Mocked MUI Line Chart"
     >
       <g data-testid="chart-series" data-series-count={series?.length || 0}>
-        {series?.map((s: any, i: number) => (
+        {series?.map((s, i) => (
           <g key={i} data-testid={`series-${i}`} data-label={s.label}>
             <path data-testid={`line-${i}`} data-points={s.data?.length || 0} />
           </g>
         ))}
       </g>
       <g data-testid="chart-axes" data-axes-count={xAxis?.length || 0}>
-        {xAxis?.map((axis: any, i: number) => (
+        {xAxis?.map((axis, i) => (
           <g key={i} data-testid={`x-axis-${i}`} data-label={axis.label}>
             <line />
           </g>

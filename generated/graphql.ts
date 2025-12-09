@@ -152,4 +152,4 @@ export type NotesQuery = { __typename?: 'Query', notes: Array<{ __typename?: 'No
 export type SkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, title: string, description: string, route: string, createdAt: any, imageUrl: string }> };
+export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, title: string, description: string, route: string, createdAt: any, imageUrl: string, imageAlt: string }> };

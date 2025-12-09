@@ -13,8 +13,7 @@ import CheckboxField from "@/app/components/_inputs/CheckboxField";
 import NumberField from "@/app/components/_inputs/NumberField";
 import SwitchField from "@/app/components/_inputs/SwitchField";
 import SliderField from "@/app/components/_inputs/SliderField";
-import AutocompleteField from "@/app/components/_inputs/AutocompleteField";
-import RatingField from "@/app/components/_inputs/RatingField";
+
 
 const selectOptions = [
   { value: "junior", label: "Junior" },
@@ -30,12 +29,7 @@ const radioOptions = [
 
 const checkboxLabel = "Subscribe to newsletter";
 
-const autocompleteOptions = [
-  { value: "react", label: "React" },
-  { value: "nextjs", label: "Next.js" },
-  { value: "typescript", label: "TypeScript" },
-  { value: "graphql", label: "GraphQL" },
-];
+
 
 export default function FormsShowcasePage() {
   const [name, setName] = useState("");
@@ -46,8 +40,6 @@ export default function FormsShowcasePage() {
   const [yearsExperience, setYearsExperience] = useState<number | "">(3);
   const [isAvailable, setIsAvailable] = useState(true);
   const [hoursPerWeek, setHoursPerWeek] = useState<number>(20);
-  const [favoriteTech, setFavoriteTech] = useState<string | null>("react");
-  const [rating, setRating] = useState<number | null>(4);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

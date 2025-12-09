@@ -4,15 +4,14 @@ import Home from "@mui/icons-material/Home";
 import { Navigation } from "@mui/icons-material";
 
 // Mock Next.js navigation
+const mockUsePathname = jest.fn();
 jest.mock("next/navigation", () => ({
-  usePathname: jest.fn(),
+  usePathname: () => mockUsePathname(),
 }));
-
-const { usePathname } = require("next/navigation");
 
 describe("ClippedDrawer", () => {
   beforeEach(() => {
-    usePathname.mockReturnValue("/");
+    mockUsePathname.mockReturnValue("/");
   });
 
   afterEach(() => {
@@ -35,7 +34,6 @@ describe("ClippedDrawer", () => {
 
   it("should render permanent drawer variant", () => {
     const { container } = render(<ClippedDrawer links={mockLinks} />);
-
     const drawer = container.querySelector(".MuiDrawer-root");
     expect(drawer).toBeInTheDocument();
   });
@@ -110,8 +108,8 @@ describe("ClippedDrawer", () => {
 
   describe("Active Link Highlighting", () => {
     it("should highlight active link based on pathname", () => {
-      usePathname.mockReturnValue("/about");
-      const { container } = render(<ClippedDrawer links={mockLinks} />);
+      mockUsePathname.mockReturnValue("/about");
+      render(<ClippedDrawer links={mockLinks} />);
 
       // About link should be highlighted
       const aboutText = screen.getByText("About");
@@ -119,7 +117,7 @@ describe("ClippedDrawer", () => {
     });
 
     it("should highlight home link when on root path", () => {
-      usePathname.mockReturnValue("/");
+      mockUsePathname.mockReturnValue("/");
       render(<ClippedDrawer links={mockLinks} />);
 
       const homeText = screen.getByText("Home");
@@ -127,12 +125,12 @@ describe("ClippedDrawer", () => {
     });
 
     it("should update highlighting when pathname changes", () => {
-      usePathname.mockReturnValue("/");
+      mockUsePathname.mockReturnValue("/");
       const { rerender } = render(<ClippedDrawer links={mockLinks} />);
 
       expect(screen.getByText("Home")).toBeInTheDocument();
 
-      usePathname.mockReturnValue("/contact");
+      mockUsePathname.mockReturnValue("/contact");
       rerender(<ClippedDrawer links={mockLinks} />);
 
       expect(screen.getByText("Contact")).toBeInTheDocument();

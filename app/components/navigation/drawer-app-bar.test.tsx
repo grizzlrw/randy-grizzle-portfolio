@@ -5,14 +5,16 @@ import DrawerAppBar from "./drawer-app-bar";
 
 // Mock Next.js Link and Image
 jest.mock("next/link", () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>;
   };
+  MockLink.displayName = 'Link';
+  return MockLink;
 });
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
     // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
     return <img {...props} />;
   },

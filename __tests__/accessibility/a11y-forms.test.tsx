@@ -8,16 +8,14 @@ expect.extend(toHaveNoViolations);
 
 describe("Accessibility - Form Fields", () => {
   describe("NumberField", () => {
-    const mockControl = {
-      register: () => ({ name: "testNumber" }),
-    } as any;
-
     it("should have no accessibility violations", async () => {
       const { container } = render(
         <NumberField
+          id="testNumber"
           name="testNumber"
           label="Age"
-          control={mockControl}
+          value={0}
+          onChange={() => {}}
         />
       );
       const results = await axe(container);
@@ -27,9 +25,11 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible number input", () => {
       const { getByLabelText } = render(
         <NumberField
+          id="testNumber"
           name="testNumber"
           label="Age"
-          control={mockControl}
+          value={0}
+          onChange={() => {}}
         />
       );
 
@@ -41,11 +41,13 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible error state", () => {
       const { container } = render(
         <NumberField
+          id="testNumber"
           name="testNumber"
           label="Age"
-          control={mockControl}
-          error={{ type: "min", message: "Must be at least 18" }}
-          helperText="Must be at least 18"
+          value={0}
+          onChange={() => {}}
+          error="Must be at least 18"
+          touched={true}
         />
       );
 
@@ -58,9 +60,11 @@ describe("Accessibility - Form Fields", () => {
     it("should support aria-describedby for helper text", () => {
       const { container } = render(
         <NumberField
+          id="testNumber"
           name="testNumber"
           label="Age"
-          control={mockControl}
+          value={0}
+          onChange={() => {}}
           helperText="Enter your age in years"
         />
       );
@@ -74,10 +78,6 @@ describe("Accessibility - Form Fields", () => {
   });
 
   describe("RadioGroupField", () => {
-    const mockControl = {
-      register: () => ({ name: "testRadio" }),
-    } as any;
-
     const options = [
       { value: "yes", label: "Yes" },
       { value: "no", label: "No" },
@@ -87,10 +87,12 @@ describe("Accessibility - Form Fields", () => {
     it("should have no accessibility violations", async () => {
       const { container } = render(
         <RadioGroupField
+          id="testRadio"
           name="testRadio"
           label="Do you agree?"
           options={options}
-          control={mockControl}
+          value="yes"
+          onChange={() => {}}
         />
       );
       const results = await axe(container);
@@ -100,10 +102,12 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible radio group", () => {
       const { container } = render(
         <RadioGroupField
+          id="testRadio"
           name="testRadio"
           label="Do you agree?"
           options={options}
-          control={mockControl}
+          value="yes"
+          onChange={() => {}}
         />
       );
 
@@ -114,10 +118,12 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible radio buttons", () => {
       const { container } = render(
         <RadioGroupField
+          id="testRadio"
           name="testRadio"
           label="Do you agree?"
           options={options}
-          control={mockControl}
+          value="yes"
+          onChange={() => {}}
         />
       );
 
@@ -132,10 +138,12 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible labels for each option", () => {
       const { getByLabelText } = render(
         <RadioGroupField
+          id="testRadio"
           name="testRadio"
           label="Do you agree?"
           options={options}
-          control={mockControl}
+          value="yes"
+          onChange={() => {}}
         />
       );
 
@@ -147,12 +155,14 @@ describe("Accessibility - Form Fields", () => {
     it("should have accessible error state", () => {
       const { container } = render(
         <RadioGroupField
+          id="testRadio"
           name="testRadio"
           label="Do you agree?"
           options={options}
-          control={mockControl}
-          error={{ type: "required", message: "Please select an option" }}
-          helperText="Please select an option"
+          value="yes"
+          onChange={() => {}}
+          error="Please select an option"
+          touched={true}
         />
       );
 
@@ -164,16 +174,15 @@ describe("Accessibility - Form Fields", () => {
   });
   describe("Form Validation Patterns", () => {
     it("should use aria-invalid for invalid fields", () => {
-      const mockControl = {
-        register: () => ({ name: "testField" }),
-      } as any;
-
       const { container } = render(
         <NumberField
+          id="testField"
           name="testField"
           label="Test"
-          control={mockControl}
-          error={{ type: "required", message: "Required" }}
+          value={0}
+          onChange={() => {}}
+          error="Required"
+          touched={true}
         />
       );
 
@@ -183,17 +192,15 @@ describe("Accessibility - Form Fields", () => {
     });
 
     it("should associate error messages with fields", () => {
-      const mockControl = {
-        register: () => ({ name: "testField" }),
-      } as any;
-
       const { container } = render(
         <NumberField
+          id="testField"
           name="testField"
           label="Test"
-          control={mockControl}
-          error={{ type: "required", message: "Required" }}
-          helperText="Required"
+          value={0}
+          onChange={() => {}}
+          error="Required"
+          touched={true}
         />
       );
 

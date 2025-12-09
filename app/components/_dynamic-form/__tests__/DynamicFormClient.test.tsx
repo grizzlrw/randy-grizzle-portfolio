@@ -77,7 +77,6 @@ describe("DynamicFormClient", () => {
         name: "username",
         label: "Username",
         type: "text",
-        required: false,
       },
     ];
 
@@ -154,7 +153,6 @@ describe("DynamicFormClient", () => {
           name: "optional",
           label: "Optional Field",
           type: "text",
-          required: false,
         },
       ];
 
@@ -218,7 +216,7 @@ describe("DynamicFormClient", () => {
 
     it("should validate required fields on submit", async () => {
       const fields: DynamicFieldConfig[] = [
-        { name: "required", label: "Required", type: "text", required: true },
+        { name: "required", label: "Required", type: "text", rules: { required: true } },
       ];
 
       render(<DynamicFormClient fields={fields} />);

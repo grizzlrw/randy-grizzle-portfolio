@@ -3,9 +3,11 @@ import VectorButtons from "../vector-buttons";
 
 // Mock Next.js Link
 jest.mock("next/link", () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>;
   };
+  MockLink.displayName = 'Link';
+  return MockLink;
 });
 
 // Mock CircleIcon
@@ -95,7 +97,7 @@ describe("VectorButtons", () => {
     });
 
     it("should wrap Modularity section in a link", () => {
-      const { container } = render(<VectorButtons />);
+      render(<VectorButtons />);
 
       const modularityLink = screen.getByRole("link", { name: /modularity/i });
       expect(modularityLink).toBeInTheDocument();

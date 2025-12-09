@@ -260,7 +260,7 @@ describe("CircleIcon", () => {
     });
 
     it("should maintain aspect ratio 1:1", () => {
-      const { container } = render(
+      render(
         <CircleIcon 
           glyph={MockGlyph} 
           title="Test Icon" 

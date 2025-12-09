@@ -41,7 +41,7 @@ describe("getFormBySlug", () => {
     const mockFormData = {
       id: "1",
       slug: testSlug,
-      title: "Contact Form",
+      name: "Contact Form",
       description: "Test form",
       createdAt: new Date("2024-01-01"),
       updatedAt: new Date("2024-01-01"),
@@ -79,7 +79,7 @@ describe("getFormBySlug", () => {
       ],
     };
 
-    mockPrismaFindUnique.mockResolvedValue(mockFormData);
+    mockPrismaFindUnique.mockResolvedValue(mockFormData as never);
 
     const result = await getFormBySlug(testSlug);
 
@@ -103,7 +103,7 @@ describe("getFormBySlug", () => {
     const mockFormData = {
       id: "1",
       slug: testSlug,
-      title: "Test Form",
+      name: "Test Form",
       description: "Test",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -141,7 +141,7 @@ describe("getFormBySlug", () => {
       ],
     };
 
-    mockPrismaFindUnique.mockResolvedValue(mockFormData);
+    mockPrismaFindUnique.mockResolvedValue(mockFormData as never);
 
     await getFormBySlug(testSlug);
 
@@ -162,7 +162,7 @@ describe("getFormBySlug", () => {
     const mockFormData = {
       id: "1",
       slug: testSlug,
-      title: "Form with Select",
+      name: "Form with Select",
       description: "Test",
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -204,7 +204,7 @@ describe("getFormBySlug", () => {
       ],
     };
 
-    mockPrismaFindUnique.mockResolvedValue(mockFormData);
+    mockPrismaFindUnique.mockResolvedValue(mockFormData as never);
 
     const result = await getFormBySlug(testSlug);
 

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
 
 expect.extend(toHaveNoViolations);
 
@@ -150,7 +150,6 @@ describe("Accessibility - Navigation & Structure", () => {
       );
 
       const button = container.querySelector("button");
-      const styles = window.getComputedStyle(button!);
       
       // Button should be focusable (default browser behavior)
       expect(button).not.toHaveAttribute("tabindex", "-1");

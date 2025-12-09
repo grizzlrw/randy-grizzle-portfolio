@@ -1,4 +1,4 @@
-import { FormGroup, FormLabel, FormHelperText, TextField, Autocomplete } from "@mui/material";
+import { FormGroup, FormLabel, TextField, Autocomplete } from "@mui/material";
 
 export type AutocompleteOption<T = string> = {
   value: T;

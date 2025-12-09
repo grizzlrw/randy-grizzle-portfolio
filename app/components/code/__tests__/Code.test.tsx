@@ -3,7 +3,7 @@ import Code from "../Code";
 
 // Mock react-syntax-highlighter
 jest.mock("react-syntax-highlighter", () => ({
-  Prism: ({ children, language, style }: any) => (
+  Prism: ({ children, language }: { children: React.ReactNode; language: string }) => (
     <pre data-language={language} data-testid="syntax-highlighter">
       <code>{children}</code>
     </pre>

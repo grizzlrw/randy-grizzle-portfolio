@@ -12,7 +12,7 @@ import { revalidateTag } from "next/cache";
  * Call this after creating, updating, or deleting notes
  */
 export async function revalidateNotes() {
-  revalidateTag("notes");
+  revalidateTag("notes", "default");
 }
 
 /**
@@ -20,14 +20,14 @@ export async function revalidateNotes() {
  * Call this after creating, updating, or deleting skills
  */
 export async function revalidateSkills() {
-  revalidateTag("skills");
+  revalidateTag("skills", "default");
 }
 
 /**
  * Revalidate all forms data
  */
 export async function revalidateForms() {
-  revalidateTag("forms");
+  revalidateTag("forms", "default");
 }
 
 /**
@@ -35,7 +35,7 @@ export async function revalidateForms() {
  * @param slug - The form slug to revalidate
  */
 export async function revalidateForm(slug: string) {
-  revalidateTag(`form-${slug}`);
+  revalidateTag(`form-${slug}`, "default");
 }
 
 /**
@@ -43,7 +43,7 @@ export async function revalidateForm(slug: string) {
  * Use sparingly - only when you need to clear everything
  */
 export async function revalidateAll() {
-  revalidateTag("notes");
-  revalidateTag("skills");
-  revalidateTag("forms");
+  revalidateTag("notes", "default");
+  revalidateTag("skills", "default");
+  revalidateTag("forms", "default");
 }

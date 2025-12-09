@@ -5,7 +5,7 @@ expect.extend(toHaveNoViolations);
 
 // Polyfill TextEncoder/TextDecoder for JSDOM environment
 // Some libraries (e.g., Next.js, node-fetch, or others) may rely on these globals.
-import { TextEncoder, TextDecoder } from "util";
+import { TextEncoder as NodeTextEncoder, TextDecoder as NodeTextDecoder } from "util";
 
 declare const global: typeof globalThis & {
 	TextEncoder?: typeof TextEncoder;
@@ -13,18 +13,14 @@ declare const global: typeof globalThis & {
 };
 
 if (typeof global.TextEncoder === "undefined") {
-	global.TextEncoder = TextEncoder;
+	global.TextEncoder = NodeTextEncoder as typeof TextEncoder;
 }
 
 if (typeof global.TextDecoder === "undefined") {
-	global.TextDecoder = TextDecoder;
+	global.TextDecoder = NodeTextDecoder as typeof TextDecoder;
 }
 
 // Minimal Request polyfill for Next's server-side utilities in Jest
-declare const globalThis: typeof globalThis & {
-	Request?: typeof Request;
-};
-
 if (typeof globalThis.Request === "undefined") {
 	class RequestPolyfill {
 		url: string;
@@ -33,5 +29,5 @@ if (typeof globalThis.Request === "undefined") {
 		}
 	}
 
-	globalThis.Request = RequestPolyfill as unknown as typeof Request;
+	(globalThis as typeof globalThis & { Request?: typeof Request }).Request = RequestPolyfill as unknown as typeof Request;
 }
