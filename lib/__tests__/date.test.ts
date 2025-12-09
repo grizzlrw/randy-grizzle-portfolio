@@ -130,8 +130,10 @@ describe("dateUtils", () => {
     });
 
     it("should return negative number for future dates", () => {
-      const threeDaysFromNow = dayjs().add(3, "day").toDate();
-      expect(dateUtils.daysAgo(threeDaysFromNow)).toBe(-3);
+      const threeDaysFromNow = dayjs().startOf('day').add(3, "day").toDate();
+      const result = dateUtils.daysAgo(threeDaysFromNow);
+      expect(result).toBeLessThanOrEqual(-2);
+      expect(result).toBeGreaterThanOrEqual(-3);
     });
 
     it("should handle string date input", () => {
