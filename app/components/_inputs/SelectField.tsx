@@ -19,6 +19,8 @@ export type SelectFieldProps<T extends string | number = string> = {
   touched?: boolean;
   onChange: (value: T) => void;
   onBlur?: () => void;
+  dataFieldName?: string;
+  inputRef?: React.Ref<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 export default function SelectField<T extends string | number = string>(props: SelectFieldProps<T>) {
@@ -36,6 +38,8 @@ export default function SelectField<T extends string | number = string>(props: S
     onChange,
     onBlur,
     className,
+    dataFieldName,
+    inputRef,
   } = props;
 
   const showError = touched && !!error;
@@ -56,6 +60,8 @@ export default function SelectField<T extends string | number = string>(props: S
         onBlur={onBlur}
         required={required}
         displayEmpty
+        inputProps={{ "data-field-name": dataFieldName }}
+        inputRef={inputRef}
       >
         {placeholder && (
           <MenuItem value="" disabled>

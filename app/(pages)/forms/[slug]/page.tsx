@@ -90,8 +90,8 @@ export default async function FormsDynamicPage({ params }: PageProps) {
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-      <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 8, px: 2 }}>
-        <Typography component="h1" variant="h3" sx={{ mb: 4 }}>
+      <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 2, px: 2 }}>
+        <Typography component="h1" variant="h4" sx={{ mb: 4 }}>
             {form.name}
         </Typography>
 

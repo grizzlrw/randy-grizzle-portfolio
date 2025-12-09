@@ -29,7 +29,7 @@ export default function HomeHero() {
           <Box sx={{ position: 'relative', zIndex: 2 }}>
             <Typography component="h3" variant="h3" sx={{ color: '#ffffff' }}>Randy Grizzle</Typography>
             <Typography component="p" variant="h4" sx={{ py: 2, color: '#ffffff' }}>Senior Frontend Developer and Digital Accessibility Specialist</Typography>
-            <Button color="secondary" variant="contained">Learn More</Button>
+            <Button color="secondary" variant="contained" href="/about">Learn More</Button>
           </Box>
         </Box>
     )

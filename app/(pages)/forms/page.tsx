@@ -1,173 +1,100 @@
 "use client";
-
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Box, Card, Stack, Typography, CardHeader, CardContent } from "@mui/material";
+import { Assignment, Feedback, BugReport } from "@mui/icons-material";
+import NextLink from "next/link";
+import {
+  CardActionArea,
+} from "@mui/material";
 
-import InputField from "@/app/components/_inputs/InputField";
-import SelectField from "@/app/components/_inputs/SelectField";
-import RadioGroupField from "@/app/components/_inputs/RadioGroupField";
-import CheckboxField from "@/app/components/_inputs/CheckboxField";
-import NumberField from "@/app/components/_inputs/NumberField";
-import SwitchField from "@/app/components/_inputs/SwitchField";
-import SliderField from "@/app/components/_inputs/SliderField";
-import AutocompleteField from "@/app/components/_inputs/AutocompleteField";
-import RatingField from "@/app/components/_inputs/RatingField";
-
-const selectOptions = [
-  { value: "junior", label: "Junior" },
-  { value: "mid", label: "Mid" },
-  { value: "senior", label: "Senior" },
-];
-
-const radioOptions = [
-  { value: "frontend", label: "Frontend" },
-  { value: "backend", label: "Backend" },
-  { value: "fullstack", label: "Full Stack" },
-];
-
-const checkboxLabel = "Subscribe to newsletter";
-
-const autocompleteOptions = [
-  { value: "react", label: "React" },
-  { value: "nextjs", label: "Next.js" },
-  { value: "typescript", label: "TypeScript" },
-  { value: "graphql", label: "GraphQL" },
-];
-
-export default function FormsShowcasePage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("mid");
-  const [discipline, setDiscipline] = useState("frontend");
-  const [subscribed, setSubscribed] = useState(false);
-  const [yearsExperience, setYearsExperience] = useState<number | "">(3);
-  const [isAvailable, setIsAvailable] = useState(true);
-  const [hoursPerWeek, setHoursPerWeek] = useState<number>(20);
-  const [favoriteTech, setFavoriteTech] = useState<string | null>("react");
-  const [rating, setRating] = useState<number | null>(4);
-
-  const handleSubmit = (event: React.FormEvent) => {
+export function handleSubmit(event: React.FormEvent<HTMLFormElement>) { 
     event.preventDefault();
     // No network calls here; this is a pure demo form
-  };
+}
 
-  return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-        <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 8, px: 2 }}>
-            <Typography component="h1" variant="h3" sx={{ mb: 4 }}>
-                Form Components Showcase
-            </Typography>
+const formLinks = [
+    { label: "Application Form", href: "/forms/dynamic-application", icon: <Assignment /> },
+    { label: "Feedback Form", href: "/forms/feedback", icon: <Feedback /> },
+    { label: "Bug Report", href: "/forms/bug-report", icon: <BugReport /> },
+];
 
-            <Typography component="p" sx={{ mb: 4 }}>
-                This page demonstrates all shared form input components from
-                {" "}
-                <code>app/components/_inputs</code> wired up as controlled fields, without
-                any backend or GraphQL integration.
-            </Typography>
+export default function Page() {
+    return (
+        <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
+            <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 2, px: 2 }}>
+                <Typography component="h1" variant="h4" sx={{ mb: 4 }}>
+                    Forms Page
+                </Typography>
 
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: "100%" }}>
-                <Stack spacing={3}>
-                <InputField
-                    id="demo-name"
-                    name="name"
-                    label="Name"
-                    placeholder="Ada Lovelace"
-                    value={name}
-                    onChange={setName}
-                />
+                <Typography component="p" sx={{ mb: 4 }}>
+                    Welcome to the Forms Dashboard.  Dynamic forms are a powerful tool for handling a wide variety of data collection efforts while reducing front end maintentence overhead.  Feel free to explore a few examples of dynamically generated forms by using the buttons below, or the drawer to the left.
+                </Typography>   
 
-                <InputField
-                    id="demo-email"
-                    name="email"
-                    label="Email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={setEmail}
-                />
-
-                <SelectField
-                    id="demo-role"
-                    name="role"
-                    label="Role level"
-                    value={role}
-                    onChange={setRole}
-                    options={selectOptions}
-                />
-
-                <RadioGroupField
-                    id="demo-discipline"
-                    name="discipline"
-                    label="Primary discipline"
-                    value={discipline}
-                    onChange={setDiscipline}
-                    options={radioOptions}
-                    row
-                />
-
-                <CheckboxField
-                    id="demo-subscribed"
-                    name="subscribed"
-                    label={checkboxLabel}
-                    checked={subscribed}
-                    onChange={setSubscribed}
-                />
-
-                <NumberField
-                    id="demo-years-experience"
-                    name="yearsExperience"
-                    label="Years of experience"
-                    value={yearsExperience}
-                    onChange={setYearsExperience}
-                    min={0}
-                    max={40}
-                />
-
-                <SwitchField
-                    id="demo-availability"
-                    name="availability"
-                    label="Currently available for work"
-                    checked={isAvailable}
-                    onChange={setIsAvailable}
-                />
-
-                <SliderField
-                    id="demo-hours-per-week"
-                    name="hoursPerWeek"
-                    label="Preferred hours per week"
-                    value={hoursPerWeek}
-                    onChange={setHoursPerWeek}
-                    min={5}
-                    max={40}
-                    step={5}
-                />
-
-                {/* <AutocompleteField
-                    id="demo-favorite-tech"
-                    label="Favorite technology"
-                    value={favoriteTech}
-                    onChange={setFavoriteTech}
-                    options={autocompleteOptions}
-                />
-
-                <RatingField
-                    id="demo-rating"
-                    label="How excited are you about this role?"
-                    value={rating}
-                    onChange={setRating}
-                /> */}
-
-                <Box sx={{ pt: 2 }}>
-                    <Button type="submit" variant="contained" color="primary">
-                    Log form values
-                    </Button>
-                </Box>
+                <Stack spacing={3} direction="row">
+                    {formLinks.map((link) => (
+                        <Card
+                          key={link.href}
+                          component="article"
+                          variant="outlined"
+                          sx={{
+                            mt: 4,
+                            transition: "box-shadow 150ms ease, transform 150ms ease",
+                            backgroundColor: "background.paper",
+                            "&:hover": {
+                              backgroundColor: "background.paper",
+                              boxShadow: 4,
+                              transform: "translateY(-2px)",
+                            },
+                            "&:focus-within": {
+                              backgroundColor: "background.paper",
+                              boxShadow: 4,
+                              transform: "translateY(-2px)",
+                            },
+                          }}
+                        >
+                          <CardActionArea
+                            component={NextLink}
+                            href={link.href}
+                            aria-label={link.label}  // using the same label for the card-link as the title
+                            aria-describedby={`description-for-${link.href.replace("/", "_")}`} // detailed description
+                            sx={{
+                              display: "block",
+                              textAlign: "left",
+                              backgroundColor: "background.paper",
+                              "&:hover": {
+                                backgroundColor: "background.paper",
+                              },
+                              "&:focus-visible": {
+                                outline: "2px solid",
+                                outlineColor: "primary.main",
+                                outlineOffset: 4,
+                              },
+                            }}
+                          >
+                            <CardHeader
+                              component="header"
+                              avatar={link.icon}
+                              titleTypographyProps={{ component: "h2", variant: "h6" }}
+                              title={link.label}
+                            />
+                            <CardContent>
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                id={`description-for-${link.href.replace("/", "_")}`}
+                                // Note: This description is not part of the link label for accessibility.
+                                // assistive tech will still reach this after the link, but
+                                // it won't all be used as the *link label*
+                              >
+                                This is a placeholder for the {link.label}. Navigate to this page
+                                to see the full form implementation.
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
+                      ))}
                 </Stack>
             </Box>
-        </Box>
-    </main>
-  );
+        </main>
+    );
 }

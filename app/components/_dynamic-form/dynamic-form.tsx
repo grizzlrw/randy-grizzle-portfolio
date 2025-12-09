@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, RefCallBack } from "react-hook-form";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -18,6 +18,7 @@ import RatingField from "@/app/components/_inputs/RatingField";
 
 export type DynamicFieldType =
   | "text"
+  | "textarea"
   | "email"
   | "password"
   | "select"
@@ -65,15 +66,40 @@ export default function DynamicForm(props: DynamicFormProps) {
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    setFocus,
+    formState: { isSubmitting, errors },
   } = useForm<DynamicFieldValues>({
     defaultValues: defaultValues as unknown as DynamicFieldValues,
     mode: "onBlur",
     reValidateMode: "onBlur",
+    shouldFocusError: true,
   });
 
+  const onValid = (values: DynamicFieldValues) => {
+    console.log("Form valid submission:", values);
+    onSubmit(values);
+  };
+
+  const onInvalid = () => {
+    console.log("Form invalid submission:", errors);
+    const firstErrorFieldName = Object.keys(errors)[0];
+    if (!firstErrorFieldName) return;
+
+    setFocus(firstErrorFieldName);
+    
+    const el = document.querySelector<HTMLElement>(
+      `[data-field-name="${firstErrorFieldName}"]`
+    );
+    if (el) {
+      // const focusable =
+      //   el.querySelector<HTMLElement>("input, textarea, select, button, [tabindex]");
+      // focusable?.focus();
+      el.focus();
+    }
+  };
+
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: "100%" }}>
+    <Box component="form" onSubmit={handleSubmit(onValid, onInvalid)} noValidate sx={{ width: "100%" }}>
       <Stack spacing={spacing}>
         {fields.map((rawFieldConfig) => {
           // Normalize pattern rule from DB: pattern.value (string) -> RegExp once, per field
@@ -175,6 +201,7 @@ type RenderFieldArgs = {
     value: unknown;
     onChange: (value: unknown) => void;
     onBlur: () => void;
+    ref: RefCallBack;
   };
   fieldState: {
     isTouched: boolean;
@@ -218,12 +245,15 @@ function renderField({ config, field, fieldState }: RenderFieldArgs): ReactEleme
     required: isRequired,
     touched: fieldState.isTouched,
     error: fieldState.error?.message ?? null,
+    dataFieldName: config.name
   } as const;
 
   switch (config.type) {
     case "text":
     case "email":
-    case "password": {
+    case "password":
+    case "textarea": {
+      const isTextarea = config.type === "textarea";
       return (
         <InputField
           {...commonProps}
@@ -232,6 +262,10 @@ function renderField({ config, field, fieldState }: RenderFieldArgs): ReactEleme
           placeholder={config.placeholder}
           onChange={(value: string) => field.onChange(value)}
           onBlur={field.onBlur}
+          multiline={isTextarea}
+          minRows={isTextarea ? 3 : undefined}
+          maxRows={isTextarea ? 6 : undefined}
+          inputRef={field.ref}
         />
       );
     }
@@ -246,6 +280,7 @@ function renderField({ config, field, fieldState }: RenderFieldArgs): ReactEleme
           placeholder={config.placeholder}
           onChange={(value) => field.onChange(value)}
           onBlur={field.onBlur}
+          inputRef={field.ref}
         />
       );
     }

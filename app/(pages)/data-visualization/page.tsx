@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Typography, FormControl, InputLabel, MenuItem, Select, Stack, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { D3LineChart } from "../../features/charts/D3LineChart";
 
@@ -59,11 +59,11 @@ export default function DataVisualizationPage() {
         loadData();
     }, [country]);
 
-    // D3 rendering is delegated to the reusable D3LineChart component
+        // D3 rendering is delegated to reusable chart components
 
     return (
         <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-            <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 8, px: 2 }}>
+            <Box component="section" sx={{ width: "100%", maxWidth: 960, mx: "auto", py: 4, px: 2 }}>
 
                 <Typography component="h1" variant="h4">Data Visualization</Typography>
 
@@ -103,35 +103,6 @@ export default function DataVisualizationPage() {
                     yLabel="Renewable Energy Consumption (%)"
                     ariaLabel={`Line chart showing ${title} over time for ${subtitle}`}
                 />
-
-
-                {/* {data.length > 0 && (
-                <>
-                    <Typography component="h2" variant="h6" sx={{ mt: 4 }}>
-                    Data table
-                    </Typography>
-                    <Box
-                    component="table"
-                    sx={{ width: "100%", fontSize: 12, borderCollapse: "collapse" }}
-                    aria-label="Renewable energy values by year"
-                    >
-                    <thead>
-                        <tr>
-                        <th align="left">Year</th>
-                        <th align="right">Value (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map(d => (
-                        <tr key={d.x}>
-                            <td>{d.x}</td>
-                            <td style={{ textAlign: "right" }}>{d.y.toFixed(1)}</td>
-                        </tr>
-                        ))}
-                    </tbody>
-                    </Box>
-                </>
-                )} */}
             </Box>
         </main>
     );

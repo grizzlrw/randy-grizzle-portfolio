@@ -6,35 +6,33 @@ import { Typography, Box } from "@mui/material";
 
 export default async function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black">
-      <main className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-       
+    <Box
+      sx={{ display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      minHeight: '100vh', 
+      width: '100%' }}>
+      <Box component={'main'}
+        sx={{ display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexGrow: 1,
+        width: '100%',
+        backgroundColor: 'primary.50',
+        }}
+       // className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start"
+       >
        
         <HomeHero></HomeHero>
 
         <Box sx={{ p: 4, zIndex: 4 }}>
+          {/* <Typography component="h2" variant="h4" sx={{ mb: 2, textAlign: 'center', fontWeight: 'bold', py: 4 }}>Solutions I Can Build For You</Typography> */}
           <SkillList length={4}></SkillList>
         </Box>
-
-        
-
-        
-        
-
-        
-
-        {/* <Code language="jsx">
-            {`
-              <Box sx={{ position: 'relative', zIndex: 2 }}>
-                <Typography component="h2" variant="h3" sx={{ color: '#ffffff' }}>Randy Grizzle</Typography>
-                <Typography component="p" variant="h4" sx={{ py: 2, color: '#ffffff' }}>Senior Frontend Developer and Digital Accessibility Specialist</Typography>
-                <Button color="secondary" variant="contained">Learn More</Button>
-              </Box>
-            `}
-          </Code> */}
-
-       
-      </main>
-    </div>
+    
+      </Box>
+    </Box>
   );
 }

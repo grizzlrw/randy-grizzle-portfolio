@@ -26,7 +26,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ['Notes', 'About', 'Contact'];
+const navItems = [{ label: 'About Me', href: '/about' }, { label: 'Contact', href: '/contact' }];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
@@ -82,9 +82,9 @@ export default function DrawerAppBar(props: Props) {
           </ListItemButton>
         </ListItem>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton href={`/${item.toLowerCase()}`} sx={{ textAlign: 'left' }}>
-              <ListItemText primary={item} />
+          <ListItem key={item.href} disablePadding>
+            <ListItemButton href={item.href} sx={{ textAlign: 'left' }}>
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -97,7 +97,9 @@ export default function DrawerAppBar(props: Props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" 
+        sx={{ backgroundColor: 'primary.50', color: '#000' }}
+        style={{ boxShadow: 'inset 0 -4px 5px -5px rgba(0, 0, 0, 0.5)' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -122,7 +124,7 @@ export default function DrawerAppBar(props: Props) {
               variant="h6"
               component={Link}
               href="/"
-              sx={{ my: 2, mr: 2, color: 'white', display: 'block' }}
+              sx={{ my: 2, mr: 2, display: 'block' }}
             >
               Randy Grizzle
           </Typography>
@@ -138,12 +140,12 @@ export default function DrawerAppBar(props: Props) {
             {navItems.map((item) => (
               /* Property of Button that I don't think would exist here onClick={handleDrawerToggle} */
               <Button
-                key={item}
+                key={item.href}
                 component={Link}
-                href={`/${item.toLowerCase()}`}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                href={item.href}
+                sx={{ my: 2, display: 'block', color: '#000' }}
               >
-                {item}
+                {item.label}
               </Button>
             ))}
           </Box>
