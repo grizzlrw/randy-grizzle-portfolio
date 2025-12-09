@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { Box, Typography, Stack, Divider, Paper } from "@mui/material";
 import SkillList from "@/app/components/skill-card/skill-list";
-import { D3LineChart } from "@/app/features/charts/D3LineChart";
+import { LineChart } from "@/app/features/charts/LineChart";
 import PageLayout from "@/app/components/layouts/PageLayout";
 import SkillListSkeleton from "@/app/components/skeletons/SkillListSkeleton";
 
@@ -36,16 +36,16 @@ export default async function ModularityPage() {
 
           <Box>
             <Typography component="h2" variant="h5" sx={{ mb: 1 }}>
-              Swappable D3 chart component
+              Swappable chart component
             </Typography>
             <Typography component="p" sx={{ mb: 2 }}>
               The line chart used on the data visualization page is a reusable
-              D3 component. Here it is rendered with a small, static dataset to
+              component. Here it is rendered with a small, static dataset to
               show how the same primitive can power both a live API-backed view
               and a lightweight embedded example.
             </Typography>
             <Paper variant="outlined" sx={{ p: 2, overflow: "auto" }}>
-              <D3LineChart
+              <LineChart
                 data={[
                   { x: 2018, y: 20 },
                   { x: 2019, y: 35 },
@@ -57,7 +57,7 @@ export default async function ModularityPage() {
                 height={320}
                 xLabel="Year"
                 yLabel="Example metric"
-                ariaLabel="Example line chart showing how a shared D3 component can be embedded in multiple contexts"
+                ariaLabel="Example line chart showing how a shared component can be embedded in multiple contexts"
               />
             </Paper>
           </Box>

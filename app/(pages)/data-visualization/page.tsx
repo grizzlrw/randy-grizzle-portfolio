@@ -1,7 +1,7 @@
 "use client";
 import { Typography, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
-import { D3LineChart } from "../../features/charts/D3LineChart";
+import { LineChart } from "../../features/charts/LineChart";
 import PageLayout from "@/app/components/layouts/PageLayout";
 
 // Shape of each data row returned from the World Bank API
@@ -92,7 +92,7 @@ export default function DataVisualizationPage() {
                     </Select>
                 </FormControl>
 
-                <D3LineChart
+                <LineChart
                     data={data}
                     width={600}
                     height={400}
