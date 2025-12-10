@@ -4,15 +4,16 @@ const globalForPrisma = globalThis as unknown as {
     prisma?: PrismaClient;
 }
 
-// Check for DATABASE_URL only at runtime, not during build
-if (typeof window === 'undefined' && !process.env.DATABASE_URL && process.env.NODE_ENV !== 'production') {
-    console.warn('WARNING: DATABASE_URL is not defined. Database operations will fail.');
+// Check for DATABASE_URL at runtime
+if (typeof window === 'undefined' && !process.env.DATABASE_URL) {
+    console.error('CRITICAL: DATABASE_URL is not defined. Database operations will fail.');
+    console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('DATABASE') || k.includes('SUPABASE')));
 }
 
 export const prisma =
     globalForPrisma.prisma ??
     new PrismaClient({
-        log: process.env.NODE_ENV === 'development' ? ["query", "error", "warn"] : ["error"],
+        log: ["error", "warn"],
         datasources: {
             db: {
                 url: process.env.DATABASE_URL
