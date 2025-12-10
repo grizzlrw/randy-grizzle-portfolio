@@ -452,15 +452,32 @@ export default function AccessibilityPage() {
 
             <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50" }}>
               <Typography component="pre" variant="body2" sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap", fontSize: "0.85rem" }}>
-{`<NavigationCard
-  href="/forms/dynamic-application"
-  title="Application form"
-  description="A real card from the forms dashboard. The whole 
-    surface is clickable, but it is still announced as a 
-    single, well-named link."
-  icon={<Assignment />}
-  headerComponentType="h3"
-/>`}
+{`<Card
+  ... Added to show card structure ...
+>
+  <CardActionArea
+    component={Link}
+    href={href}
+    aria-label={title} // Link ARIA Label supplied from title
+    aria-describedby={descriptionId} // Associate description if provided
+    ... Styles ...
+  >
+    <CardHeader
+      ... Filtered out jargon for illustration ...
+      title={title} // Card Header text supplied from title
+    />
+    {description && (
+      <CardContent>
+        <Typography
+          ... Styles ...
+          id={descriptionId} // Description ID for aria-describedby
+        >
+          {description}
+        </Typography>
+      </CardContent>
+    )}
+  </CardActionArea>
+</Card>`}
               </Typography>
             </Paper>
 
@@ -519,8 +536,8 @@ export default function AccessibilityPage() {
             <Typography component="p" sx={{ mb: 2 }}>
               Choosing between explicit buttons and clickable cards depends on context. Explicit buttons
               work better when cards contain substantial content or when the action needs to be clearly labeled
-              (like the SkillCards on the home page). CardActionArea works for obvious navigation with minimal content
-              (like the demo card). Both patterns are accessible when implemented correctly.
+              (like on the home page). Wrapping the card in a Card Action Area works for obvious navigation with minimal content
+              (such as dashboards). Both patterns are accessible when implemented correctly.
             </Typography>
 
             

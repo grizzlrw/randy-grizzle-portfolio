@@ -75,7 +75,7 @@ export default function NavigationCard({
       <CardActionArea
         component={Link}
         href={href}
-        aria-label={ariaLabel || title}
+        aria-label={title} // Link ARIA Label supplied from title
         aria-describedby={descriptionId}
         sx={{
           display: "block",
@@ -95,7 +95,7 @@ export default function NavigationCard({
         <CardHeader
           avatar={icon}
           slotProps={{ title: { component: headerComponentType, variant: "h6" } }}
-          title={title}
+          title={title} // Card Header text supplied from title
         />
         {description && (
           <CardContent>
