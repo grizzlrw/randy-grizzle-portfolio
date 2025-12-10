@@ -1,8 +1,6 @@
 "use client";
 
-import { Box, Typography, Stack, List, ListItem } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Item from "@mui/material/Grid";
+import { Box, Typography, Stack, Divider, Paper } from "@mui/material";
 import SidebarLayout from "@/app/components/layouts/sidebar/SidebarLayout";
 
 // Languages:
@@ -21,18 +19,10 @@ const aboutSkills = {
     "HTML/CSS/SCSS",
   ],
   technologies: [
-    "Vue 3",
-    "React",
-    "Angular",
-    "Next.js",
-    "Node.js",
-    "Tailwind",
-    "Material UI",
-    "Bootstrap",
-    "Jest",
-    "React Testing Library",
-    "Axe",
-    "GraphQL",
+    "Vue 3, React, Angular, Next.js",
+    "Tailwind, Material UI, Bootstrap",
+    "Jest, React Testing Library, Axe",
+    "GraphQL, REST APIs, Node.js",
     "PostgreSQL/Supabase",
   ],
   specializations: [
@@ -44,15 +34,15 @@ const aboutSkills = {
   other: [
     "REST API Integration",
     "API Design",
-    "State Management (Vuex · Redux)",
-    "CI/CD (Git workflows · Octopus Deploy)",
-    "Data Visualization (Chart.JS)",
+    "State Management (Vuex, Redux)",
+    "CI/CD (Git workflows, Octopus Deploy)",
+    "Data Visualization (MUI X Charts, Chart.JS)",
   ],
 };
 
 
   return (
-    <SidebarLayout title="About Me" mainWidth={8} sidebarWidth={4} sidebarPosition="right">
+    <SidebarLayout title="Randy Grizzle" subtitle="Senior Frontend Developer and Digital Accessibility Specialist" mainWidth={8} sidebarWidth={4} sidebarPosition="right">
         <SidebarLayout.Main>
             <Typography component="p" sx={{ mb: 4, mt: 1 }}>
                 I&apos;m a Senior Frontend Developer with more than a decade of experience building 
@@ -103,25 +93,59 @@ const aboutSkills = {
         </SidebarLayout.Main>
         <SidebarLayout.Sidebar>
             {Object.entries(aboutSkills).map(([category, skills]) => (
-                    <Box key={category} sx={{ mb: 2 }}>
-                        <Box sx={{ backgroundColor: 'primary.main', transform: 'skew(-30deg)', mb: 1, px: 2, py: 0.5 }}>
-                            <Typography variant="h6" component="h3" sx={{ transform: 'skew(30deg)', color: 'background.paper' }}>
-                                {category.charAt(0).toUpperCase() + category.slice(1)}
-                            </Typography>
-                        </Box>
-                        
-                        <List>
-                            {skills.map((skill) => (
-                            <ListItem key={skill} disablePadding sx={{ ml: 2 }}>
-                                {skill}
-                            </ListItem>
-                            // <Chip key={skill} label={skill} />
-                        ))}
-                        </List>
-                        <Stack direction="column" spacing={1} flexWrap="wrap">
-                        
+                    <Paper 
+                        key={category} 
+                        variant="outlined" 
+                        sx={{ 
+                            p: 2.5, 
+                            mb: 2,
+                            borderLeft: '4px solid',
+                            borderLeftColor: 'primary.main',
+                            bgcolor: 'background.paper',
+                            transition: 'box-shadow 200ms ease',
+                            '&:hover': {
+                                boxShadow: '0 2px 8px rgba(3, 76, 140, 0.08)',
+                            }
+                        }}
+                    >
+                        <Typography 
+                            variant="h6" 
+                            component="h3" 
+                            sx={{ 
+                                mb: 1.5, 
+                                fontWeight: 600,
+                                color: 'primary.main',
+                            }}
+                        >
+                            {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </Typography>
+                        <Stack spacing={0.5}>
+                            {skills.map((skill, index) => (
+                                <Box key={skill}>
+                                    <Typography 
+                                        variant="body2" 
+                                        sx={{ 
+                                            py: 0.75,
+                                            color: 'text.primary',
+                                            '& > span': {
+                                                display: 'inline-block',
+                                                '&:not(:last-child)::after': {
+                                                    content: '"|"',
+                                                    mx: 1,
+                                                    color: 'primary.main',
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        {skill.split(', ').map((item, i) => (
+                                            <span key={i}>{item}</span>
+                                        ))}
+                                    </Typography>
+                                    {index < skills.length - 1 && <Divider sx={{ opacity: 0.6 }} />}
+                                </Box>
+                            ))}
                         </Stack>
-                    </Box>
+                    </Paper>
                     ))}
         </SidebarLayout.Sidebar>
     </SidebarLayout>

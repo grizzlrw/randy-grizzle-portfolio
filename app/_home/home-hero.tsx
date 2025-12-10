@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import backgroundImage from '@/app/assets/images/audio-9825713_1920.jpg'; // Path to your image in the public folder
 
@@ -68,31 +69,34 @@ export default function HomeHero() {
             >
                 Senior Frontend Developer and Digital Accessibility Specialist
             </Typography>
-            <Button 
-                color="secondary" 
-                variant="contained" 
-                href="/about"
-                sx={{
-                    animation: 'fadeInUp 0.8s ease-out 0.4s both',
-                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                    '&:hover': {
-                        transform: 'scale(1.05)',
-                        boxShadow: 4,
-                    },
-                    '@keyframes fadeInUp': {
-                        from: {
-                            opacity: 0,
-                            transform: 'translateY(30px)',
+            <Stack spacing={2} direction="row" justifyContent="center" sx={{ mt: 2, mb: 4 }}>
+                <Button 
+                    color="secondary" 
+                    variant="contained" 
+                    href="/about"
+                    sx={{
+                        animation: 'fadeInUp 0.8s ease-out 0.4s both',
+                        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                        '&:hover': {
+                            transform: 'scale(1.05)',
+                            boxShadow: 4,
                         },
-                        to: {
-                            opacity: 1,
-                            transform: 'translateY(0)',
+                        '@keyframes fadeInUp': {
+                            from: {
+                                opacity: 0,
+                                transform: 'translateY(30px)',
+                            },
+                            to: {
+                                opacity: 1,
+                                transform: 'translateY(0)',
+                            },
                         },
-                    },
-                }}
-            >
-                Learn More
-            </Button>
+                    }}
+                >
+                    See Who I Am, and What I Can Do For You
+                </Button>
+            </Stack>
+            
           </Box>
         </Box>
     )

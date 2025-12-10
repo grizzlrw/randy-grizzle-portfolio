@@ -14,6 +14,7 @@ type SidebarProps = {
 
 type SidebarLayoutProps = {
   title: string;
+  subtitle?: string;
   children: ReactNode;
   sidebarPosition?: "left" | "right";
   mainWidth?: number;
@@ -54,6 +55,7 @@ function Sidebar({ children }: SidebarProps) {
  */
 function SidebarLayout({
   title,
+  subtitle,
   children,
   sidebarPosition = "right",
   mainWidth = 8,
@@ -77,14 +79,21 @@ function SidebarLayout({
   const mainSection = (
     <Grid size={{ xs: 12, md: mainWidth }}>
       <Box component="main" id={"main-content"} sx={{ py: 2 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          gutterBottom
-          sx={{ mb: 4 }}
-        >
-          {title}
-        </Typography>
+        <Box sx={{ mb: 2 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+          >
+            {title}
+          </Typography>
+          <Typography 
+            component="p" 
+            variant="subtitle1" 
+            sx={{ mb: 2, display: 'block', color: 'text.secondary', fontSize: '1.25rem' }}
+          >
+            {subtitle}
+          </Typography>
+        </Box>
         {mainContent}
       </Box>
     </Grid>

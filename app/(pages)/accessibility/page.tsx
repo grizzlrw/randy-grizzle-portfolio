@@ -8,19 +8,17 @@ import {
   List,
   ListItem,
   ListItemText,
-  Card,
-  CardHeader,
-  CardContent,
   TextField,
   Button,
   ListItemIcon,
   Paper,
-  Code,
+  Grid,
 } from "@mui/material";
 import { Assignment, Check } from "@mui/icons-material";
-import { CardActionArea } from "@mui/material";
 import { useForm } from "react-hook-form";
 import SkipLink from "@/app/components/navigation/SkipLink";
+import SkillCard from "@/app/components/skill-card/skill-card";
+import NavigationCard from "@/app/components/navigation/NavigationCard";
 
 function SkipLinkDemo() {
   return (
@@ -108,64 +106,17 @@ function AccessibleDemoField() {
   );
 }
 
-function AccessibleDemoCard() {
+function AccessibleDemoCard({ headerComponentType = "h3" }: { headerComponentType?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' }) {
   const href = "/forms/dynamic-application";
 
   return (
-    <Card
-      component="article"
-      variant="outlined"
-      sx={{
-        maxWidth: 340,
-        bgcolor: "background.paper",
-        transition: "box-shadow 150ms ease, transform 150ms ease",
-        "&:hover": {
-          boxShadow: 4,
-          transform: "translateY(-2px)",
-        },
-        "&:focus-within": {
-          boxShadow: 4,
-          transform: "translateY(-2px)",
-        },
-      }}
-    >
-      <CardActionArea
-        component={Link}
-        href={href}
-        aria-label="Application form"
-        aria-describedby="accessibility-demo-card-description"
-        sx={{
-          display: "block",
-          textAlign: "left",
-          bgcolor: "transparent",
-          "&:hover": {
-            backgroundColor: "transparent",
-          },
-          "&:focus-visible": {
-            outline: "2px solid",
-            outlineColor: "primary.main",
-            outlineOffset: 4,
-          },
-        }}
-      >
-        <CardHeader
-          component="header"
-          avatar={<Assignment />}
-          titleTypographyProps={{ component: "h3", variant: "h6" }}
-          title="Application form"
-        />
-        <CardContent>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            id="accessibility-demo-card-description"
-          >
-            A real card from the forms dashboard. The whole surface is
-            clickable, but it is still announced as a single, well‑named link.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <NavigationCard
+      href={href}
+      title="Application form"
+      description="A real card from the forms dashboard. The whole surface is clickable, but it is still announced as a single, well-named link."
+      icon={<Assignment />}
+      headerComponentType={headerComponentType}
+    />
   );
 }
 
@@ -335,7 +286,7 @@ export default function AccessibilityPage() {
             </List>
 
             <Typography component="h3" variant="h6" sx={{ mt: 3, mb: 1 }}>
-              Code Implementation
+              Implementation Details
             </Typography>
 
             <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50" }}>
@@ -366,17 +317,152 @@ export default function AccessibilityPage() {
               <Chip size="small" label="Live example" sx={{ ml: { xs: 0, sm: 1 } }} />
             </Stack>
 
+            <Typography component="p" sx={{ mb: 3 }}>
+              Cards appear throughout the site in two accessible patterns: cards with explicit action buttons
+              for clearer affordance, and clickable card surfaces for single-action navigation.
+              Both approaches prioritize keyboard accessibility and screen reader clarity.
+            </Typography>
+
+            <Typography component="h3" variant="h6" sx={{ mt: 4, mb: 1 }}>
+              Pattern 1: Explicit Action Button
+            </Typography>
+
+            <Grid container spacing={3} sx={{ mb: 3 }}>
+              <Grid size={{xs: 12, sm: 6, md: 4}}>
+                <SkillCard
+                  id="accessibility-demo-skill"
+                  title="Accessibility"
+                  description="Built for keyboard users and screen readers"
+                  route="/accessibility"
+                  headerComponentType="h4"
+                  imageUrl="https://nlkailuifdzerlfdcrop.supabase.co/storage/v1/object/sign/Images/laptop-1283368_1920.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9kNTI3N2Q2Yi02MTM5LTQ4YWItYTIwNS00NWY5MmM4NDczYmEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvbGFwdG9wLTEyODMzNjhfMTkyMC5qcGciLCJpYXQiOjE3NjQwMTAwNzYsImV4cCI6MTkyMTY5MDA3Nn0.U8-cyKGig5wcf-EbnXwKSngAAPfNjiAY_eoQ8BxwPfA"
+                  imageAlt="Accessibility illustration"
+                />
+              </Grid>
+            </Grid>
+
             <Typography component="p" sx={{ mb: 2 }}>
-              The cards used throughout the site look like cards but behave like links. This
-              pattern provides a clean, modern UI while keeping the interaction model simple
-              and predictable for all users.
+              The Card component above uses a &quot;Learn More&quot; button described by the card header within the
+              CardActions component. This pattern allows for action-based button direction with clear indications
+              of purpose, satisfying WCAG criteria while maintaining a clean design.
             </Typography>
 
-            <AccessibleDemoCard />
-
-            <Typography component="h3" variant="h6" sx={{ mt: 3, mb: 1 }}>
-              Why This Approach Works
+            <Typography component="h4" variant="h6" sx={{ mt: 3, mb: 1 }}>
+              Implementation Details
             </Typography>
+
+            <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50", mb: 2 }}>
+              <Typography component="pre" variant="body2" sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap", fontSize: "0.85rem" }}>
+{`<Card sx={{ 
+  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+  border: '1px solid',
+  borderColor: 'divider',
+}}>
+  <CardMedia 
+    title={imageAlt || title}
+    sx={{ 
+      height: '10rem',
+      clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0% 100%)',
+      backgroundImage: \`url(\${imageUrl})\`,
+      backgroundSize: 'cover',
+    }}
+  />
+  <CardHeader 
+    id={\`\${id}-header\`}
+    component="h2"
+    title={title}
+  />
+  <CardContent>
+    <Box id={\`\${id}-description\`}>
+      <Typography>{description}</Typography>
+    </Box>
+  </CardContent>
+  <CardActions>
+    <Button
+      href={route}
+      component={Link}
+      aria-describedby={\`\${id}-header\`}
+      sx={{ transition: 'color 0.2s ease-in-out' }}
+    >
+      Learn More
+    </Button>
+  </CardActions>
+</Card>`}
+              </Typography>
+            </Paper>
+
+            <List dense sx={{ mb: 3 }}>
+              <ListItem sx={{ pl: 0 }}>
+                <ListItemIcon>
+                  <Check fontSize="small" color="success" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Button uses aria-describedby to reference the card heading"
+                  secondary="Screen readers announce 'Learn More, link' followed by the skill title from the header. This provides context without making the button text unnecessarily long."
+                />
+              </ListItem>
+              <ListItem sx={{ pl: 0 }}>
+                <ListItemIcon>
+                  <Check fontSize="small" color="success" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Semantic HTML structure with h2 heading"
+                  secondary="Each card has a proper heading element (h2) so screen reader users can navigate by headings to quickly scan all available skills."
+                />
+              </ListItem>
+              <ListItem sx={{ pl: 0 }}>
+                <ListItemIcon>
+                  <Check fontSize="small" color="success" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Single tab stop per card"
+                  secondary="Only the button is focusable, not the entire card surface. This reduces tab stops and makes navigation more efficient for keyboard users."
+                />
+              </ListItem>
+              <ListItem sx={{ pl: 0 }}>
+                <ListItemIcon>
+                  <Check fontSize="small" color="success" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Clear action affordance"
+                  secondary="The button label 'Learn More' explicitly tells users what will happen. Unlike clickable cards where the action isn't obvious until you interact."
+                />
+              </ListItem>
+            </List>
+
+            <Typography component="h3" variant="h6" sx={{ mt: 4, mb: 1 }}>
+              Pattern 2: Clickable Card Surface
+            </Typography>
+
+            <Grid container spacing={3} sx={{ mb: 3 }}>
+              <Grid size={{xs: 12, sm: 6, md: 4}}>
+                <AccessibleDemoCard headerComponentType="h4" />
+              </Grid>
+            </Grid>
+
+            <Typography component="p" sx={{ mb: 2 }}>
+              The demo card above uses CardActionArea to make the entire surface interactive. It implements a
+              single link with a clear aria-label and descriptive text, allowing users to first receive 
+              link purpose, then wait for additional context to be announced if desired.
+            </Typography>
+
+            <Typography component="h4" variant="h6" sx={{ mt: 3, mb: 1 }}>
+              Implementation Details
+            </Typography>
+
+            <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50" }}>
+              <Typography component="pre" variant="body2" sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap", fontSize: "0.85rem" }}>
+{`<NavigationCard
+  href="/forms/dynamic-application"
+  title="Application form"
+  description="A real card from the forms dashboard. The whole 
+    surface is clickable, but it is still announced as a 
+    single, well-named link."
+  icon={<Assignment />}
+  headerComponentType="h3"
+/>`}
+              </Typography>
+            </Paper>
 
             <List dense>
               <ListItem sx={{ pl: 0 }}>
@@ -427,35 +513,17 @@ export default function AccessibilityPage() {
             </List>
 
             <Typography component="h3" variant="h6" sx={{ mt: 3, mb: 1 }}>
-              Implementation
+              Why Both Patterns Matter
             </Typography>
 
-            <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50" }}>
-              <Typography component="pre" variant="body2" sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap", fontSize: "0.85rem" }}>
-{`<Card component="article" variant="outlined">
-  <CardActionArea
-    component={Link}
-    href="/forms/dynamic-application"
-    aria-label="Application form"
-    aria-describedby="card-description"
-    sx={{
-      "&:focus-visible": {
-        outline: "2px solid",
-        outlineColor: "primary.main",
-        outlineOffset: 4,
-      }
-    }}
-  >
-    <CardHeader title="Application form" />
-    <CardContent>
-      <Typography id="card-description">
-        Additional context...
-      </Typography>
-    </CardContent>
-  </CardActionArea>
-</Card>`}
-              </Typography>
-            </Paper>
+            <Typography component="p" sx={{ mb: 2 }}>
+              Choosing between explicit buttons and clickable cards depends on context. Explicit buttons
+              work better when cards contain substantial content or when the action needs to be clearly labeled
+              (like the SkillCards on the home page). CardActionArea works for obvious navigation with minimal content
+              (like the demo card). Both patterns are accessible when implemented correctly.
+            </Typography>
+
+            
           </Box>
 
           {/* Keyboard Navigation */}

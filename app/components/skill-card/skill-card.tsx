@@ -14,11 +14,12 @@ export type SkillCardProps = {
     title: string;
     description: string;
     route: string;
+    headerComponentType?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     imageUrl?: string;
     imageAlt?: string;
 }
 
-export default function SkillCard({ id, title, description, route, imageUrl, imageAlt }: SkillCardProps) {
+export default function SkillCard({ id, title, description, route, headerComponentType = 'h2', imageUrl, imageAlt }: SkillCardProps) {
     return (
         <Card sx={{ 
             textAlign: 'left', 
@@ -29,10 +30,6 @@ export default function SkillCard({ id, title, description, route, imageUrl, ima
             display: 'flex', 
             flexDirection: 'column', 
             justifyItems: 'space-evenly',
-            transition: 'box-shadow 300ms ease',
-            '&:hover': {
-                boxShadow: '0 4px 16px rgba(3, 76, 140, 0.12)',
-            },
         }}>
             <CardMedia title={`${imageAlt || title}`} sx={{ 
                     height: '10rem', 
@@ -45,7 +42,7 @@ export default function SkillCard({ id, title, description, route, imageUrl, ima
                     }}>
 
             </CardMedia>
-            <CardHeader id={`${id}-header`} component={"h2"} title={title}></CardHeader>
+            <CardHeader id={`${id}-header`} component={headerComponentType} title={title}></CardHeader>
             <CardContent sx={{ flexGrow: 1 }}>
                 <Box id={`${id}-description`} sx={{ textAlign: 'left' }}>
                     <Typography component="p">{description}</Typography>
