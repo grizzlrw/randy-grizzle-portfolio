@@ -226,7 +226,7 @@ export default function DataVisualizationPage() {
                                             All data is accessible via a semantic HTML table (always present in the DOM) that users can 
                                             toggle into view. The table uses proper th elements with scope attributes for clear row/column 
                                             relationships. Interactive controls (dropdown, toggle buttons) are fully keyboard accessible 
-                                            with proper ARIA attributes. Dynamic updates are announced via ARIA live regions.
+                                            with proper ARIA attributes. Dynamic updates are announced via ARIA live regions. 
                                         </Typography>
                                     </Box>
                                 </Stack>
