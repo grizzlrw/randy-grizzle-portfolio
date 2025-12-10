@@ -3,15 +3,17 @@ import type { NotesQuery, SignupMutation, SignupMutationVariables } from "@/gene
 import type { SkillsQuery } from "@/generated/graphql";
 import { headers } from "next/headers";
 
-async function getGraphQLEndpoint() {
-  // Prefer public env variable in browser
+export async function getGraphQLEndpoint() {
+  // Browser: safe to use relative URL
   if (typeof window !== "undefined") {
     return process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
   }
 
-  // In Next.js server (RSC/SSR/prerender):
+  // Next.js Server (RSC, SSR, ISR, prerender)
   const h = await headers();
   const host = h.get("host");
+
+  // Vercel provides correct protocol via x-forwarded-proto
   const protocol = h.get("x-forwarded-proto") ?? "https";
 
   return `${protocol}://${host}/api/graphql`;
