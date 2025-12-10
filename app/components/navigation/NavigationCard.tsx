@@ -47,7 +47,6 @@ export default function NavigationCard({
   description,
   icon,
   headerComponentType = "h3",
-  ariaLabel,
 }: NavigationCardProps) {
   const descriptionId = description ? `description-for-${href.replace(/\//g, "_")}` : undefined;
 
