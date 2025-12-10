@@ -3,7 +3,7 @@
 import type { SignupMutation, SignupMutationVariables } from "@/generated/graphql";
 import { signupSchema } from "@/lib/validations/schemas";
 
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "http://localhost:3000/api/graphql";
+const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
 
 /**
  * Server action to handle user signup
