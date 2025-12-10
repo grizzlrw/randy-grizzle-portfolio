@@ -10,4 +10,5 @@ const yoga = createYoga<{
     fetchAPI: { Request, Response },
 })
 
-export { yoga as GET, yoga as POST };
+export const GET = (req: NextRequest) => yoga.handleRequest(req, { req });
+export const POST = (req: NextRequest) => yoga.handleRequest(req, { req });
