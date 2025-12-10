@@ -1,39 +1,18 @@
 "use server";
 
-import type { SkillsQuery } from "@/generated/graphql";
-
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "http://localhost:3000/api/graphql";
+import { prisma } from "@/lib/prisma";
 
 /**
- * Server action to fetch all skills from GraphQL API
- * Uses Next.js server-side rendering with caching for performance
+ * Server action to fetch all skills
+ * Directly queries the database instead of going through GraphQL HTTP endpoint
  */
-export async function fetchSkills(): Promise<SkillsQuery["skills"]> {
-  const query = `
-    query Skills {
-      skills {
-        id
-        title
-        description
-        imageUrl
-        imageAlt
-        route
-        createdAt
-      }
-    }
-  `;
-
-  const res = await fetch(GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    next: { revalidate: 600, tags: ["skills"] }, // Cache for 10 minutes
-    body: JSON.stringify({ query }),
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch skills");
+export async function fetchSkills() {
+  try {
+    return await prisma.skill.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    throw new Error(`Failed to fetch skills: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-
-  const json = (await res.json()) as { data: SkillsQuery };
-  return json.data.skills;
 }

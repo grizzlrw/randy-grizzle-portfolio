@@ -12,6 +12,8 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // directUrl only needed for migrations - optional since you're using existing databases
+  // directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model Note {

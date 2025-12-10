@@ -1,13 +1,12 @@
 "use server";
 
-import type { SignupMutation, SignupMutationVariables } from "@/generated/graphql";
+import { prisma } from "@/lib/prisma";
 import { signupSchema } from "@/lib/validations/schemas";
-
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ?? "http://localhost:3000/api/graphql";
+import { Prisma } from "@prisma/client";
 
 /**
  * Server action to handle user signup
- * Validates input using Zod schema and submits to GraphQL API
+ * Validates input using Zod schema and directly creates database record
  */
 export async function postSignup(
   firstName: string,
@@ -23,40 +22,35 @@ export async function postSignup(
     return { ok: false, message: firstError?.message ?? "Validation failed" };
   }
 
-  const mutation = `
-    mutation Signup($input: SignupInput!) {
-      signup(input: $input) {
-        ok
-        message
-      }
-    }
-  `;
-
-  const variables: SignupMutationVariables = {
-    input: { firstName, lastName, email },
-  };
-
   try {
-    const res = await fetch(GRAPHQL_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: mutation, variables }),
+    const created = await prisma.signup.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+      },
     });
 
-    if (!res.ok) {
-      return { ok: false, message: "Network error while signing up." };
+    return {
+      ok: true,
+      message: `Signup successful. Created: ${created.firstName} ${created.lastName}`,
+    };
+  } catch (err) {
+    const e = err as Prisma.PrismaClientKnownRequestError;
+
+    // Unique constraint violation
+    if (e.code === "P2002") {
+      return {
+        ok: false,
+        message: "This email is already registered.",
+      };
     }
 
-    const json = (await res.json()) as { data?: SignupMutation; errors?: unknown };
-    const data = json.data?.signup;
-
-    if (!data) {
-      return { ok: false, message: "Unexpected error while signing up." };
-    }
-
-    return { ok: data.ok, message: data.message ?? null };
-  } catch (error) {
-    console.error("Signup error:", error);
-    return { ok: false, message: "An error occurred during signup." };
+    // Fallback for other errors
+    console.error("Signup error:", err);
+    return {
+      ok: false,
+      message: "An unexpected error occurred during signup.",
+    };
   }
 }

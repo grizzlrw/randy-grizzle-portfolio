@@ -1,14 +1,34 @@
-import { NextRequest } from "next/server";
 import { createYoga } from "graphql-yoga";
 import { schema } from "@/graphql/schema";
+import { NextRequest, NextResponse } from "next/server";
 
-const yoga = createYoga<{
-    req: NextRequest;
-}>({
+const { handleRequest } = createYoga({
     schema,
     graphqlEndpoint: "/api/graphql",
-    fetchAPI: { Request, Response },
-})
+    fetchAPI: { Response },
+    cors: {
+        origin: '*',
+        credentials: true,
+        methods: ['GET', 'POST', 'OPTIONS']
+    }
+});
 
-export const GET = (req: NextRequest) => yoga.handleRequest(req, { req });
-export const POST = (req: NextRequest) => yoga.handleRequest(req, { req });
+export async function GET(request: NextRequest) {
+    return handleRequest(request, {});
+}
+
+export async function POST(request: NextRequest) {
+    return handleRequest(request, {});
+}
+
+export async function OPTIONS(request: NextRequest) {
+    return new NextResponse(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400',
+        },
+    });
+}
