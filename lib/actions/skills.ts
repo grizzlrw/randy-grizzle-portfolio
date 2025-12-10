@@ -2,7 +2,12 @@
 
 import type { SkillsQuery } from "@/generated/graphql";
 
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
+// Server actions run on the server, so we need an absolute URL
+const GRAPHQL_ENDPOINT = 
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+  (process.env.VERCEL_URL 
+    ? `https://${process.env.VERCEL_URL}/api/graphql` 
+    : `http://localhost:${process.env.PORT || 3000}/api/graphql`);
 
 /**
  * Server action to fetch all skills from GraphQL API

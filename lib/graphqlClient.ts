@@ -3,13 +3,16 @@ import type { NotesQuery, SignupMutation, SignupMutationVariables } from "@/gene
 import type { SkillsQuery } from "@/generated/graphql";
 
 function getEndpoint() {
-  // Browser can use absolute or relative — either works
+  // Browser can use relative path
   if (typeof window !== "undefined") {
     return process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
   }
 
-  // Server MUST use a relative URL so it doesn't require URL()
-  return "/api/graphql";
+  // Server-side: use absolute URL for fetch to work properly
+  return process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+         (process.env.VERCEL_URL 
+           ? `https://${process.env.VERCEL_URL}/api/graphql` 
+           : `http://localhost:${process.env.PORT || 3000}/api/graphql`);
 }
 
 export async function postSignup(
