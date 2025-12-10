@@ -4,6 +4,8 @@ import HomeHero from "./_home/home-hero";
 import { Box } from "@mui/material";
 import SkillListSkeleton from "./components/skeletons/SkillListSkeleton";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   return (
     <Box
