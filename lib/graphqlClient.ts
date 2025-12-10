@@ -1,8 +1,23 @@
 // lib/graphqlClient.ts
 import type { NotesQuery, SignupMutation, SignupMutationVariables } from "@/generated/graphql";
 import type { SkillsQuery } from "@/generated/graphql";
+import { headers } from "next/headers";
 
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
+async function getGraphQLEndpoint() {
+  // Prefer public env variable in browser
+  if (typeof window !== "undefined") {
+    return process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "/api/graphql";
+  }
+
+  // In Next.js server (RSC/SSR/prerender):
+  const h = await headers();
+  const host = h.get("host");
+  const protocol = h.get("x-forwarded-proto") ?? "https";
+
+  return `${protocol}://${host}/api/graphql`;
+}
+
+export const GRAPHQL_ENDPOINT = await getGraphQLEndpoint();
 
 export async function postSignup(
   firstName: string,
