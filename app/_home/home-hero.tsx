@@ -93,7 +93,7 @@ export default function HomeHero() {
                         },
                     }}
                 >
-                    See Who I Am, and What I Can Do For You
+                    Learn More About Me
                 </Button>
             </Stack>
             

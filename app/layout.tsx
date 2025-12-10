@@ -25,6 +25,9 @@ const nunitoSans = Nunito_Sans({
 export const metadata: Metadata = {
   title: "Randy Grizzle Portfolio",
   description: "Portfolio of Randy Grizzle's skills as a Senior Frontend Developer and Digital Accessibility Specialist.",
+  icons: {
+    icon: "/GrizzleLogo.svg",
+  },
 };
 
 export default  function RootLayout({
