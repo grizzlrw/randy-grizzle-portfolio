@@ -28,17 +28,30 @@ export async function fetchSkills(): Promise<SkillsQuery["skills"]> {
     }
   `;
 
-  const res = await fetch(GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    next: { revalidate: 600, tags: ["skills"] }, // Cache for 10 minutes
-    body: JSON.stringify({ query }),
-  });
+  try {
+    const res = await fetch(GRAPHQL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      next: { revalidate: 600, tags: ["skills"] }, // Cache for 10 minutes
+      body: JSON.stringify({ query }),
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch skills");
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`GraphQL fetch failed (${res.status}):`, errorText);
+      throw new Error(`Failed to fetch skills: ${res.status} ${res.statusText}`);
+    }
+
+    const json = (await res.json()) as { data: SkillsQuery; errors?: unknown[] };
+    
+    if (json.errors) {
+      console.error('GraphQL errors:', json.errors);
+      throw new Error(`GraphQL errors: ${JSON.stringify(json.errors)}`);
+    }
+
+    return json.data.skills;
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    throw new Error(`Failed to fetch skills: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-
-  const json = (await res.json()) as { data: SkillsQuery };
-  return json.data.skills;
 }
