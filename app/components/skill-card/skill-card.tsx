@@ -14,24 +14,35 @@ export type SkillCardProps = {
     title: string;
     description: string;
     route: string;
+    headerComponentType?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     imageUrl?: string;
     imageAlt?: string;
 }
 
-export default function SkillCard({ id, title, description, route, imageUrl, imageAlt }: SkillCardProps) {
+export default function SkillCard({ id, title, description, route, headerComponentType = 'h2', imageUrl, imageAlt }: SkillCardProps) {
     return (
-        <Card sx={{ textAlign: 'left', boxShadow: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyItems: 'space-evenly' }}>
+        <Card sx={{ 
+            textAlign: 'left', 
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            border: '1px solid',
+            borderColor: 'divider',
+            height: '100%', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyItems: 'space-evenly',
+        }}>
             <CardMedia title={`${imageAlt || title}`} sx={{ 
-                height: '10rem', 
-                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 92%)', 
-                objectFit: 'cover', 
-                overflow: 'hidden',
-                backgroundImage: `${imageUrl ? `url(${imageUrl})` : 'none'}`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                }}>
+                    height: '10rem', 
+                    clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0% 100%)', 
+                    objectFit: 'cover', 
+                    overflow: 'hidden',
+                    backgroundImage: `${imageUrl ? `url(${imageUrl})` : 'none'}`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    }}>
+
             </CardMedia>
-            <CardHeader id={`${id}-header`} component={"h2"} title={title}></CardHeader>
+            <CardHeader id={`${id}-header`} component={headerComponentType} title={title}></CardHeader>
             <CardContent sx={{ flexGrow: 1 }}>
                 <Box id={`${id}-description`} sx={{ textAlign: 'left' }}>
                     <Typography component="p">{description}</Typography>
@@ -39,7 +50,16 @@ export default function SkillCard({ id, title, description, route, imageUrl, ima
                 </Box>
             </CardContent>
             <CardActions>
-                <Button href={route} component={Link} aria-describedby={`${id}-header`}>Learn More</Button>
+                <Button 
+                    href={route} 
+                    component={Link} 
+                    aria-describedby={`${id}-header`}
+                    sx={{
+                        transition: 'color 0.2s ease-in-out',
+                    }}
+                >
+                    Learn More
+                </Button>
             </CardActions>
         </Card>
     )

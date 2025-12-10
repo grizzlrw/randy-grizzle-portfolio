@@ -6,5 +6,6 @@ query Skills {
     route
     createdAt
     imageUrl
+    imageAlt
   }
 }

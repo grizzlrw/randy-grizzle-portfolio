@@ -38,3 +38,45 @@ model Signup {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model Form {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  name        String
+  description String?
+  elements    FormElement[]
+}
+
+model FormElement {
+  id           String        @id @default(cuid())
+  form         Form          @relation(fields: [formId], references: [id])
+  formId       String
+  parent       FormElement?  @relation("FormElementChildren", fields: [parentId], references: [id])
+  parentId     String?
+  children     FormElement[] @relation("FormElementChildren")
+
+  position     Int           @default(0)
+  name         String
+  type         String        // or an enum if you defined one
+  label        String
+  placeholder  String?
+  heading      String?
+  description  String?
+  min          Float?
+  max          Float?
+  step         Float?
+  defaultValue Json?
+  rules        Json?
+
+  options      FormOption[]
+}
+
+model FormOption {
+  id        String       @id @default(cuid())
+  element   FormElement  @relation(fields: [elementId], references: [id])
+  elementId String
+
+  position  Int          @default(0)
+  value     String
+  label     String
+}

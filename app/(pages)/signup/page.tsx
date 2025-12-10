@@ -1,6 +1,6 @@
 "use client"
 // app/(pages)/forms/page.tsx
-import { postSignup } from "@/lib/graphqlClient";
+import { postSignup } from "@/lib/actions";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import InputField from "@/app/components/_inputs/InputField";
@@ -83,7 +83,7 @@ export default function FormsPage() {
           value={firstName}
           onChange={setFirstName}
           required
-          error={!!fieldErrors.firstName}
+          error={fieldErrors.firstName}
           helperText={fieldErrors.firstName}
         />
 
@@ -97,7 +97,7 @@ export default function FormsPage() {
           value={lastName}
           onChange={setLastName}
           required
-          error={!!fieldErrors.lastName}
+          error={fieldErrors.lastName}
           helperText={fieldErrors.lastName}
         />
 
@@ -111,7 +111,7 @@ export default function FormsPage() {
           value={email}
           onChange={setEmail}
           required
-          error={!!fieldErrors.email}
+          error={fieldErrors.email}
           helperText={fieldErrors.email}
         /> 
 

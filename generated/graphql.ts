@@ -13,11 +13,66 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
 };
 
 export type CreateNoteInput = {
   content: Scalars['String']['input'];
   title: Scalars['String']['input'];
+};
+
+export type Form = {
+  __typename?: 'Form';
+  description?: Maybe<Scalars['String']['output']>;
+  elements: Array<FormElement>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+};
+
+export type FormElement = {
+  __typename?: 'FormElement';
+  children: Array<FormElement>;
+  defaultValue?: Maybe<Scalars['JSON']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  formId: Scalars['ID']['output'];
+  heading?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  label: Scalars['String']['output'];
+  max?: Maybe<Scalars['Float']['output']>;
+  min?: Maybe<Scalars['Float']['output']>;
+  name: Scalars['String']['output'];
+  options: Array<FormOption>;
+  parentId?: Maybe<Scalars['ID']['output']>;
+  placeholder?: Maybe<Scalars['String']['output']>;
+  position: Scalars['Int']['output'];
+  rules?: Maybe<Scalars['JSON']['output']>;
+  step?: Maybe<Scalars['Float']['output']>;
+  type: FormElementType;
+};
+
+export enum FormElementType {
+  Autocomplete = 'AUTOCOMPLETE',
+  Checkbox = 'CHECKBOX',
+  Email = 'EMAIL',
+  Number = 'NUMBER',
+  Password = 'PASSWORD',
+  Radio = 'RADIO',
+  Rating = 'RATING',
+  Section = 'SECTION',
+  Select = 'SELECT',
+  Slider = 'SLIDER',
+  Switch = 'SWITCH',
+  Text = 'TEXT'
+}
+
+export type FormOption = {
+  __typename?: 'FormOption';
+  elementId: Scalars['ID']['output'];
+  id: Scalars['ID']['output'];
+  label: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -97,4 +152,4 @@ export type NotesQuery = { __typename?: 'Query', notes: Array<{ __typename?: 'No
 export type SkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, title: string, description: string, route: string, createdAt: any, imageUrl: string }> };
+export type SkillsQuery = { __typename?: 'Query', skills: Array<{ __typename?: 'Skill', id: string, title: string, description: string, route: string, createdAt: any, imageUrl: string, imageAlt: string }> };

@@ -15,13 +15,20 @@ export default function VectorButtons() {
         <Grid container spacing={4} rowSpacing={12} sx={{ px: 4, py: 12, width: '100%', justifyContent: 'space-around' }}>
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Item>
-              <CircleIcon
-                glyph={Media}
-                title="Woman with floating media icons around her"
-                glyphScale={1.1}
-                size={"80%"}
-                glyphOffsetYPercent={-5}
-              />
+              <Box sx={{
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                },
+              }}>
+                <CircleIcon
+                  glyph={Media}
+                  title="Woman with floating media icons around her"
+                  glyphScale={1.1}
+                  size={"80%"}
+                  glyphOffsetYPercent={-5}
+                />
+              </Box>
               <Typography component={"h3"} variant={"h4"} sx={{ textAlign: 'center', my: 4 }}>Accessibility</Typography>
             </Item>
           </Grid>
@@ -29,7 +36,12 @@ export default function VectorButtons() {
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Item>
               <Link href="/articles/modularity">
-                <Box>
+                <Box sx={{
+                  transition: 'transform 0.3s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}>
                   <CircleIcon
                     glyph={Idea}
                     title="Man holding lightbulb and pointing to modular site map"

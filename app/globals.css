@@ -25,3 +25,13 @@ body {
   /* font-family: Arial, Helvetica, sans-serif; */
   font-family: var(--font-nunito-sans) var(--font-geist-sans) var(--font-geist-mono) Arial, Helvetica, sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for fixed app bar + extra spacing */
+}
+
+*:focus-visible {
+  outline: 2px solid #034C8C;
+  outline-offset: 2px;
+}
