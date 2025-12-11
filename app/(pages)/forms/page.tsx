@@ -37,7 +37,7 @@ export default function Page() {
                     Welcome to the Forms Dashboard.  Dynamic forms are a powerful tool for handling a wide variety of data collection efforts while reducing front end maintentence overhead.  Feel free to explore a few examples of dynamically generated forms by using the buttons below, or the drawer to the left.
                 </Typography>   
 
-                <Stack spacing={3} direction="row">
+                <Stack spacing={3} direction={{ xs: 'column', lg: 'row' }}>
                     {formLinks.map((link) => (
                         <NavigationCard
                             key={link.href}
