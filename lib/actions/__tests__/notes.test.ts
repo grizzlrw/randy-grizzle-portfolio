@@ -1,7 +1,14 @@
 import { fetchNotes } from "../notes";
+import { prisma } from "@/lib/prisma";
 
-// Mock fetch globally
-global.fetch = jest.fn();
+// Mock Prisma client
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    note: {
+      findMany: jest.fn(),
+    },
+  },
+}));
 
 describe("fetchNotes server action", () => {
   beforeEach(() => {
@@ -14,57 +21,45 @@ describe("fetchNotes server action", () => {
         id: "1",
         title: "Test Note",
         content: "Test content",
-        createdAt: "2024-01-01T00:00:00.000Z",
+        createdAt: new Date("2024-01-01T00:00:00.000Z"),
       },
     ];
 
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          notes: mockNotes,
-        },
-      }),
-    });
+    (prisma.note.findMany as jest.Mock).mockResolvedValueOnce(mockNotes);
 
     const result = await fetchNotes();
 
     expect(result).toEqual(mockNotes);
-    expect(global.fetch).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.objectContaining({
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      })
-    );
+    expect(prisma.note.findMany).toHaveBeenCalledWith({
+      orderBy: { createdAt: "desc" },
+    });
   });
 
-  it("should throw error when fetch fails", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-    });
+  it("should throw error when database query fails", async () => {
+    (prisma.note.findMany as jest.Mock).mockRejectedValueOnce(
+      new Error("Database connection failed")
+    );
 
     await expect(fetchNotes()).rejects.toThrow("Failed to fetch notes");
   });
 
-  it("should include all required fields in query", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          notes: [],
-        },
-      }),
-    });
+  it("should include all required fields in returned data", async () => {
+    const mockNotes = [
+      {
+        id: "1",
+        title: "Test Note",
+        content: "Test content",
+        createdAt: new Date("2024-01-01T00:00:00.000Z"),
+      },
+    ];
 
-    await fetchNotes();
+    (prisma.note.findMany as jest.Mock).mockResolvedValueOnce(mockNotes);
 
-    const callBody = JSON.parse(
-      (global.fetch as jest.Mock).mock.calls[0][1].body
-    );
-    expect(callBody.query).toContain("id");
-    expect(callBody.query).toContain("title");
-    expect(callBody.query).toContain("content");
-    expect(callBody.query).toContain("createdAt");
+    const result = await fetchNotes();
+
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("title");
+    expect(result[0]).toHaveProperty("content");
+    expect(result[0]).toHaveProperty("createdAt");
   });
 });

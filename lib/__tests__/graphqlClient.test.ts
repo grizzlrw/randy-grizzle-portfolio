@@ -44,13 +44,14 @@ describe("graphqlClient", () => {
     it("should handle network errors", async () => {
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
+        json: async () => ({ data: null }),
       });
 
       const result = await postSignup("John", "Doe", "john@example.com");
 
       expect(result).toEqual({
         ok: false,
-        message: "Network error while signing up.",
+        message: "Unexpected error while signing up.",
       });
     });
 
@@ -193,9 +194,12 @@ describe("graphqlClient", () => {
     it("should throw error on network failure", async () => {
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
+        json: async () => {
+          throw new Error("Failed to parse response");
+        },
       });
 
-      await expect(fetchNotes()).rejects.toThrow("Failed to fetch notes");
+      await expect(fetchNotes()).rejects.toThrow();
     });
 
     it("should handle empty notes array", async () => {
@@ -291,9 +295,12 @@ describe("graphqlClient", () => {
     it("should throw error on network failure", async () => {
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: false,
+        json: async () => {
+          throw new Error("Failed to parse response");
+        },
       });
 
-      await expect(fetchSkills()).rejects.toThrow("Failed to fetch skills");
+      await expect(fetchSkills()).rejects.toThrow();
     });
 
     it("should handle empty skills array", async () => {

@@ -14,6 +14,29 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof ContactFormData, boolean>>>({});
+
+  // Validate a single field
+  function validateField(field: keyof ContactFormData, value: string) {
+    const fieldSchema = contactSchema.pick({ [field]: true });
+    const validation = fieldSchema.safeParse({ [field]: value });
+    
+    if (!validation.success) {
+      const error = validation.error.issues[0]?.message;
+      setFieldErrors(prev => ({ ...prev, [field]: error }));
+    } else {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  }
+
+  function handleBlur(field: keyof ContactFormData) {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    validateField(field, formData[field]);
+  }
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -52,6 +75,7 @@ export default function ContactPage() {
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
+      setTouched({});
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Unable to send message.");
@@ -62,8 +86,8 @@ export default function ContactPage() {
     <PageLayout title="Contact" maxWidth={960}>
         <Typography component="p" sx={{ mb: 4 }}>
           Have a project in mind, a question about my work, or just want to
-          talk shop about accessibility or UI architecture? Drop a note here
-          and it will land directly in my inbox.
+          talk shop about accessibility or UI architecture? Drop a note here! I look
+          forward to hearing from you!
         </Typography>
 
         <Box
@@ -83,9 +107,10 @@ export default function ContactPage() {
             autoComplete="name"
             value={formData.name}
             onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            onBlur={() => handleBlur("name")}
             required
-            error={!!fieldErrors.name}
-            helperText={fieldErrors.name}
+            error={touched.name && !!fieldErrors.name}
+            helperText={touched.name ? fieldErrors.name : ""}
             sx={{
               '& .MuiOutlinedInput-root': {
                 transition: 'all 0.3s ease-in-out',
@@ -106,9 +131,10 @@ export default function ContactPage() {
             autoComplete="email"
             value={formData.email}
             onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+            onBlur={() => handleBlur("email")}
             required
-            error={!!fieldErrors.email}
-            helperText={fieldErrors.email}
+            error={touched.email && !!fieldErrors.email}
+            helperText={touched.email ? fieldErrors.email : ""}
             sx={{
               '& .MuiOutlinedInput-root': {
                 transition: 'all 0.3s ease-in-out',
@@ -127,9 +153,10 @@ export default function ContactPage() {
             name="message"
             value={formData.message}
             onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+            onBlur={() => handleBlur("message")}
             required
-            error={!!fieldErrors.message}
-            helperText={fieldErrors.message}
+            error={touched.message && !!fieldErrors.message}
+            helperText={touched.message ? fieldErrors.message : ""}
             multiline
             minRows={4}
             sx={{
