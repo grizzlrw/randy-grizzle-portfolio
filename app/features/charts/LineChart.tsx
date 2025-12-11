@@ -1,7 +1,7 @@
 "use client";
 import { LineChart as MuiLineChart } from "@mui/x-charts/LineChart";
 import { ChartsTooltip } from "@mui/x-charts/ChartsTooltip";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, ToggleButtonGroup, ToggleButton, useTheme, useMediaQuery } from "@mui/material";
 import { ShowChart, TableChart } from "@mui/icons-material";
 import { ReactNode, useState } from "react";
 
@@ -45,10 +45,18 @@ export function LineChart({
   children,
 }: LineChartProps) {
   const [internalView, setInternalView] = useState<'chart' | 'table'>('chart');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   
   // Use controlled view if provided, otherwise use internal state
   const view = controlledView ?? internalView;
   const setView = onViewChange ?? setInternalView;
+
+  // Responsive dimensions
+  const responsiveHeight = isMobile ? 350 : isTablet ? 450 : height;
+  const responsiveYAxisWidth = isMobile ? 45 : isTablet ? 60 : yAxisWidth;
+  const responsiveXAxisHeight = isMobile ? 80 : xAxisHeight; // More room for rotated labels
 
   const handleViewChange = (_event: React.MouseEvent<HTMLElement>, newView: 'chart' | 'table' | null) => {
     if (newView !== null) {
@@ -62,7 +70,7 @@ export function LineChart({
       <Box
         sx={{
           width: width || "100%",
-          height,
+          height: responsiveHeight,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -80,8 +88,8 @@ export function LineChart({
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-        <Typography component={"h3"} variant="h6">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+        <Typography component={"h3"} variant={isMobile ? "subtitle1" : "h6"} sx={{ fontWeight: 'medium' }}>
           {title || `${yLabel} over ${xLabel}`}
         </Typography>
         <ToggleButtonGroup
@@ -92,20 +100,24 @@ export function LineChart({
           size="small"
         >
           <ToggleButton value="chart" aria-label="show chart">
-            <ShowChart sx={{ mr: 0.5 }} fontSize="small" />
-            Chart
+            <ShowChart sx={{ mr: isMobile ? 0 : 0.5 }} fontSize="small" />
+            {!isMobile && "Chart"}
           </ToggleButton>
           <ToggleButton value="table" aria-label="show table">
-            <TableChart sx={{ mr: 0.5 }} fontSize="small" />
-            Table
+            <TableChart sx={{ mr: isMobile ? 0 : 0.5 }} fontSize="small" />
+            {!isMobile && "Table"}
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
 
       <Box
         sx={{ 
-          width: width || "100%",
+          width: "100%",
           display: view === 'chart' ? 'block' : 'none',
+          overflowX: 'auto',
+          overflowY: 'visible',
+          px: isMobile ? 0 : 2,
+          py: isMobile ? 1 : 2,
         }}
         role="img"
         aria-label={ariaLabel || `Line chart showing ${title || yLabel} over ${xLabel}`}
@@ -114,27 +126,70 @@ export function LineChart({
           title={title}
           xAxis={[{ 
             dataKey: 'x',
-            label: xLabel,
+            label: isMobile ? undefined : xLabel, // Hide label on mobile to save space
             valueFormatter: xAxisValueFormatter,
-            height: xAxisHeight,
-            scaleType: 'point'
+            height: responsiveXAxisHeight,
+            scaleType: 'point',
+            tickLabelStyle: {
+              fontSize: isMobile ? 11 : 12,
+              angle: isMobile ? -45 : 0,
+              textAnchor: isMobile ? 'end' : 'middle',
+            },
+            tickMaxStep: isMobile ? 2 : undefined, // Show fewer ticks on mobile
           }]}
           yAxis={[{ 
             dataKey: 'y',
-            label: yLabel,
-            width: yAxisWidth,
+            label: isMobile ? undefined : yLabel, // Hide label on mobile
+            width: responsiveYAxisWidth,
             valueFormatter: yAxisValueFormatter,
+            tickLabelStyle: {
+              fontSize: isMobile ? 11 : 12,
+            },
           }]}
           series={[
             {
               data: data.map(point => point.y),
               label: title || yLabel,
-              showMark: !hideMarks,
+              showMark: isMobile ? data.length <= 50 : !hideMarks, // Only show marks if not too many points
+              curve: 'linear',
+              color: theme.palette.primary.main,
             },
           ]}
           dataset={data}
-          height={height}
-          width={width}
+          height={responsiveHeight}
+          margin={{ 
+            left: 5,
+            right: isMobile ? 15 : 30, 
+            top: isMobile ? 20 : 30, 
+            bottom: isMobile ? 10 : 20,
+          }}
+          // sx={{
+          //   '& .MuiLineElement-root': {
+          //     strokeWidth: isMobile ? 2.5 : 2,
+          //   },
+          //   '& .MuiMarkElement-root': {
+          //     scale: isMobile ? '1' : '1.2',
+          //     strokeWidth: 2,
+          //   },
+          //   '& .MuiChartsAxis-tickLabel': {
+          //     fill: theme.palette.text.secondary,
+          //   },
+          //   '& .MuiChartsAxis-line': {
+          //     stroke: theme.palette.divider,
+          //   },
+          //   '& .MuiChartsAxis-tick': {
+          //     stroke: theme.palette.divider,
+          //   },
+          //   '& .MuiChartsGrid-line': {
+          //     stroke: theme.palette.divider,
+          //     strokeDasharray: '4 4',
+          //   },
+          // }}
+          slotProps={{
+            legend: { 
+              hidden: isMobile, // Hide legend on mobile
+            }
+          }}
         >
           {showTooltip && <ChartsTooltip trigger="axis" />}
           {children}
@@ -144,7 +199,9 @@ export function LineChart({
       <TableContainer 
         component={Paper} 
         variant="outlined" 
-        sx={view === 'table' ? {} : { 
+        sx={view === 'table' ? {
+          maxHeight: isMobile ? 400 : 500,
+        } : { 
           position: 'absolute',
           left: -10000,
           top: 'auto',
@@ -154,7 +211,7 @@ export function LineChart({
         }}
       >
 
-        <Table aria-label={`Data table for ${title || yLabel}`}>
+        <Table aria-label={`Data table for ${title || yLabel}`} size={isMobile ? "small" : "medium"}>
           <TableHead>
             <TableRow>
               <TableCell component="th" scope="col">{xLabel.replace(/[()]/g, '')}</TableCell>
