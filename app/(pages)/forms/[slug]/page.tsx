@@ -91,6 +91,7 @@ export default async function FormsDynamicPage({ params }: PageProps) {
       title={form.name}
       subtitle={form.description || "Please fill out the form below."}
       maxWidth={960}
+      component="div"
     >
       <DynamicFormClient fields={fields} />
     </PageLayout>

@@ -87,7 +87,7 @@ export default function PageLayout({
         }}
       >
         {title && (
-          <Box id={"main-content"} sx={{ mb: subtitle ? 1 : 4 }}>
+          <Box sx={{ mb: subtitle ? 1 : 4 }}>
             <Typography component="h1" variant="h4" sx={{ mb: subtitle ? 1 : 0 }}>
               {title}
             </Typography>

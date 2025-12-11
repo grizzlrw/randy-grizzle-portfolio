@@ -5,6 +5,7 @@ import Feedback from '@mui/icons-material/Feedback';
 import Assignment from '@mui/icons-material/Assignment';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Dashboard from '@mui/icons-material/Dashboard';
+import { Box } from "@mui/material";
 
 export default function FormsLayout({
   children,
@@ -35,9 +36,19 @@ export default function FormsLayout({
   return (
     <div className="flex min-h-screen">
       <ClippedDrawer links={links} />
-      <main className="flex-1 overflow-auto p-6 z-0">
+      <Box
+        component="article"
+        tabIndex={-1}
+        sx={{
+          flexGrow: 1,
+          width: '100%',
+          '&:focus': {
+            outline: 'none',
+          },
+        }}
+      >
         {children}
-      </main>
+      </Box>
     </div>
   );
 }
