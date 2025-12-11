@@ -6,6 +6,7 @@ import SkipLink from "./components/navigation/SkipLink";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import Providers from './providers';
 import LiveAnnouncerWrapper from "./components/LiveAnnouncerWrapper";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default  function RootLayout({
               <SkipLink href="#main-content">Skip to main content</SkipLink>
               <AppBarClient />
               {children}
+              <Analytics />
             </Providers>   
           </AppRouterCacheProvider>
         </LiveAnnouncerWrapper>
