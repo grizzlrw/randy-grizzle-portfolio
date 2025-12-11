@@ -103,7 +103,7 @@ export default function DrawerAppBar(props: Props) {
         sx={{ 
           backgroundColor: 'primary.50', 
           color: '#000',
-          // zIndex: (theme) => theme.zIndex.drawer + 1, // Stay above all drawers
+          zIndex: (theme) => theme.zIndex.drawer + 1, // Stay above all drawers
         }}
         style={{ boxShadow: 'inset 0 -4px 5px -5px rgba(0, 0, 0, 0.5)' }}>
         <Toolbar>
@@ -169,6 +169,11 @@ export default function DrawerAppBar(props: Props) {
           sx={{
             display: { xs: 'block', md: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          slotProps={{
+            paper: {
+              sx: { mt: '64px' }
+            }
           }}
         >
           {drawer}

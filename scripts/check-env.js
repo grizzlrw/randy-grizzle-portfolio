@@ -8,7 +8,8 @@
  */
 
 // Load environment variables from .env.local
-require('dotenv').config({ path: '.env.local' });
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 const requiredEnvVars = [
   'DATABASE_URL',
