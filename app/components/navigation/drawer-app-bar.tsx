@@ -100,7 +100,11 @@ export default function DrawerAppBar(props: Props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" 
-        sx={{ backgroundColor: 'primary.50', color: '#000' }}
+        sx={{ 
+          backgroundColor: 'primary.50', 
+          color: '#000',
+          // zIndex: (theme) => theme.zIndex.drawer + 1, // Stay above all drawers
+        }}
         style={{ boxShadow: 'inset 0 -4px 5px -5px rgba(0, 0, 0, 0.5)' }}>
         <Toolbar>
           <IconButton

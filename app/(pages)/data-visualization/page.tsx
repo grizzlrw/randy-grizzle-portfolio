@@ -92,13 +92,13 @@ export default function DataVisualizationPage() {
                     {/* Live Chart Section */}
                     <Box component="section">
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                            <Typography component="h2" variant="h5">
-                                Live API-Driven Chart
+                            <Typography component="h2" variant="h5" sx={{ display: 'inline-block' }}>
+                                Live API-Driven Chart <Chip label="Interactive" size="small" color="primary" sx={{ display: 'inline-block' }} />
                             </Typography>
-                            <Chip label="Interactive" size="small" color="primary" />
+                            
                         </Stack>
 
-                        <Paper 
+                        {/* <Paper 
                             variant="outlined" 
                             sx={{ 
                                 p: 3, 
@@ -106,7 +106,10 @@ export default function DataVisualizationPage() {
                                 bgcolor: "background.paper",
                             }}
                         >
-                            <Typography component="h3" variant="h6" sx={{ mb: 1 }}>
+                            
+                        </Paper> */}
+
+                        <Typography component="h3" variant="h6" sx={{ mb: 1 }}>
                                 {title}
                             </Typography>
 
@@ -158,7 +161,6 @@ export default function DataVisualizationPage() {
                                     />
                                 </>
                             )}
-                        </Paper>
 
                         <Typography variant="body2" color="text.secondary" sx={{ fontStyle: "italic" }}>
                             Data source: World Bank Open Data API • Updates automatically when you change regions
@@ -226,7 +228,7 @@ export default function DataVisualizationPage() {
                                             All data is accessible via a semantic HTML table (always present in the DOM) that users can 
                                             toggle into view. The table uses proper th elements with scope attributes for clear row/column 
                                             relationships. Interactive controls (dropdown, toggle buttons) are fully keyboard accessible 
-                                            with proper ARIA attributes. Dynamic updates are announced via ARIA live regions.
+                                            with proper ARIA attributes. Dynamic updates are announced via ARIA live regions. 
                                         </Typography>
                                     </Box>
                                 </Stack>

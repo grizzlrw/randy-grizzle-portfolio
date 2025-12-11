@@ -70,7 +70,8 @@ export default function PageLayout({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        py: 8,
+        pt: 12,
+        pb: 4,
         px,
         "&:focus": {
           outline: "none",
@@ -83,8 +84,6 @@ export default function PageLayout({
           width: "100%",
           maxWidth,
           mx: "auto",
-          py,
-          px,
         }}
       >
         {title && (
