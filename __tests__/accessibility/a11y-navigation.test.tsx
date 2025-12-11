@@ -116,8 +116,11 @@ describe("Accessibility - Navigation & Structure", () => {
     it("should have descriptive link text", () => {
       const { container } = render(
         <nav>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/">Home</a>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/about">About</a>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/contact">Contact</a>
         </nav>
       );

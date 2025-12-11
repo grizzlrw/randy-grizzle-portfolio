@@ -1,0 +1,2 @@
+# Ignore the specific generated GraphQL file
+graphql/generated.ts
