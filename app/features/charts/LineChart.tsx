@@ -185,11 +185,6 @@ export function LineChart({
           //     strokeDasharray: '4 4',
           //   },
           // }}
-          slotProps={{
-            legend: { 
-              hidden: isMobile, // Hide legend on mobile
-            }
-          }}
         >
           {showTooltip && <ChartsTooltip trigger="axis" />}
           {children}
