@@ -31,7 +31,7 @@ export default async function Home() {
        
         <HomeHero></HomeHero>
 
-        <Box sx={{ p: 4, zIndex: 4 }}>
+        <Box sx={{ p: 2, zIndex: 4 }}>
           {/* <Typography component="h2" variant="h4" sx={{ mb: 2, textAlign: 'center', fontWeight: 'bold', py: 4 }}>Solutions I Can Build For You</Typography> */}
           <Suspense fallback={<SkillListSkeleton length={4} />}>
             <SkillList length={4} />

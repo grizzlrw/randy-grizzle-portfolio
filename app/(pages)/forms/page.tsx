@@ -32,7 +32,7 @@ const formLinks = [
 
 export default function Page() {
     return (
-        <PageLayout title="Forms Page" maxWidth={960}>
+        <PageLayout title="Forms Page" maxWidth={960} component="main">
                 <Typography component="p" sx={{ mb: 4 }}>
                     Welcome to the Forms Dashboard.  Dynamic forms are a powerful tool for handling a wide variety of data collection efforts while reducing front end maintentence overhead.  Feel free to explore a few examples of dynamically generated forms by using the buttons below, or the drawer to the left.
                 </Typography>   
