@@ -1,7 +1,15 @@
 import { postSignup } from "../signup";
+import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
-// Mock fetch globally
-global.fetch = jest.fn();
+// Mock Prisma client
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    signup: {
+      create: jest.fn(),
+    },
+  },
+}));
 
 describe("postSignup server action", () => {
   beforeEach(() => {
@@ -21,38 +29,44 @@ describe("postSignup server action", () => {
   });
 
   it("handles successful signup", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          signup: {
-            ok: true,
-            message: "Signup successful",
-          },
-        },
-      }),
-    });
+    const mockCreated = {
+      id: "1",
+      firstName: "John",
+      lastName: "Doe",
+      email: "test@example.com",
+      createdAt: new Date(),
+    };
+
+    (prisma.signup.create as jest.Mock).mockResolvedValueOnce(mockCreated);
 
     const result = await postSignup("John", "Doe", "test@example.com");
     expect(result.ok).toBe(true);
-    expect(result.message).toBe("Signup successful");
+    expect(result.message).toContain("Signup successful");
   });
 
-  it("handles network errors", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-    });
+  it("handles duplicate email errors", async () => {
+    // Create a Prisma error by mocking the error object structure
+    const prismaError = {
+      name: "PrismaClientKnownRequestError",
+      code: "P2002",
+      message: "Unique constraint failed",
+      clientVersion: "5.0.0",
+    };
+
+    (prisma.signup.create as jest.Mock).mockRejectedValueOnce(prismaError);
 
     const result = await postSignup("John", "Doe", "test@example.com");
     expect(result.ok).toBe(false);
-    expect(result.message).toBe("Network error while signing up.");
+    expect(result.message).toBe("This email is already registered.");
   });
 
   it("handles unexpected errors", async () => {
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network failure"));
+    (prisma.signup.create as jest.Mock).mockRejectedValueOnce(
+      new Error("Database connection failed")
+    );
 
     const result = await postSignup("John", "Doe", "test@example.com");
     expect(result.ok).toBe(false);
-    expect(result.message).toBe("An error occurred during signup.");
+    expect(result.message).toBe("An unexpected error occurred during signup.");
   });
 });

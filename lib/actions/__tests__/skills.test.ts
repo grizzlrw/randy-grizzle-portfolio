@@ -1,7 +1,14 @@
 import { fetchSkills } from "../skills";
+import { prisma } from "@/lib/prisma";
 
-// Mock fetch globally
-global.fetch = jest.fn();
+// Mock Prisma client
+jest.mock("@/lib/prisma", () => ({
+  prisma: {
+    skill: {
+      findMany: jest.fn(),
+    },
+  },
+}));
 
 describe("fetchSkills server action", () => {
   beforeEach(() => {
@@ -17,76 +24,70 @@ describe("fetchSkills server action", () => {
         imageUrl: "/react.png",
         imageAlt: "React logo",
         route: "/skills/react",
-        createdAt: "2024-01-01T00:00:00.000Z",
+        createdAt: new Date("2024-01-01T00:00:00.000Z"),
       },
     ];
 
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          skills: mockSkills,
-        },
-      }),
-    });
+    (prisma.skill.findMany as jest.Mock).mockResolvedValueOnce(mockSkills);
 
     const result = await fetchSkills();
 
     expect(result).toEqual(mockSkills);
-    expect(global.fetch).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.objectContaining({
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      })
-    );
+    expect(prisma.skill.findMany).toHaveBeenCalledWith({
+      orderBy: { createdAt: "desc" },
+    });
   });
 
-  it("should throw error when fetch fails", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-    });
+  it("should throw error when database query fails", async () => {
+    (prisma.skill.findMany as jest.Mock).mockRejectedValueOnce(
+      new Error("Database connection failed")
+    );
 
     await expect(fetchSkills()).rejects.toThrow("Failed to fetch skills");
   });
 
-  it("should include imageAlt in query for accessibility", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          skills: [],
-        },
-      }),
-    });
+  it("should include imageAlt in returned data for accessibility", async () => {
+    const mockSkills = [
+      {
+        id: "1",
+        title: "React",
+        description: "JavaScript library",
+        imageUrl: "/react.png",
+        imageAlt: "React logo",
+        route: "/skills/react",
+        createdAt: new Date("2024-01-01T00:00:00.000Z"),
+      },
+    ];
 
-    await fetchSkills();
+    (prisma.skill.findMany as jest.Mock).mockResolvedValueOnce(mockSkills);
 
-    const callBody = JSON.parse(
-      (global.fetch as jest.Mock).mock.calls[0][1].body
-    );
-    expect(callBody.query).toContain("imageAlt");
+    const result = await fetchSkills();
+
+    expect(result[0]).toHaveProperty("imageAlt");
+    expect(result[0].imageAlt).toBe("React logo");
   });
 
-  it("should include all required fields in query", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({
-        data: {
-          skills: [],
-        },
-      }),
-    });
+  it("should include all required fields in returned data", async () => {
+    const mockSkills = [
+      {
+        id: "1",
+        title: "React",
+        description: "JavaScript library",
+        imageUrl: "/react.png",
+        imageAlt: "React logo",
+        route: "/skills/react",
+        createdAt: new Date("2024-01-01T00:00:00.000Z"),
+      },
+    ];
 
-    await fetchSkills();
+    (prisma.skill.findMany as jest.Mock).mockResolvedValueOnce(mockSkills);
 
-    const callBody = JSON.parse(
-      (global.fetch as jest.Mock).mock.calls[0][1].body
-    );
-    expect(callBody.query).toContain("id");
-    expect(callBody.query).toContain("title");
-    expect(callBody.query).toContain("description");
-    expect(callBody.query).toContain("imageUrl");
-    expect(callBody.query).toContain("route");
+    const result = await fetchSkills();
+
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("title");
+    expect(result[0]).toHaveProperty("description");
+    expect(result[0]).toHaveProperty("imageUrl");
+    expect(result[0]).toHaveProperty("route");
   });
 });
