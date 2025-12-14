@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import SkillCard from "@/app/components/skill-card/skill-card";
 import PageSkeleton from "@/app/components/skeletons/PageSkeleton";
@@ -20,20 +20,23 @@ describe("Accessibility - UI Components", () => {
 
     it("should have no accessibility violations", async () => {
       const { container } = render(<SkillCard {...mockSkill} />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
-    it("should have accessible image with alt text", () => {
+    it("should have accessible image with alt text", async () => {
       const { container } = render(<SkillCard {...mockSkill} />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       const img = container.querySelector('[title]');
       
       expect(img).toBeInTheDocument();
       expect(img).toHaveAttribute("title", mockSkill.imageAlt);
     });
 
-    it("should have accessible card structure", () => {
+    it("should have accessible card structure", async () => {
       const { container } = render(<SkillCard {...mockSkill} />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       
       const heading = container.querySelector("h2, h6, h5");
       
