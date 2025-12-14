@@ -1,3 +1,4 @@
+"use client";
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +16,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 import Image from "next/image";
+import ExpertiseMenu from './ExpertiseMenu';
+import ExpertiseDrawerItem from './ExpertiseDrawerItem';
+
+export type Skill = {
+  id: string;
+  title: string;
+  description: string;
+  route: string;
+  imageUrl?: string;
+  imageAlt?: string;
+};
 
 interface Props {
   /**
@@ -22,6 +34,10 @@ interface Props {
    * You won't need it on your project.
    */
   window?: () => Window;
+  /**
+   * Array of skills/expertise areas for navigation
+   */
+  skills?: Skill[];
 }
 
 const drawerWidth = 240;
@@ -31,7 +47,7 @@ const navItems = [{
 ];
 
 export default function DrawerAppBar(props: Props) {
-  const { window } = props;
+  const { window, skills = [] } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
  
@@ -78,11 +94,11 @@ export default function DrawerAppBar(props: Props) {
       </Typography> */}
       <Divider />
       <List>
-        <ListItem key='home' disablePadding>
+        {/* <ListItem key='home' disablePadding>
           <ListItemButton href="/" sx={{ textAlign: 'left' }}>
             <ListItemText primary='Randy Grizzle' />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         {navItems.map((item) => (
           <ListItem key={item.href} disablePadding>
             <ListItemButton href={item.href} sx={{ textAlign: 'left' }}>
@@ -90,7 +106,13 @@ export default function DrawerAppBar(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
+        <ListItem onClick={(e) => e.stopPropagation()} disablePadding>
+          <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
+        </ListItem>
       </List>
+      {/* <Box onClick={(e) => e.stopPropagation()}>
+        <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
+      </Box> */}
     </Box>
   );
 
@@ -99,7 +121,9 @@ export default function DrawerAppBar(props: Props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav" 
+      <AppBar 
+        component="nav" 
+        aria-label="Main navigation"
         sx={{ 
           backgroundColor: 'primary.50', 
           color: '#000',
@@ -154,10 +178,11 @@ export default function DrawerAppBar(props: Props) {
                 {item.label}
               </Button>
             ))}
+            <ExpertiseMenu skills={skills} />
           </Box>
         </Toolbar>
       </AppBar>
-      <nav>
+      <nav aria-label="Mobile navigation">
         <Drawer
           container={container}
           variant="temporary"

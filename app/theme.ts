@@ -44,6 +44,15 @@ export const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-nunito-sans), var(--font-geist-sans), var(--font-geist-mono), Arial, Helvetica, sans-serif',
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize',
+        },
+      },
+    },
+  },
 });
 
 

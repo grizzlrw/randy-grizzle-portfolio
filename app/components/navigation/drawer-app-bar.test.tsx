@@ -1,7 +1,10 @@
 import "@testing-library/jest-dom";
 import { render, screen, within, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { axe, toHaveNoViolations } from "jest-axe";
 import DrawerAppBar from "./drawer-app-bar";
+
+expect.extend(toHaveNoViolations);
 
 // Mock Next.js Link and Image
 jest.mock("next/link", () => {
@@ -19,6 +22,36 @@ jest.mock("next/image", () => ({
     return <img {...props} />;
   },
 }));
+
+// Mock ExpertiseMenu and ExpertiseDrawerItem to isolate DrawerAppBar tests
+jest.mock('./ExpertiseMenu', () => {
+  const MockExpertiseMenu = () => <button>Expertise</button>;
+  MockExpertiseMenu.displayName = 'ExpertiseMenu';
+  return MockExpertiseMenu;
+});
+
+jest.mock('./ExpertiseDrawerItem', () => {
+  const MockExpertiseDrawerItem = () => (
+    <button aria-label="Expertise navigation">Expertise</button>
+  );
+  MockExpertiseDrawerItem.displayName = 'ExpertiseDrawerItem';
+  return MockExpertiseDrawerItem;
+});
+
+const mockSkills = [
+  {
+    id: "1",
+    title: "Dynamic Forms",
+    description: "Flexible form generation",
+    route: "/forms",
+  },
+  {
+    id: "2",
+    title: "Accessibility",
+    description: "WCAG 2.1 AA compliant",
+    route: "/accessibility",
+  },
+];
 
 describe("DrawerAppBar", () => {
   beforeEach(() => {
@@ -108,11 +141,10 @@ describe("DrawerAppBar", () => {
       const drawer = screen.getByRole("presentation");
       const drawerLinks = within(drawer).getAllByRole("link");
 
-      // Should have home + nav items
-      expect(drawerLinks.length).toBeGreaterThanOrEqual(3);
+      // Should have nav items
+      expect(drawerLinks.length).toBeGreaterThanOrEqual(2);
 
       // Check for specific items
-      expect(drawerLinks.some((link) => link.textContent === "Randy Grizzle")).toBe(true);
       expect(drawerLinks.some((link) => link.textContent === "About Me")).toBe(true);
       expect(drawerLinks.some((link) => link.textContent === "Contact")).toBe(true);
     });
@@ -192,15 +224,25 @@ describe("DrawerAppBar", () => {
       }
     });
 
-    it("should have no accessibility violations", async () => {
+    it("should have no accessibility violations when closed", async () => {
       const { container } = render(<DrawerAppBar />);
 
-      // Use querySelector with attribute selector
-      const navElement = container.querySelector('nav[class*="MuiAppBar"]');
-      expect(navElement).toBeInTheDocument();
-      
-      const menuButton = container.querySelector('[aria-label="open drawer"]');
-      expect(menuButton).toBeInTheDocument();
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it("should have no accessibility violations when drawer is open", async () => {
+      const user = userEvent.setup();
+      const { container } = render(<DrawerAppBar />);
+
+      // Open drawer
+      const menuButton = screen.getByRole("button", { name: /open drawer/i });
+      await user.click(menuButton);
+
+      await waitFor(async () => {
+        const results = await axe(container);
+        expect(results).toHaveNoViolations();
+      });
     });
   });
 
