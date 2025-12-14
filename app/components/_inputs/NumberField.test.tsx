@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import NumberField from "./NumberField";
 
 test("NumberField parses numeric input", () => {
@@ -18,6 +18,8 @@ test("NumberField parses numeric input", () => {
   );
 
   const input = screen.getByLabelText("Age") as HTMLInputElement;
-  fireEvent.change(input, { target: { value: "42" } });
+  act(() => {
+    fireEvent.change(input, { target: { value: "42" } });
+  });
   expect(value).toBe(42);
 });

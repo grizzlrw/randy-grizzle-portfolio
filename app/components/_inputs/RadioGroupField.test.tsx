@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import RadioGroupField from "./RadioGroupField";
 
 const options = [
@@ -24,7 +24,9 @@ test("RadioGroupField renders and handles change", () => {
   );
 
   const optionA = screen.getByLabelText("Option A");
-  fireEvent.click(optionA);
+  act(() => {
+    fireEvent.click(optionA);
+  });
 
   expect(value).toBe("a");
 });

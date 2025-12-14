@@ -14,6 +14,7 @@ jest.mock("next/link", () => {
 jest.mock("@/app/components/circle/circle-icon", () => ({
   CircleIcon: ({ title, glyph }: { title: string; glyph: string }) => (
     <div data-testid="circle-icon" title={title}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={glyph} alt={title} />
     </div>
   ),

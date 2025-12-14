@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import DynamicFormClient from "../DynamicFormClient";
 import { DynamicFieldConfig } from "../dynamic-form";
 
@@ -50,9 +50,11 @@ describe("DynamicFormClient", () => {
     const emailInput = screen.getByLabelText(/Email/i);
     const submitButton = screen.getByRole("button", { name: /submit/i });
 
-    fireEvent.change(firstNameInput, { target: { value: "John" } });
-    fireEvent.change(emailInput, { target: { value: "john@example.com" } });
-    fireEvent.click(submitButton);
+    act(() => {
+      fireEvent.change(firstNameInput, { target: { value: "John" } });
+      fireEvent.change(emailInput, { target: { value: "john@example.com" } });
+      fireEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       expect(mockConsoleLog).toHaveBeenCalledWith(
@@ -209,7 +211,9 @@ describe("DynamicFormClient", () => {
       render(<DynamicFormClient fields={fields} />);
 
       const input = screen.getByLabelText(/Message/i) as HTMLInputElement;
-      fireEvent.change(input, { target: { value: "Hello World" } });
+      act(() => {
+        fireEvent.change(input, { target: { value: "Hello World" } });
+      });
 
       expect(input.value).toBe("Hello World");
     });
@@ -222,7 +226,9 @@ describe("DynamicFormClient", () => {
       render(<DynamicFormClient fields={fields} />);
 
       const submitButton = screen.getByRole("button", { name: /submit/i });
-      fireEvent.click(submitButton);
+      act(() => {
+        fireEvent.click(submitButton);
+      });
 
       // Form should show validation error for empty required field
       await waitFor(() => {
@@ -300,8 +306,10 @@ describe("DynamicFormClient", () => {
       const input = screen.getByLabelText(/Test/i);
       const submitButton = screen.getByRole("button", { name: /submit/i });
 
-      fireEvent.change(input, { target: { value: "test value" } });
-      fireEvent.click(submitButton);
+      act(() => {
+        fireEvent.change(input, { target: { value: "test value" } });
+        fireEvent.click(submitButton);
+      });
 
       await waitFor(() => {
         expect(mockConsoleLog).toHaveBeenCalledWith(

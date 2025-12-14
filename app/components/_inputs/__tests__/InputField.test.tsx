@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import InputField from "../InputField";
 
 describe("InputField", () => {
@@ -39,7 +39,9 @@ describe("InputField", () => {
     render(<InputField {...defaultProps} onChange={onChange} />);
 
     const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "new value" } });
+    act(() => {
+      fireEvent.change(input, { target: { value: "new value" } });
+    });
 
     expect(onChange).toHaveBeenCalledWith("new value");
   });
@@ -49,7 +51,9 @@ describe("InputField", () => {
     render(<InputField {...defaultProps} onBlur={onBlur} />);
 
     const input = screen.getByRole("textbox");
-    fireEvent.blur(input);
+    act(() => {
+      fireEvent.blur(input);
+    });
 
     expect(onBlur).toHaveBeenCalled();
   });

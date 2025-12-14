@@ -118,9 +118,9 @@ describe("Accessibility - Navigation & Structure", () => {
         <nav>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/">Home</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          { }
           <a href="/about">About</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          { }
           <a href="/contact">Contact</a>
         </nav>
       );
@@ -204,7 +204,9 @@ describe("Accessibility - Navigation & Structure", () => {
     it("should hide decorative images", () => {
       const { container } = render(
         <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/decorative.jpg" alt="" role="presentation" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/informative.jpg" alt="Descriptive text" />
         </div>
       );

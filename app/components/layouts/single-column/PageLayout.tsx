@@ -55,7 +55,6 @@ export default function PageLayout({
   maxWidth = 1200,
   title,
   subtitle,
-  py = 4,
   px = 2,
   component = "main",
 }: PageLayoutProps) {

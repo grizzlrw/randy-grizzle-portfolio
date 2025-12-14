@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import FormsPage from "@/app/(pages)/forms/page";
 import NotFoundPage from "@/app/(pages)/forms/[slug]/not-found";
@@ -12,12 +12,14 @@ describe("Accessibility - Pages", () => {
   describe("FormsPage", () => {
     it("should have no accessibility violations", async () => {
       const { container } = render(<FormsPage />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
-    it("should have proper heading hierarchy", () => {
+    it("should have proper heading hierarchy", async () => {
       const { container } = render(<FormsPage />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       const h1 = container.querySelector("h1");
       const h2s = container.querySelectorAll("h2");
 
@@ -25,8 +27,9 @@ describe("Accessibility - Pages", () => {
       expect(h2s.length).toBeGreaterThan(0);
     });
 
-    it("should have accessible card links", () => {
+    it("should have accessible card links", async () => {
       const { container } = render(<FormsPage />);
+      await waitFor(() => expect(container).toBeInTheDocument());
       const links = container.querySelectorAll("a[aria-label]");
       
       links.forEach((link) => {
