@@ -118,9 +118,9 @@ describe("Accessibility - Navigation & Structure", () => {
         <nav>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/">Home</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          { }
           <a href="/about">About</a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          { }
           <a href="/contact">Contact</a>
         </nav>
       );
