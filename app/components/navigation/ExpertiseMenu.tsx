@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, Component } from "react";
 import Button from "@mui/material/Button";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Link from "next/link";
+import { SxProps, Theme } from "@mui/material/styles";
 
 export type Skill = {
   id: string;
@@ -33,6 +34,10 @@ export type ExpertiseMenuProps = {
    * @default 'Expertise menu'
    */
   ariaLabel?: string;
+  /**
+   * Custom sx styles for the button
+   */
+  sx?: SxProps<Theme>;
 };
 
 /**
@@ -48,7 +53,7 @@ export type ExpertiseMenuProps = {
 export default function ExpertiseMenu({ 
   skills, 
   buttonColor = '#000',
-  ariaLabel = 'Expertise menu'
+  ariaLabel = 'Expertise menu',
 }: ExpertiseMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -84,7 +89,7 @@ export default function ExpertiseMenu({
         endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         sx={{
           my: 2,
-          display: 'flex',
+          display: { xs: 'none', md: 'flex' },
           justifyContent: 'space-between',
           alignItems: 'center',
           color: buttonColor,

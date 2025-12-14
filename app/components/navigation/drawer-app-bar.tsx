@@ -99,6 +99,9 @@ export default function DrawerAppBar(props: Props) {
             <ListItemText primary='Randy Grizzle' />
           </ListItemButton>
         </ListItem> */}
+        <ListItem onClick={(e) => e.stopPropagation()} disablePadding>
+          <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
+        </ListItem>
         {navItems.map((item) => (
           <ListItem key={item.href} disablePadding>
             <ListItemButton href={item.href} sx={{ textAlign: 'left' }}>
@@ -106,9 +109,7 @@ export default function DrawerAppBar(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem onClick={(e) => e.stopPropagation()} disablePadding>
-          <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
-        </ListItem>
+        
       </List>
       {/* <Box onClick={(e) => e.stopPropagation()}>
         <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
@@ -159,13 +160,7 @@ export default function DrawerAppBar(props: Props) {
               Randy Grizzle
           </Typography>
           
-          {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box> */}
+          <ExpertiseMenu skills={skills} />
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {navItems.map((item) => (
               /* Property of Button that I don't think would exist here onClick={handleDrawerToggle} */
@@ -178,7 +173,6 @@ export default function DrawerAppBar(props: Props) {
                 {item.label}
               </Button>
             ))}
-            <ExpertiseMenu skills={skills} />
           </Box>
         </Toolbar>
       </AppBar>
