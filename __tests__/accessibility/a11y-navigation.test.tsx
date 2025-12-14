@@ -204,7 +204,9 @@ describe("Accessibility - Navigation & Structure", () => {
     it("should hide decorative images", () => {
       const { container } = render(
         <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/decorative.jpg" alt="" role="presentation" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/informative.jpg" alt="Descriptive text" />
         </div>
       );

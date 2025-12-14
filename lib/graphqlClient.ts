@@ -1,5 +1,5 @@
 // lib/graphqlClient.ts
-import type { NotesQuery, SignupMutation, SignupMutationVariables } from "@/generated/graphql";
+import type { NotesQuery, SignupMutationVariables } from "@/generated/graphql";
 import type { SkillsQuery } from "@/generated/graphql";
 
 function getEndpoint() {
