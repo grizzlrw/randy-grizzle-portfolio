@@ -1,6 +1,11 @@
 import { fetchNotes } from "../notes";
 import { prisma } from "@/lib/prisma";
 
+// Mock Next.js cache
+jest.mock("next/cache", () => ({
+  unstable_cache: (fn: Function) => fn,
+}));
+
 // Mock Prisma client
 jest.mock("@/lib/prisma", () => ({
   prisma: {
