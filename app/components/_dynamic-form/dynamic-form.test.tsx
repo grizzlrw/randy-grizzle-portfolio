@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import DynamicForm, { DynamicFieldConfig } from "./dynamic-form";
 
 const fields: DynamicFieldConfig[] = [
@@ -38,11 +38,15 @@ describe("DynamicForm", () => {
     expect(roleInput).toBeInTheDocument();
 
     // Fill in values
-    fireEvent.change(firstNameInput, { target: { value: "Alice" } });
-    fireEvent.change(roleInput, { target: { value: "senior" } });
+    act(() => {
+      fireEvent.change(firstNameInput, { target: { value: "Alice" } });
+      fireEvent.change(roleInput, { target: { value: "senior" } });
+    });
 
     // Submit form
-    fireEvent.click(screen.getByRole("button", { name: /save/i }));
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: /save/i }));
+    });
 
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalledTimes(1);

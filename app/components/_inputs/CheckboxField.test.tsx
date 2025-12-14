@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import CheckboxField from "./CheckboxField";
 
 test("CheckboxField toggles checked state", () => {
@@ -20,6 +20,8 @@ test("CheckboxField toggles checked state", () => {
   const checkbox = screen.getByLabelText("Agree") as HTMLInputElement;
   expect(checkbox.checked).toBe(false);
 
-  fireEvent.click(checkbox);
+  act(() => {
+    fireEvent.click(checkbox);
+  });
   expect(checked).toBe(true);
 });
