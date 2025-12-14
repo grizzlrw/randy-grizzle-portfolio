@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 // Mock Next.js cache
 jest.mock("next/cache", () => ({
-  unstable_cache: (fn: Function) => fn,
+  unstable_cache: <T>(fn: () => Promise<T>) => fn,
 }));
 
 // Mock Prisma client

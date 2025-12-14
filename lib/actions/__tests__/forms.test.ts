@@ -12,8 +12,9 @@ jest.mock("@/lib/prisma", () => ({
 
 // Mock Next.js cache
 jest.mock("next/cache", () => ({
-  unstable_cache: jest.fn((fn) => fn),
+  unstable_cache: <T>(fn: () => Promise<T>) => fn,
 }));
+
 
 describe("getFormBySlug server action", () => {
   beforeEach(() => {

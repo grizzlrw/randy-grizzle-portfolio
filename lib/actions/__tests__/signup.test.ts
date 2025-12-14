@@ -1,6 +1,5 @@
 import { postSignup } from "../signup";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 
 // Mock Prisma client
 jest.mock("@/lib/prisma", () => ({
