@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SwitchField from "./SwitchField";
 
@@ -158,7 +158,9 @@ describe("SwitchField", () => {
       render(<SwitchField {...defaultProps} checked={false} onChange={onChange} />);
 
       const switchElement = screen.getByRole("switch");
-      switchElement.focus();
+      act(() => {
+        switchElement.focus();
+      });
       
       await user.keyboard(" ");
 

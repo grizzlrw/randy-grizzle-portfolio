@@ -98,8 +98,10 @@ describe("dateUtils", () => {
     });
 
     it("should return true for earlier this week", () => {
-      const twoDaysAgo = dayjs().subtract(2, "day").toDate();
-      expect(dateUtils.isThisWeek(twoDaysAgo)).toBe(true);
+      // Get the start of this week (Sunday) and add 1 day to ensure we're in the same week
+      const startOfWeek = dayjs().startOf("week");
+      const dateInThisWeek = startOfWeek.add(1, "day").toDate();
+      expect(dateUtils.isThisWeek(dateInThisWeek)).toBe(true);
     });
 
     it("should return false for last week", () => {
@@ -113,7 +115,8 @@ describe("dateUtils", () => {
     });
 
     it("should handle string date input", () => {
-      const thisWeekString = dayjs().subtract(1, "day").toISOString();
+      // Use current date to ensure it's in this week
+      const thisWeekString = dayjs().toISOString();
       expect(dateUtils.isThisWeek(thisWeekString)).toBe(true);
     });
   });

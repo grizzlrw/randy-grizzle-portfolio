@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SliderField from "./SliderField";
 
@@ -124,7 +124,9 @@ describe("SliderField", () => {
       const slider = screen.getByRole("slider");
       
       // Simulate keyboard interaction to change value
-      slider.focus();
+      act(() => {
+        slider.focus();
+      });
       await user.keyboard("{ArrowRight}");
 
       expect(onChange).toHaveBeenCalled();
@@ -137,7 +139,9 @@ describe("SliderField", () => {
       render(<SliderField {...defaultProps} onChange={onChange} />);
 
       const slider = screen.getByRole("slider");
-      slider.focus();
+      act(() => {
+        slider.focus();
+      });
       await user.keyboard("{ArrowUp}");
 
       expect(onChange).toHaveBeenCalled();
@@ -150,7 +154,9 @@ describe("SliderField", () => {
       render(<SliderField {...defaultProps} onChange={onChange} />);
 
       const slider = screen.getByRole("slider");
-      slider.focus();
+      act(() => {
+        slider.focus();
+      });
       await user.keyboard("{ArrowDown}");
 
       expect(onChange).toHaveBeenCalled();
@@ -163,7 +169,9 @@ describe("SliderField", () => {
       render(<SliderField {...defaultProps} min={0} max={100} onChange={onChange} />);
 
       const slider = screen.getByRole("slider");
-      slider.focus();
+      act(() => {
+        slider.focus();
+      });
       await user.keyboard("{Home}");
 
       expect(onChange).toHaveBeenCalled();
@@ -176,7 +184,9 @@ describe("SliderField", () => {
       render(<SliderField {...defaultProps} min={0} max={100} onChange={onChange} />);
 
       const slider = screen.getByRole("slider");
-      slider.focus();
+      act(() => {
+        slider.focus();
+      });
       await user.keyboard("{End}");
 
       expect(onChange).toHaveBeenCalled();

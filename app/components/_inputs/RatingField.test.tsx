@@ -155,7 +155,9 @@ describe("RatingField", () => {
       render(<RatingField {...defaultProps} value={null} onChange={onChange} />);
 
       const stars = screen.getAllByRole("radio");
-      stars[0].focus();
+      act(() => {
+        stars[0].focus();
+      });
       
       await user.keyboard("{ArrowRight}");
 
