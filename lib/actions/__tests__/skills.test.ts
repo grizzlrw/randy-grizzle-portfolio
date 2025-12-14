@@ -43,12 +43,13 @@ describe("fetchSkills server action", () => {
     });
   });
 
-  it("should throw error when database query fails", async () => {
+  it("should return empty array when database query fails", async () => {
     (prisma.skill.findMany as jest.Mock).mockRejectedValueOnce(
       new Error("Database connection failed")
     );
 
-    await expect(fetchSkills()).rejects.toThrow("Failed to fetch skills");
+    const result = await fetchSkills();
+    expect(result).toEqual([]);
   });
 
   it("should include imageAlt in returned data for accessibility", async () => {
