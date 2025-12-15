@@ -7,7 +7,7 @@ import { Code, Assignment, Feedback, BugReport } from "@mui/icons-material";
 
 export default function ModularityPage() {
   return (
-    <PageLayout title="Building Modular Component Systems" maxWidth={900}>
+    <PageLayout title="Building Modular Component Systems" maxWidth={1100}>
       <Typography component="p" sx={{ mb: 4, fontSize: "1.125rem", color: "text.secondary" }}>
         Modular design is about building systems where components work independently and compose predictably. 
         This article explores the principles and patterns that make component systems maintainable at scale, 
