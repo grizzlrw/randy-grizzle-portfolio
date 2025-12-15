@@ -67,7 +67,7 @@ export default function HomeHero() {
                     },
                 }}
             >
-                Senior Frontend Developer and Digital Accessibility Specialist
+                Senior Frontend Engineer
             </Typography>
             <Stack spacing={2} direction="row" justifyContent="center" sx={{ mt: 2, mb: 4 }}>
                 <Button 
