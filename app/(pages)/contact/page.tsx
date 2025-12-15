@@ -83,7 +83,7 @@ export default function ContactPage() {
   }
 
   return (
-    <PageLayout title="Contact" maxWidth={960}>
+    <PageLayout title="Contact" maxWidth={1116}>
         <Typography component="p" sx={{ mb: 4 }}>
           Have a project in mind, a question about my work, or just want to
           talk shop about accessibility or UI architecture? Drop a note here! I look

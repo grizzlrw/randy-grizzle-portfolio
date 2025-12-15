@@ -23,9 +23,10 @@ export type PageLayoutProps = {
   py?: number;
   /**
    * Horizontal padding in theme spacing units
-   * @default 2
+   * Can be a number or responsive object
+   * @default { xs: 2, sm: 3 }
    */
-  px?: number;
+  px?: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number };
   /**
    * Component to use for the main wrapper
    * @default "main"
@@ -55,7 +56,7 @@ export default function PageLayout({
   maxWidth = 1200,
   title,
   subtitle,
-  px = 2,
+  px = { xs: 2, sm: 3 },
   component = "main",
 }: PageLayoutProps) {
   return (
