@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import SkipLink from "@/app/components/navigation/SkipLink";
 import SkillCard from "@/app/components/skill-card/skill-card";
 import NavigationCard from "@/app/components/navigation/NavigationCard";
+import PageLayout from "@/app/components/layouts/single-column/PageLayout";
 
 function SkipLinkDemo() {
   return (
@@ -122,12 +123,7 @@ function AccessibleDemoCard({ headerComponentType = "h3" }: { headerComponentTyp
 
 export default function AccessibilityPage() {
   return (
-    <main id="main-content" tabIndex={-1} style={{ outline: "none" }} className="flex min-h-screen w-full flex-col items-center justify-between py-16 bg-white dark:bg-black sm:items-start">
-      <Box component="section" sx={{ width: "100%", maxWidth: 1200, mx: "auto", py: 4, px: 2 }}>
-        <Typography component="h1" variant="h4">
-          Accessibility
-        </Typography>
-
+   <PageLayout title="Accessibility" maxWidth={1100}>
         <Typography component="p" sx={{ mb: 2, mt: 1 }}>
           Accessibility isn&apos;t a checklist—it&apos;s a fundamental part of how this site is built.
           Every decision, from the component structure to the form validation patterns to the color
@@ -839,7 +835,6 @@ export default function AccessibilityPage() {
             accessible chart examples.
           </Typography>
         </Box>
-      </Box>
-    </main>
+    </PageLayout>
   );
 }
