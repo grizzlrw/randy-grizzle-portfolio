@@ -1,7 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { axe, toHaveNoViolations } from "jest-axe";import { List } from "@mui/material";import ExpertiseDrawerItem from "../ExpertiseDrawerItem";
+import { axe, toHaveNoViolations } from "jest-axe";
+import { List } from "@mui/material";
+import DemoDrawerItem from "../DemoDrawerItem";
 
 expect.extend(toHaveNoViolations);
 
@@ -14,7 +16,7 @@ jest.mock("next/link", () => {
   return MockLink;
 });
 
-describe("ExpertiseDrawerItem", () => {
+describe("DemoDrawerItem", () => {
   const mockSkills = [
     {
       id: "1",
@@ -44,22 +46,22 @@ describe("ExpertiseDrawerItem", () => {
 
   describe("Rendering", () => {
     it("should render Expertise list item", () => {
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       expect(expertiseButton).toBeInTheDocument();
-      expect(expertiseButton).toHaveTextContent("Expertise");
+      expect(expertiseButton).toHaveTextContent("Demo");
     });
 
     it("should show expand icon when collapsed", () => {
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
       const expandIcon = screen.getByTestId("ExpandMoreIcon");
       expect(expandIcon).toBeInTheDocument();
     });
 
     it("should not show skills initially", () => {
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
       expect(screen.queryByText("Dynamic Forms")).not.toBeInTheDocument();
       expect(screen.queryByText("Accessibility")).not.toBeInTheDocument();
@@ -69,9 +71,9 @@ describe("ExpertiseDrawerItem", () => {
   describe("Expand/Collapse Behavior", () => {
     it("should expand when clicked", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -83,9 +85,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should show collapse icon when expanded", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -95,9 +97,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should collapse when clicked again", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       
       // Expand
       await user.click(expertiseButton);
@@ -114,9 +116,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should toggle aria-expanded attribute", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       expect(expertiseButton).toHaveAttribute("aria-expanded", "false");
 
       await user.click(expertiseButton);
@@ -130,9 +132,9 @@ describe("ExpertiseDrawerItem", () => {
   describe("Skill Items", () => {
     it("should display all skill titles", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -144,9 +146,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should display skill descriptions", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -158,9 +160,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should have correct hrefs for skill links", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -176,9 +178,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should pass onItemClick to Link onClick handler", async () => {
       const user = userEvent.setup();
-      const { container } = render(<ExpertiseDrawerItem skills={mockSkills} onItemClick={mockOnItemClick} />);
+      const { container } = render(<DemoDrawerItem skills={mockSkills} onItemClick={mockOnItemClick} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -194,21 +196,21 @@ describe("ExpertiseDrawerItem", () => {
   describe("Empty State", () => {
     it("should show empty message when no skills provided", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={[]} />);
+      render(<DemoDrawerItem skills={[]} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
-        expect(screen.getByText("No expertise areas available")).toBeInTheDocument();
+        expect(screen.getByText("No demo areas available")).toBeInTheDocument();
       });
     });
 
     it("should not call onItemClick for empty state", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={[]} onItemClick={mockOnItemClick} />);
+      render(<DemoDrawerItem skills={[]} onItemClick={mockOnItemClick} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       // onItemClick should not be called when clicking the empty state message
@@ -219,9 +221,9 @@ describe("ExpertiseDrawerItem", () => {
   describe("Keyboard Navigation", () => {
     it("should expand with Enter key", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       expertiseButton.focus();
       await user.keyboard("{Enter}");
 
@@ -232,9 +234,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should expand with Space key", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       expertiseButton.focus();
       await user.keyboard(" ");
 
@@ -246,16 +248,16 @@ describe("ExpertiseDrawerItem", () => {
 
   describe("Accessibility", () => {
     it("should have no accessibility violations when collapsed", async () => {
-      const { container } = render(<ExpertiseDrawerItem skills={mockSkills} />);
+      const { container } = render(<DemoDrawerItem skills={mockSkills} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
     it("should have no accessibility violations when expanded", async () => {
       const user = userEvent.setup();
-      const { container } = render(<ExpertiseDrawerItem skills={mockSkills} />);
+      const { container } = render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(async () => {
@@ -273,17 +275,17 @@ describe("ExpertiseDrawerItem", () => {
     });
 
     it("should have correct ARIA attributes", () => {
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
-      expect(expertiseButton).toHaveAttribute("aria-label", "Expertise navigation");
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
+      expect(expertiseButton).toHaveAttribute("aria-label", "Demo navigation");
       expect(expertiseButton).toHaveAttribute("aria-expanded", "false");
     });
   });
 
   describe("Custom Props", () => {
     it("should accept custom aria label", () => {
-      render(<ExpertiseDrawerItem skills={mockSkills} ariaLabel="Skills menu" />);
+      render(<DemoDrawerItem skills={mockSkills} ariaLabel="Skills menu" />);
 
       const expertiseButton = screen.getByRole("button", { name: /skills menu/i });
       expect(expertiseButton).toBeInTheDocument();
@@ -291,9 +293,9 @@ describe("ExpertiseDrawerItem", () => {
 
     it("should work without onItemClick callback", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseDrawerItem skills={mockSkills} />);
+      render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -310,9 +312,9 @@ describe("ExpertiseDrawerItem", () => {
   describe("Styling", () => {
     it("should apply border styling to skill list", async () => {
       const user = userEvent.setup();
-      const { container } = render(<ExpertiseDrawerItem skills={mockSkills} />);
+      const { container } = render(<DemoDrawerItem skills={mockSkills} />);
 
-      const expertiseButton = screen.getByRole("button", { name: /expertise navigation/i });
+      const expertiseButton = screen.getByRole("button", { name: /demo navigation/i });
       await user.click(expertiseButton);
 
       await waitFor(() => {
@@ -322,3 +324,5 @@ describe("ExpertiseDrawerItem", () => {
     });
   });
 });
+
+

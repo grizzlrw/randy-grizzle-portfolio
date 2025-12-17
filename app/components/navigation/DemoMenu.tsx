@@ -31,7 +31,7 @@ export type ExpertiseMenuProps = {
   buttonColor?: string;
   /**
    * ARIA label for the menu button
-   * @default 'Expertise menu'
+   * @default 'Demo menu'
    */
   ariaLabel?: string;
   /**
@@ -41,7 +41,7 @@ export type ExpertiseMenuProps = {
 };
 
 /**
- * ExpertiseMenu - A stylistic dropdown menu for navigating to skill/expertise pages
+ * DemoMenu - A stylistic dropdown menu for navigating to demo pages
  * 
  * Features:
  * - Custom styled menu items with hover effects
@@ -50,10 +50,10 @@ export type ExpertiseMenuProps = {
  * - Accessible ARIA labels
  * - Smooth transitions and professional styling
  */
-export default function ExpertiseMenu({ 
+export default function DemoMenu({ 
   skills, 
   buttonColor = '#000',
-  ariaLabel = 'Expertise menu',
+  ariaLabel = 'Demo menu',
 }: ExpertiseMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -70,7 +70,7 @@ export default function ExpertiseMenu({
     if (event.key === 'Escape') {
       handleClose();
       // Return focus to the button
-      const button = document.getElementById('expertise-button');
+      const button = document.getElementById('demo-button');
       if (button) {
         button.focus();
       }
@@ -80,9 +80,9 @@ export default function ExpertiseMenu({
   return (
     <>
       <Button
-        id="expertise-button"
+        id="demo-button"
         aria-label={ariaLabel}
-        aria-controls={open ? 'expertise-menu' : undefined}
+        aria-controls={open ? 'demo-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={handleClick}
@@ -101,10 +101,10 @@ export default function ExpertiseMenu({
           },
         }}
       >
-        Expertise
+        Demos
       </Button>
       <Popover
-        id="expertise-menu"
+        id="demo-menu"
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -121,7 +121,7 @@ export default function ExpertiseMenu({
             elevation: 3,
             onKeyDown: handleKeyDown,
             role: 'dialog',
-            'aria-label': 'Expertise navigation menu',
+            'aria-label': 'Demo navigation menu',
             sx: {
               minWidth: 320,
               maxWidth: 400,
@@ -133,7 +133,7 @@ export default function ExpertiseMenu({
       >
         <Box
           role="menu"
-          aria-labelledby="expertise-button"
+          aria-labelledby="demo-button"
           sx={{ p: 1 }}
         >
         {skills.length === 0 ? (
@@ -143,7 +143,7 @@ export default function ExpertiseMenu({
             sx={{ px: 2, py: 1.5 }}
           >
             <Typography variant="body2" color="text.secondary">
-              No expertise areas available
+              No demos areas available
             </Typography>
           </Box>
         ) : (
@@ -154,7 +154,7 @@ export default function ExpertiseMenu({
               onClick={handleClose}
               role="link"
               aria-label={skill.title}
-              aria-describedby={`expertise-desc-${skill.id}`}
+              aria-describedby={`demo-desc-${skill.id}`}
               tabIndex={0}
               autoFocus
               style={{
@@ -194,7 +194,7 @@ export default function ExpertiseMenu({
               </Typography>
               <Typography
                 variant="body2"
-                id={`expertise-desc-${skill.id}`}
+                id={`demo-desc-${skill.id}`}
                 sx={{
                   color: 'text.secondary',
                   fontSize: '0.813rem',

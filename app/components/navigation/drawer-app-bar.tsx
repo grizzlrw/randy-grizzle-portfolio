@@ -16,8 +16,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 import Image from "next/image";
-import ExpertiseMenu from './ExpertiseMenu';
-import ExpertiseDrawerItem from './ExpertiseDrawerItem';
+import ExpertiseMenu from './DemoMenu';
+import ExpertiseDrawerItem from './DemoDrawerItem';
 
 export type Skill = {
   id: string;

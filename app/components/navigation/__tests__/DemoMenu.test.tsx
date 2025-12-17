@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
-import ExpertiseMenu from "../ExpertiseMenu";
+import DemoMenu from "../DemoMenu";
 
 expect.extend(toHaveNoViolations);
 
@@ -15,7 +15,7 @@ jest.mock("next/link", () => {
   return MockLink;
 });
 
-describe("ExpertiseMenu", () => {
+describe("DemoMenu", () => {
   const mockSkills = [
     {
       id: "1",
@@ -42,24 +42,24 @@ describe("ExpertiseMenu", () => {
   });
 
   describe("Rendering", () => {
-    it("should render Expertise button", () => {
-      render(<ExpertiseMenu skills={mockSkills} />);
+    it("should render Demo button", () => {
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       expect(button).toBeInTheDocument();
-      expect(button).toHaveTextContent("Expertise");
+      expect(button).toHaveTextContent("Demo");
     });
 
     it("should render dropdown arrow icon", () => {
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       const icon = button.querySelector("svg");
       expect(icon).toBeInTheDocument();
     });
 
     it("should not show menu initially", () => {
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
       expect(screen.queryByRole("menu")).not.toBeInTheDocument();
     });
@@ -68,9 +68,9 @@ describe("ExpertiseMenu", () => {
   describe("Menu Interaction", () => {
     it("should open menu when button is clicked", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -80,9 +80,9 @@ describe("ExpertiseMenu", () => {
 
     it("should display all skills in menu", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -94,9 +94,9 @@ describe("ExpertiseMenu", () => {
 
     it("should display skill descriptions", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -107,9 +107,9 @@ describe("ExpertiseMenu", () => {
 
     it("should render skills as clickable links", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -123,9 +123,9 @@ describe("ExpertiseMenu", () => {
 
     it("should have correct href for skill links", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -143,25 +143,25 @@ describe("ExpertiseMenu", () => {
   describe("Empty State", () => {
     it("should show empty message when no skills provided", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={[]} />);
+      render(<DemoMenu skills={[]} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
-        expect(screen.getByText("No expertise areas available")).toBeInTheDocument();
+        expect(screen.getByText("No demos areas available")).toBeInTheDocument();
       });
     });
 
     it("should disable menu item in empty state", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={[]} />);
+      render(<DemoMenu skills={[]} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
-        const emptyItem = screen.getByText("No expertise areas available").closest('[role="menuitem"]');
+        const emptyItem = screen.getByText("No demos areas available").closest('[role="menuitem"]');
         expect(emptyItem).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -170,9 +170,9 @@ describe("ExpertiseMenu", () => {
   describe("Keyboard Navigation", () => {
     it("should open menu with Enter key", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       button.focus();
       await user.keyboard("{Enter}");
 
@@ -183,9 +183,9 @@ describe("ExpertiseMenu", () => {
 
     it("should open menu with Space key", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       button.focus();
       await user.keyboard(" ");
 
@@ -196,9 +196,9 @@ describe("ExpertiseMenu", () => {
 
     it("should display skills as links in the menu", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
@@ -213,16 +213,16 @@ describe("ExpertiseMenu", () => {
 
   describe("Accessibility", () => {
     it("should have no accessibility violations", async () => {
-      const { container } = render(<ExpertiseMenu skills={mockSkills} />);
+      const { container } = render(<DemoMenu skills={mockSkills} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
     it("should have no accessibility violations with open menu", async () => {
       const user = userEvent.setup();
-      const { container } = render(<ExpertiseMenu skills={mockSkills} />);
+      const { container } = render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(async () => {
@@ -233,18 +233,18 @@ describe("ExpertiseMenu", () => {
     });
 
     it("should have correct ARIA attributes", () => {
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       expect(button).toHaveAttribute("aria-haspopup", "true");
       expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should update aria-expanded when menu opens", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       expect(button).toHaveAttribute("aria-expanded", "false");
 
       await user.click(button);
@@ -256,28 +256,28 @@ describe("ExpertiseMenu", () => {
 
     it("should have labelledby on menu", async () => {
       const user = userEvent.setup();
-      render(<ExpertiseMenu skills={mockSkills} />);
+      render(<DemoMenu skills={mockSkills} />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       await user.click(button);
 
       await waitFor(() => {
         const menu = screen.getByRole("menu");
-        expect(menu).toHaveAttribute("aria-labelledby", "expertise-button");
+        expect(menu).toHaveAttribute("aria-labelledby", "demo-button");
       });
     });
   });
 
   describe("Custom Props", () => {
     it("should accept custom button color", () => {
-      render(<ExpertiseMenu skills={mockSkills} buttonColor="#ff0000" />);
+      render(<DemoMenu skills={mockSkills} buttonColor="#ff0000" />);
 
-      const button = screen.getByRole("button", { name: /expertise menu/i });
+      const button = screen.getByRole("button", { name: /demo menu/i });
       expect(button).toBeInTheDocument();
     });
 
     it("should accept custom aria label", () => {
-      render(<ExpertiseMenu skills={mockSkills} ariaLabel="Skills navigation" />);
+      render(<DemoMenu skills={mockSkills} ariaLabel="Skills navigation" />);
 
       const button = screen.getByRole("button", { name: /skills navigation/i });
       expect(button).toBeInTheDocument();

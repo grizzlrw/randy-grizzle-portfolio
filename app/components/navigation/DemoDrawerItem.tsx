@@ -21,7 +21,7 @@ export type Skill = {
   imageAlt?: string;
 };
 
-export type ExpertiseDrawerItemProps = {
+export type DemoDrawerItemProps = {
   /**
    * Array of skills to display in the collapsible list
    */
@@ -31,14 +31,14 @@ export type ExpertiseDrawerItemProps = {
    */
   onItemClick?: () => void;
   /**
-   * ARIA label for the expertise section
-   * @default 'Expertise navigation'
+   * ARIA label for the demo section
+   * @default 'Demo navigation'
    */
   ariaLabel?: string;
 };
 
 /**
- * ExpertiseDrawerItem - A collapsible list item for the mobile drawer menu
+ * DemoDrawerItem - A collapsible list item for the mobile drawer menu
  * 
  * Features:
  * - Expandable/collapsible skill list
@@ -47,11 +47,11 @@ export type ExpertiseDrawerItemProps = {
  * - Accessible ARIA labels
  * - Smooth expand/collapse animations
  */
-export default function ExpertiseDrawerItem({
+export default function DemoDrawerItem({
   skills,
   onItemClick,
-  ariaLabel = 'Expertise navigation',
-}: ExpertiseDrawerItemProps) {
+  ariaLabel = 'Demo navigation',
+}: DemoDrawerItemProps) {
   const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
@@ -80,7 +80,7 @@ export default function ExpertiseDrawerItem({
           }}
         >
           <ListItemText
-            primary="Expertise"
+            primary="Demo"
             slotProps={{
               primary: {
                 fontWeight: 500,
@@ -101,7 +101,7 @@ export default function ExpertiseDrawerItem({
           {skills.length === 0 ? (
             <ListItem sx={{ pl: 4, mb: 1 }}>
               <Typography variant="body2" color="text.secondary">
-                No expertise areas available
+                No demo areas available
               </Typography>
             </ListItem>
           ) : (

@@ -23,19 +23,19 @@ jest.mock("next/image", () => ({
   },
 }));
 
-// Mock ExpertiseMenu and ExpertiseDrawerItem to isolate DrawerAppBar tests
-jest.mock('./ExpertiseMenu', () => {
-  const MockExpertiseMenu = () => <button>Expertise</button>;
-  MockExpertiseMenu.displayName = 'ExpertiseMenu';
-  return MockExpertiseMenu;
+// Mock DemoMenu and DemoDrawerItem to isolate DrawerAppBar tests
+jest.mock('./DemoMenu', () => {
+  const MockDemoMenu = () => <button>Demo</button>;
+  MockDemoMenu.displayName = 'DemoMenu';
+  return MockDemoMenu;
 });
 
-jest.mock('./ExpertiseDrawerItem', () => {
-  const MockExpertiseDrawerItem = () => (
-    <button aria-label="Expertise navigation">Expertise</button>
+jest.mock('./DemoDrawerItem', () => {
+  const MockDemoDrawerItem = () => (
+    <button aria-label="Demo navigation">Demo</button>
   );
-  MockExpertiseDrawerItem.displayName = 'ExpertiseDrawerItem';
-  return MockExpertiseDrawerItem;
+  MockDemoDrawerItem.displayName = 'DemoDrawerItem';
+  return MockDemoDrawerItem;
 });
 
 const mockSkills = [
