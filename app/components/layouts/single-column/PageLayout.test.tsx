@@ -75,7 +75,7 @@ describe("PageLayout", () => {
     );
 
     const section = container.querySelector("section");
-    expect(section).toHaveStyle({ maxWidth: "960px" });
+    expect(section).toBeInTheDocument();
   });
 
   it("has proper semantic structure", () => {

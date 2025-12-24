@@ -1,0 +1,4 @@
+﻿-- Baseline migration
+-- This migration acknowledges tables that were created outside of migration history
+-- Tables Form, FormElement, FormOption, Signup already exist in database
+-- No DDL changes needed - this is a tracking-only migration

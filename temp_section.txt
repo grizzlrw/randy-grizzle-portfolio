@@ -1,0 +1,18 @@
+﻿Key Contributions */}
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h6" fontWeight="600" gutterBottom>
+                      Key Contributions
+                    </Typography>
+                    
+                    Developed three applications using a responsive, scalable Vue 3 codebase which streamlined care coordinationefforts. These provided simplified interfaces for community health workers to capture data while performing care.
+ Collaborated with the UI/UX designer to develop a scalable theming system for a suite of applications based onAdobe XD designs. This enabled both global and per-app styling for consistent, flexible branding.
+ Developed an internal component library to centralize shared UI components across three applications, reducingduplication and ensuring visual and functional consistency.
+ Developed a Vuex state management library to interact with data services via REST APIs for optimal delivery.
+ Implemented accessibility best practices which enabled an independent VPAT review documenting all features as fullyor partially supported per WCAG 2.1 standards.
+ Performed manual accessibility reviews, including screen reader testing with JAWS and NVDA, to validate WCAG 2.1Level AA and Section 508 compliance.
+ Collaborated directly with visually impaired users to ensure inclusive usability and contextual screen reader feedback.
+ Developed a Vue i18n translation solution using a service-based architecture for better scalability and flexiblemigration.
+ Utilized CI/CD pipelines with Git for version control and Octopus Deploy to execute deployments. This includedcollaborating with project managers to present updates in staging to ensure they aligned with business needs.
+ Engaged in an Agile development cycle with a small team to identify tasks and discuss status in stand-ups.
+                  </Box>
+                </CardContent>

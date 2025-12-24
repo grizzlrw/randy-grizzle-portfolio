@@ -16,8 +16,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 import Image from "next/image";
-import ExpertiseMenu from './ExpertiseMenu';
-import ExpertiseDrawerItem from './ExpertiseDrawerItem';
 
 export type Skill = {
   id: string;
@@ -47,7 +45,7 @@ const navItems = [{
 ];
 
 export default function DrawerAppBar(props: Props) {
-  const { window, skills = [] } = props;
+  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
  
@@ -58,50 +56,8 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      
-      {/* <Link href="/">
-        <Box sx={{ backgroundColor: 'primary.main', py: 1 }}>
-          <Image
-              src="/assets/vectors/GrizzleLogo.svg"
-              alt="Grizzle Logo"
-              width={30}
-              height={30}
-              style={{ display: 'inline' }}
-              className="mr-2"
-            />
-
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            href="/"
-            sx={{
-              mr: 2,
-              // display: { xs: 'none', md: 'flex' },
-              color: '#ffffff',
-              textDecoration: 'none',
-            }}
-          >
-            Randy Grizzle
-          </Typography>
-        </Box>
-      </Link> */}
-      
-
-      
-      {/* <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography> */}
       <Divider />
       <List>
-        {/* <ListItem key='home' disablePadding>
-          <ListItemButton href="/" sx={{ textAlign: 'left' }}>
-            <ListItemText primary='Randy Grizzle' />
-          </ListItemButton>
-        </ListItem> */}
-        <ListItem onClick={(e) => e.stopPropagation()} disablePadding>
-          <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
-        </ListItem>
         {navItems.map((item) => (
           <ListItem key={item.href} disablePadding>
             <ListItemButton href={item.href} sx={{ textAlign: 'left' }}>
@@ -109,11 +65,7 @@ export default function DrawerAppBar(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        
       </List>
-      {/* <Box onClick={(e) => e.stopPropagation()}>
-        <ExpertiseDrawerItem skills={skills} onItemClick={handleDrawerToggle} />
-      </Box> */}
     </Box>
   );
 
@@ -160,10 +112,8 @@ export default function DrawerAppBar(props: Props) {
               Randy Grizzle
           </Typography>
           
-          <ExpertiseMenu skills={skills} />
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {navItems.map((item) => (
-              /* Property of Button that I don't think would exist here onClick={handleDrawerToggle} */
               <Button
                 key={item.href}
                 component={Link}
