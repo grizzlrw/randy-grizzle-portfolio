@@ -19,7 +19,6 @@ type SidebarLayoutProps = {
   sidebarPosition?: "left" | "right";
   mainWidth?: number;
   sidebarWidth?: number;
-  maxWidth?: number;
 };
 
 /**
@@ -61,7 +60,6 @@ function SidebarLayout({
   sidebarPosition = "right",
   mainWidth = 8,
   sidebarWidth = 4,
-  maxWidth = 1148,
 }: SidebarLayoutProps) {
   let mainContent: ReactNode = null;
   let sidebarContent: ReactNode = null;
@@ -79,7 +77,7 @@ function SidebarLayout({
   });
 
   const mainSection = (
-    <Grid size={{ xs: 12, md: mainWidth }}>
+    <Grid size={{ xs: 12, md: mainWidth }} sx={{ px: 0 }}>
       <Box component="main" id={"main-content"}>
         <Box sx={{ mb: 2 }}>
           <Typography
@@ -102,8 +100,8 @@ function SidebarLayout({
   );
 
   const sidebarSection = (
-    <Grid size={{ xs: 12, md: sidebarWidth }}>
-      <Box component="aside">
+    <Grid size={{ xs: 12, md: sidebarWidth, }}>
+      <Box component="aside" sx={{ backgroundColor: 'primary.50', minHeight: '100vh'}}>
         {sidebarContent}
       </Box>
     </Grid>
@@ -119,7 +117,6 @@ function SidebarLayout({
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             py: 8,
             px: 0,
             "&:focus": {
@@ -127,16 +124,14 @@ function SidebarLayout({
             },
           }}
         >
-    <Box sx={{ maxWidth: `${maxWidth}px`, mx: "auto" }}>
-    <Container sx={{ py: 4 }}>
-      <Grid container spacing={4}>
+    <Container maxWidth={false} disableGutters sx={{ px: 0 }}>
+      <Grid container spacing={0} sx={{ px: 0 }}>
         {sidebarPosition === "left" && sidebarSection}
         {sidebarPosition === "left" && mainSection}
         {sidebarPosition === "right" && mainSection}
         {sidebarPosition === "right" && sidebarSection}
       </Grid>
     </Container>
-    </Box>
     </Box>
   );
 }
