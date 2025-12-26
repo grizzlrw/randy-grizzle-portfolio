@@ -19,7 +19,7 @@ export const experiences: ExperienceData[] = [
       { label: "CI/CD Integration", color: "info" },
     ],
     contributions: [
-      "Architected a monorepo suite to standardize development across three care coordination applications, implementing shared component libraries, centralized state management, and translation workflows. This architecture enabled care teams to efficiently capture and share patient data across authorized agencies while reducing maintenance overhead and improving patient care outcomes.",
+      "Architected a monorepo suite to standardize development across three care coordination applications, implementing shared component libraries, state management, and translation workflows. This architecture enabled care teams to efficiently capture and share patient data across authorized agencies while reducing maintenance overhead and improving patient care outcomes.",
       "Ensured WCAG 2.1 Level AA and Section 508 compliance through comprehensive accessibility testing including screen reader validation with JAWS and NVDA and direct collaboration with visually-impaired users, achieving independent VPAT with full or partial support for all features.",
       "Improved system scalability by collaborating with UI/UX designers to develop a shared theming system based on Adobe XD designs. This system drove consistent branding and styling across multiple applications while allowing for flexible customization to meet specific program needs.",
       "Collaborated with project managers through Agile development cycles, utilizing CI/CD pipelines to deliver production releases that aligned with business requirements and maintained deployment quality.",

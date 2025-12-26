@@ -39,8 +39,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [{ 
-  label: 'About Me', href: '/about' }, 
+const navItems = [
   { label: 'Contact', href: '/contact' },
 ];
 

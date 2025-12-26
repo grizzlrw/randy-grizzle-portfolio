@@ -74,7 +74,6 @@ describe("DrawerAppBar", () => {
 
       // Desktop nav items should be present (but may be hidden on small screens)
       const desktopNavItems = screen.getAllByRole("link");
-      expect(desktopNavItems.some((link) => link.textContent === "About Me")).toBe(true);
       expect(desktopNavItems.some((link) => link.textContent === "Contact")).toBe(true);
     });
 
@@ -142,10 +141,9 @@ describe("DrawerAppBar", () => {
       const drawerLinks = within(drawer).getAllByRole("link");
 
       // Should have nav items
-      expect(drawerLinks.length).toBeGreaterThanOrEqual(2);
+      expect(drawerLinks.length).toBeGreaterThanOrEqual(1);
 
       // Check for specific items
-      expect(drawerLinks.some((link) => link.textContent === "About Me")).toBe(true);
       expect(drawerLinks.some((link) => link.textContent === "Contact")).toBe(true);
     });
   });
@@ -159,9 +157,6 @@ describe("DrawerAppBar", () => {
       // Find specific links and check hrefs
       const homeLinks = links.filter((link) => link.textContent === "Randy Grizzle");
       expect(homeLinks.some((link) => link.getAttribute("href") === "/")).toBe(true);
-
-      const aboutLinks = links.filter((link) => link.textContent === "About Me");
-      expect(aboutLinks.some((link) => link.getAttribute("href") === "/about")).toBe(true);
 
       const contactLinks = links.filter((link) => link.textContent === "Contact");
       expect(contactLinks.some((link) => link.getAttribute("href") === "/contact")).toBe(true);
