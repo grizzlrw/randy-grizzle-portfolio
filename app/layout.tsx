@@ -44,8 +44,8 @@ export default  function RootLayout({
         <LiveAnnouncerWrapper>
           <AppRouterCacheProvider>
             <Providers>
-              <SkipLink href="#main-content">Skip to main content</SkipLink>
-              <AppBarClient />
+              {/* <SkipLink href="#main-content">Skip to main content</SkipLink>
+              <AppBarClient /> */}
               {children}
               <Analytics />
             </Providers>   
