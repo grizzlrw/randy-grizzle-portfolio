@@ -13,8 +13,9 @@ export default function ThemeToggle() {
 
   // Client-side only mounting check to prevent hydration mismatch
   // This is a standard pattern with next-themes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

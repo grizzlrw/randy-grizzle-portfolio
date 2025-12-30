@@ -6,7 +6,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes';
 import CssBaseline from '@mui/material/CssBaseline';
 import { getTheme } from './theme';
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -20,21 +20,11 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
 const MuiThemeWrapper = ({ children }: { children: React.ReactNode }) => {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const theme = useMemo(
     () => getTheme(resolvedTheme === 'dark' ? 'dark' : 'light'),
     [resolvedTheme]
   );
-
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <MuiThemeProvider theme={theme}>
