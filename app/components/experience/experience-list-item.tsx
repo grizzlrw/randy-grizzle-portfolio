@@ -23,7 +23,7 @@ export function ExperienceListItem({ experience }: ExperienceListItemProps) {
           justifyContent: 'space-between',
           gap: 2,
           p: 3,
-          bgcolor: 'grey.50'
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.50'
         }}>
           {images.map((img, index) => (
             <Box 

@@ -347,7 +347,7 @@ export default function AccessibilityPage() {
               Implementation Details
             </Typography>
 
-            <Paper variant="outlined" sx={{ p: 2, bgcolor: "grey.50", mb: 2 }}>
+            <Paper variant="outlined" sx={{ p: 2, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.50', mb: 2 }}>
               <Typography component="pre" variant="body2" sx={{ fontFamily: "monospace", whiteSpace: "pre-wrap", fontSize: "0.85rem" }}>
 {`<Card sx={{ 
   boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
@@ -824,7 +824,7 @@ export default function AccessibilityPage() {
           </Box>
         </Stack>
 
-        <Box sx={{ mt: 8, p: 3, bgcolor: "primary.50", color: "text.primary", borderRadius: 2 }}>
+        <Box sx={{ mt: 8, p: 3, bgcolor: "var(--primary-bg)", color: "text.primary", borderRadius: 2 }}>
           <Typography variant="h6" sx={{ mb: 1 }}>
             Want to learn more?
           </Typography>

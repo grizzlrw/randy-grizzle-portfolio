@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link'
 import Image from "next/image";
+import ThemeToggle from './ThemeToggle';
 
 export type Skill = {
   id: string;
@@ -77,8 +78,8 @@ export default function DrawerAppBar(props: Props) {
         component="nav" 
         aria-label="Main navigation"
         sx={{ 
-          backgroundColor: 'primary.50', 
-          color: '#000',
+          backgroundColor: 'var(--primary-bg)', 
+          color: 'text.primary',
           zIndex: (theme) => theme.zIndex.drawer + 1, // Stay above all drawers
         }}
         style={{ boxShadow: 'inset 0 -4px 5px -5px rgba(0, 0, 0, 0.5)' }}>
@@ -117,12 +118,13 @@ export default function DrawerAppBar(props: Props) {
                 key={item.href}
                 component={Link}
                 href={item.href}
-                sx={{ my: 2, display: 'block', color: '#000' }}
+                sx={{ my: 2, display: 'block', color: 'text.primary' }}
               >
                 {item.label}
               </Button>
             ))}
           </Box>
+          <ThemeToggle />
         </Toolbar>
       </AppBar>
       <nav aria-label="Mobile navigation">

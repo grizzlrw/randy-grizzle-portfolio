@@ -101,7 +101,10 @@ function SidebarLayout({
 
   const sidebarSection = (
     <Grid size={{ xs: 12, md: sidebarWidth, }}>
-      <Box component="aside" sx={{ backgroundColor: 'primary.50', minHeight: '100vh'}}>
+      <Box component="aside" sx={{ 
+        backgroundColor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'primary.50', 
+        minHeight: '100vh'
+      }}>
         {sidebarContent}
       </Box>
     </Grid>

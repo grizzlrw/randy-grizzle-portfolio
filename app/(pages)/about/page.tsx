@@ -142,7 +142,7 @@ export default function AboutPage() {
             <Box
               key={index}
               sx={{
-                bgcolor: 'primary.50',
+                bgcolor: 'var(--primary-bg)',
                 borderRadius: 0,
                 overflow: 'hidden',
               }}
@@ -157,7 +157,7 @@ export default function AboutPage() {
                     justifyContent: 'flex-start',
                     gap: 2.5,
                     p: 3,
-                    bgcolor: 'grey.50',
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.50',
                     height: '100%'
                   }}>
                     {experience.images.map((img, imgIndex) => (

@@ -3,6 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #034C8C;
+  --primary-light: #76bcf9;
+  --primary-bg: #ecf5fe;
+  --secondary: #F2CA50;
+  --grey-50: #fafafa;
+  --grey-100: #f5f5f5;
 }
 
 @theme inline {
@@ -12,10 +18,27 @@
   --font-mono: var(--font-geist-mono);
 }
 
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #76bcf9;
+  --primary-light: #9ecffa;
+  --primary-bg: #00101f;
+  --secondary: #f4c125;
+  --grey-50: #262626;
+  --grey-100: #2d2d2d;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary: #76bcf9;
+    --primary-light: #9ecffa;
+    --primary-bg: #00101f;
+    --secondary: #f4c125;
+    --grey-50: #262626;
+    --grey-100: #2d2d2d;
   }
 }
 
@@ -24,6 +47,7 @@ body {
   color: var(--foreground);
   /* font-family: Arial, Helvetica, sans-serif; */
   font-family: var(--font-nunito-sans) var(--font-geist-sans) var(--font-geist-mono) Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html {
@@ -32,6 +56,6 @@ html {
 }
 
 *:focus-visible:not(.MuiInputBase-input):not(.MuiOutlinedInput-notchedOutline) {
-  outline: 2px solid #034C8C;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }

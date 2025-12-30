@@ -170,7 +170,7 @@ export default function ModularityPage() {
           sx={{ 
             p: 2.5, 
             mb: 3, 
-            bgcolor: "grey.50",
+            bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.50',
             fontFamily: "monospace",
             fontSize: "0.875rem",
           }}

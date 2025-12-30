@@ -174,7 +174,7 @@ export default function Home() {
             <Box
               key={index}
               sx={{
-                bgcolor: 'primary.50',
+                bgcolor: 'var(--primary-bg)',
                 borderRadius: 0,
                 overflow: 'hidden',
               }}

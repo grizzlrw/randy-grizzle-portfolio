@@ -120,7 +120,7 @@ export default function DemoDrawerItem({
                     backgroundColor: 'background.paper',
                     position: 'relative',
                     '&:hover': {
-                      backgroundColor: 'primary.50',
+                      backgroundColor: 'var(--primary-bg)',
                       borderLeft: '.25rem solid',
                       borderColor: 'primary.main',
                       //transform: 'translateX(.125rem)',
