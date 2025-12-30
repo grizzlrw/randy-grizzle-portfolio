@@ -52,7 +52,7 @@ export type ExpertiseMenuProps = {
  */
 export default function DemoMenu({ 
   skills, 
-  buttonColor = '#000',
+  buttonColor = 'text.primary',
   ariaLabel = 'Demo menu',
 }: ExpertiseMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
