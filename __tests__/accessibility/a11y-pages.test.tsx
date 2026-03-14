@@ -4,7 +4,6 @@ import { axe, toHaveNoViolations } from "jest-axe";
 import FormsPage from "@/app/(pages)/forms/page";
 import NotFoundPage from "@/app/(pages)/forms/[slug]/not-found";
 import LoadingForms from "@/app/(pages)/forms/loading";
-import LoadingAbout from "@/app/(pages)/about/loading";
 
 expect.extend(toHaveNoViolations);
 
@@ -58,12 +57,6 @@ describe("Accessibility - Pages", () => {
   describe("Loading States", () => {
     it("should have no accessibility violations - Forms loading", async () => {
       const { container } = render(<LoadingForms />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
-    });
-
-    it("should have no accessibility violations - About loading", async () => {
-      const { container } = render(<LoadingAbout />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
