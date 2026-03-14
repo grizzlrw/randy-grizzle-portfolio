@@ -18,7 +18,7 @@ export default function ContactPage() {
 
   // Validate a single field
   function validateField(field: keyof ContactFormData, value: string) {
-    const fieldSchema = contactSchema.pick({ [field]: true });
+    const fieldSchema = contactSchema.pick([field]);
     const validation = fieldSchema.safeParse({ [field]: value });
     
     if (!validation.success) {
