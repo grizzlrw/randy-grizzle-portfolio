@@ -1,6 +1,6 @@
 # Randy Grizzle Portfolio
 
-A modern, accessible portfolio built with Next.js, showcasing web development expertise through interactive features and demonstrations.
+A modern, accessible portfolio built with Next.js.
 
 ## Tech Stack
 
@@ -106,7 +106,6 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete setup instructions.
 ## Features
 
 - 📝 Dynamic forms with validation
-- 📊 Data visualization with accessible charts
 - ♿ WCAG 2.1 AA accessibility compliance
 - 🎨 Theme switching (light/dark mode)
 - 📱 Fully responsive design
